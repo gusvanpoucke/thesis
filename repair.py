@@ -36,27 +36,21 @@ def cheapest_insertion(capacity, adj_matrix, demands, routes, single):
         return routes + [[single]]
 
 
-def repair(capacity, adj_matrix, demands, routes):
-    repaired_routes = routes.copy()
+def repair(capacity, adj_matrix, demands, safe_routes, dangerous_routes):
     # split all routes that break capacity constraints
-    while True:
-        split = False
-        for i, route in enumerate(repaired_routes):
-            if not capacity_constraint_route(capacity, demands, route):
-                # choose best possible split in infeasible route
-                route1, route2 = split_route(adj_matrix, route)
-                repaired_routes.pop(i)
-                # if either route has only 1 element, try to insert it in another route
-                if len(route1) == 1:
-                    repaired_routes = cheapest_insertion(capacity, adj_matrix, demands, repaired_routes, route1[0])
+    while dangerous_routes:
+        route = dangerous_routes.pop()
+        if capacity_constraint_route(capacity, demands, route):
+            safe_routes.append(route)
+        else:
+            # choose best possible split in infeasible route
+            new_routes = split_route(adj_matrix, route)
+            # if either route has only 1 element, try to insert it in another route
+            for new_route in new_routes:
+                if len(new_route) == 1:
+                    safe_routes = cheapest_insertion(capacity, adj_matrix, demands, safe_routes, new_route[0])
+                elif capacity_constraint_route(capacity, demands, new_route):
+                    safe_routes.append(new_route)
                 else:
-                    repaired_routes.append(route1)
-                if len(route2) == 1:
-                    repaired_routes = cheapest_insertion(capacity, adj_matrix, demands, repaired_routes, route2[0])
-                else:
-                    repaired_routes.append(route2)
-                split = True
-                break
-        if not split:
-            break
-    return repaired_routes
+                    dangerous_routes.append(new_route)
+    return safe_routes
