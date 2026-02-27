@@ -5,8 +5,8 @@ import os
 from pathlib import Path
 import numpy as np
 
-RAW_DATA = "data/raw"
-PROCESSED_DATA = "data/processed"
+RAW_DATA = "cvrp_data/raw"
+PROCESSED_DATA = "cvrp_data/processed"
 
 def process(data_set):
     os.makedirs(f"{PROCESSED_DATA}/{data_set}", exist_ok=True)

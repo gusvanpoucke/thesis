@@ -15,8 +15,9 @@ from repair import repair, split_route
 
 
 def testOne():
-    #FILEPATH = 'data/toy_examples/Toy-n6-k2.json'
-    FILEPATH = 'data/processed/CMT/CMT1.json'
+    #FILEPATH = 'cvrp_data/toy_examples/Toy-n6-k2.json'
+    FILEPATH = 'cvrp_data/processed/CMT/CMT5.json'
+    #FILEPATH = 'cvrp_data/processed/X/X-n979-k58.json'
 
     with open(FILEPATH, 'r') as file:
         VRP = json.load(file)
@@ -37,7 +38,7 @@ def testOne():
 
     # VNS algorithm
     t = time.time()
-    cost, routes = vns(n_customers, capacity, weights, demands, termination_time=60) ### TERMINATION TIME == 60
+    cost, routes = vns(n_customers, capacity, weights, demands)
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
@@ -82,4 +83,5 @@ def testFolder(test_folder):
 
 
 if __name__ == "__main__":
-    testFolder("data/processed/CMT")
+    testOne()
+    #testFolder("cvrp_data/processed/CMT")
