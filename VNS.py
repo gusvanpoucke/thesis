@@ -28,9 +28,9 @@ def vns(n, capacity, adj_matrix, demands, k_max = 5, termination_time = 600, min
         k = 1
         while k < k_max:
             # shake solution
-            shaked_solution = shake(adj_matrix, current_solution, k)
+            unshaked_routes, shaked_routes = shake(adj_matrix, current_solution, k)
             # optimize solution locally
-            local_solution = local_search(adj_matrix, shaked_solution)
+            local_solution = unshaked_routes + local_search(adj_matrix, shaked_routes)
             # repair incumbent solution
             repaired_solution = repair(capacity, adj_matrix, demands, local_solution)
             # move to new solution if conditions are right

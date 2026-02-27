@@ -32,9 +32,9 @@ def cross(adj_matrix, routes, k, icross = False):
                 best_routes.append(regular_routes[i])
             else:
                 best_routes.append(reversed_routes[i])
-        return original_routes + best_routes
+        return original_routes, best_routes
     else:
-        return original_routes + regular_routes
+        return original_routes, regular_routes
 
 
 def shake(adj_matrix, routes, k):
