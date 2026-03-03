@@ -2,23 +2,23 @@ import time
 from Clarke_and_Wright_savings import savings
 from shake import shake
 from local_search import local_search
-from evaluate import evaluate
 from repair import repair
+from evaluate import evaluate
 
-def move_or_not(adj_matrix, min_iterations, theta, original_solution, new_solution, last_accepted):
+def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
     # always accept improving solution
-    if evaluate(adj_matrix, new_solution) < evaluate(adj_matrix, original_solution):
+    if new_cost < original_cost:
         return True
     if last_accepted >= min_iterations:
-        if evaluate(adj_matrix, new_solution) < evaluate(adj_matrix, original_solution) * (1 + theta):
+        if new_cost < original_cost * (1 + theta):
             return True
     return False
 
 
 def vns(n, capacity, adj_matrix, demands, k_max = 5, termination_time = 600, min_iterations = 500, theta = 0.05):
     # build initial solution using Clarke and Wright savings algorithm
-    _, current_solution = savings(n, capacity, adj_matrix, demands)
-    best_solution = current_solution
+    current_cost, current_solution = savings(n, capacity, adj_matrix, demands)
+    best_cost, best_solution = current_cost, current_solution
 
     last_accepted = 0
     # terminate after maximum time used
@@ -28,22 +28,22 @@ def vns(n, capacity, adj_matrix, demands, k_max = 5, termination_time = 600, min
         k = 1
         while k < k_max:
             # shake solution
-            unshaked_routes, shaked_routes = shake(adj_matrix, current_solution, k)
+            shaked_cost, unshaked_routes, shaked_routes = shake(current_cost, adj_matrix, current_solution, k)
             # optimize crossed routes locally
-            local_solution = local_search(adj_matrix, shaked_routes)
+            local_cost, local_solution = local_search(shaked_cost, adj_matrix, shaked_routes)
             # repair incumbent solution
-            repaired_solution = repair(capacity, adj_matrix, demands, unshaked_routes, local_solution)
+            repaired_cost, repaired_solution = repair(local_cost, capacity, adj_matrix, demands, unshaked_routes, local_solution)
             # move to new solution if conditions are right
-            if move_or_not(adj_matrix, min_iterations, theta, current_solution, repaired_solution, last_accepted):
-                current_solution = repaired_solution
+            if move_or_not(min_iterations, theta, current_cost, repaired_cost, last_accepted):
+                current_cost, current_solution = repaired_cost, repaired_solution
                 k = 1
                 last_accepted = 0
                 # update best found solution
-                if evaluate(adj_matrix, current_solution) < evaluate(adj_matrix, best_solution):
-                    best_solution = current_solution
+                if current_cost < best_cost:
+                    best_cost, best_solution = current_cost, current_solution
             # if no better solution found, move to next neighbourhood
             else:
                 k += 1
                 last_accepted += 1
-    
-    return evaluate(adj_matrix, best_solution), best_solution
+
+    return best_cost, best_solution

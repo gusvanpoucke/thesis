@@ -1,7 +1,7 @@
 import random
-from evaluate import evaluate, evaluate_route
+from modify_route import modify_route
 
-def cross(adj_matrix, routes, k, icross = False):
+def cross(cost, adj_matrix, routes, k, icross = False):
     p = random.randint(1, k)
 
     # randomly select 2 routes
@@ -18,24 +18,27 @@ def cross(adj_matrix, routes, k, icross = False):
     
     # cross routes
     regular_routes = [
-        pieces[0][0] + pieces[1][1] + pieces[0][2],
-        pieces[1][0] + pieces[0][1] + pieces[1][2]
+        modify_route(adj_matrix, pieces[0][0], pieces[0][1], pieces[0][2], pieces[1][1]),
+        modify_route(adj_matrix, pieces[1][0], pieces[1][1], pieces[1][2], pieces[0][1])
     ]
     reversed_routes = [
-        pieces[0][0] + list(reversed(pieces[1][1])) + pieces[0][2],
-        pieces[1][0] + list(reversed(pieces[0][1])) + pieces[1][2]
+        modify_route(adj_matrix, pieces[0][0], pieces[0][1], pieces[0][2], list(reversed(pieces[1][1]))),
+        modify_route(adj_matrix, pieces[1][0], pieces[1][1], pieces[1][2], list(reversed(pieces[0][1])))
     ]
     if icross:
         best_routes = []
         for i in range(2):
-            if evaluate_route(adj_matrix, regular_routes[i]) < evaluate_route(adj_matrix, reversed_routes[i]):
-                best_routes.append(regular_routes[i])
+            if regular_routes[i][0] < reversed_routes[i][0]:
+                best_routes.append(regular_routes[i][1])
+                cost += regular_routes[i][0]
             else:
-                best_routes.append(reversed_routes[i])
-        return original_routes, best_routes
+                best_routes.append(reversed_routes[i][1])
+                cost += reversed_routes[i][0]
+        return cost, original_routes, best_routes
     else:
-        return original_routes, regular_routes
+        cost += regular_routes[0][0] + regular_routes[1][0]
+        return cost, original_routes, regular_routes
 
 
-def shake(adj_matrix, routes, k):
-    return cross(adj_matrix, routes, k, icross=True)
+def shake(cost, adj_matrix, routes, k):
+    return cross(cost, adj_matrix, routes, k, icross=True)

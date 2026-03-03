@@ -16,7 +16,7 @@ from repair import repair, split_route
 
 def testOne():
     #FILEPATH = 'cvrp_data/toy_examples/Toy-n6-k2.json'
-    FILEPATH = 'cvrp_data/processed/CMT/CMT5.json'
+    FILEPATH = 'cvrp_data/processed/CMT/CMT4.json'
     #FILEPATH = 'cvrp_data/processed/X/X-n979-k58.json'
 
     with open(FILEPATH, 'r') as file:
@@ -42,7 +42,8 @@ def testOne():
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
-    print("Customer check: " + check_all_customers_served(n_customers-1, routes))
+    print("Customer Check: " + check_all_customers_served(n_customers-1, routes))
+    print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, routes)) < 0.1))
 
     print()
 
@@ -77,11 +78,12 @@ def testFolder(test_folder):
         print("VNS cost: " + str(cost))
         print("Time(s): " + str(time.time() - t))
         print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
-        print("Customer check: " + check_all_customers_served(n_customers-1, routes))
+        print("Customer Check: " + check_all_customers_served(n_customers-1, routes))
+        print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, routes)) < 0.1))
 
         print()
 
 
 if __name__ == "__main__":
-    testOne()
-    #testFolder("cvrp_data/processed/CMT")
+    #testOne()
+    testFolder("cvrp_data/processed/CMT")
