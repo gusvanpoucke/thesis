@@ -24,7 +24,6 @@ def testOne():
 
     print(VRP['graph_name'])
     print(VRP['solution'])
-    n_vehicles = VRP['k']
     n_customers = VRP['n']
     weights = np.array(VRP['weights'])
     demands = np.array(VRP['demands'])
@@ -60,7 +59,6 @@ def testFolder(test_folder):
         print("Best Known: " + str(VRP['solution']['cost']))
         print()
         
-        n_vehicles = VRP['k']
         n_customers = VRP['n']
         weights = np.array(VRP['weights'])
         demands = np.array(VRP['demands'])
