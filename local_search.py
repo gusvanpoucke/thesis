@@ -1,7 +1,8 @@
 import random
 from modify_route import modify_route
 
-def two_opt_try(adj_matrix, route):
+def two_opt_try(adj_matrix, dynamic_route):
+    route = dynamic_route.route
     # iterate over all lengths of segment to invert in a random order
     for length in random.sample(range(2, len(route)+1), len(route)-1):
         # iterate over all starting points of segment to invert in a random order
@@ -12,8 +13,10 @@ def two_opt_try(adj_matrix, route):
             )
             # if improvement found, restart local search
             if cost_increment < 0:
-                return cost_increment, new_route
-    return 0, []
+                new_dynamic_route = dynamic_route.copy()
+                new_dynamic_route.route = new_route
+                return cost_increment, new_dynamic_route
+    return 0, None
 
 
 def two_opt(cost, adj_matrix, routes):
@@ -32,9 +35,11 @@ def two_opt(cost, adj_matrix, routes):
 
 def two_opt_star_try(adj_matrix, routes):
     # iterate over all routes for route 1
-    for i, route1 in enumerate(routes):
+    for i, dynamic_route1 in enumerate(routes):
+        route1 = dynamic_route1.route
         # iterate over all routes for route 2
-        for x, route2 in enumerate(routes[i+1:]):
+        for x, dynamic_route2 in enumerate(routes[i+1:]):
+            route2 = dynamic_route2.route
             j = x+i+1
             # iterate over all starting points in route 1 in a random order
             for start1 in random.sample(range(len(route1)+1), len(route1)+1):
@@ -50,9 +55,17 @@ def two_opt_star_try(adj_matrix, routes):
                     )
                     # if improvement found, restart local search
                     if cost_increment1 + cost_increment2 < 0:
-                        new_routes = routes[:i] + [new_route1] + routes[i+1:j] + [new_route2] + routes[j+1:]
-                        # remove empty routes
-                        return cost_increment1 + cost_increment2, [r for r in new_routes if r]
+                        new_dynamic_route1 = dynamic_route1.copy()
+                        new_dynamic_route1.route = new_route1
+                        new_dynamic_route2 = dynamic_route2.copy()
+                        new_dynamic_route2.route = new_route2
+                        # only add non-empty routes
+                        new_routes = routes[:i]
+                        if new_dynamic_route1.route or new_dynamic_route1.covered_route: new_routes.append(new_dynamic_route1)
+                        new_routes += routes[i+1:j]
+                        if new_dynamic_route2.route or new_dynamic_route2.covered_route: new_routes.append(new_dynamic_route2)
+                        new_routes += routes[j+1:]
+                        return cost_increment1 + cost_increment2, new_routes
     return 0, []
 
 

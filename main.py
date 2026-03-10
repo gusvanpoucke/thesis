@@ -40,9 +40,12 @@ def testOneCVRP():
     cost, routes = vns(n_customers, capacity, weights, demands, termination_time=5)
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
-    print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
-    print("Customer Check: " + check_all_customers_served(n_customers-1, routes))
-    print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, routes)) < 0.1))
+    non_dynamic_routes = []
+    for route in routes:
+        non_dynamic_routes.append(route.route)
+    print("Capacity Check: " + check_capacity(capacity, weights, demands, non_dynamic_routes))
+    print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))
+    print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
 
     print()
 

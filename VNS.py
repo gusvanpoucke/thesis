@@ -4,6 +4,7 @@ from shake import shake
 from local_search import local_search
 from repair import repair
 from evaluate import evaluate
+from dynamic_route import Route
 
 def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
     # always accept improving solution
@@ -18,6 +19,13 @@ def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
 def vns(n, capacity, adj_matrix, demands, k_max = 5, termination_time = 600, min_iterations = 500, theta = 0.05):
     # build initial solution using Clarke and Wright savings algorithm
     current_cost, current_solution = savings(list(range(1, n)), capacity, adj_matrix, demands)
+
+    dynamic_routes = []
+    for route in current_solution:
+        dynamic_route = Route([], route, 0)
+        dynamic_routes.append(dynamic_route)
+    current_solution = dynamic_routes
+
     best_cost, best_solution = current_cost, current_solution
 
     last_accepted = 0

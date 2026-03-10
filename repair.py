@@ -1,4 +1,5 @@
 from evaluate import capacity_constraint_route
+from dynamic_route import Route
 
 def split_route(adj_matrix, route):
     best_split = 0
@@ -16,7 +17,8 @@ def cheapest_insertion(capacity, adj_matrix, demands, routes, single):
     inserted = False
     best_insert = (0, 0)
     best_insert_cost = 0
-    for i, route in enumerate(routes):
+    for i, dynamic_route in enumerate(routes):
+        route = dynamic_route.route
         # check if single fits on route
         if sum(demands[customer] for customer in route) + demands[single] <= capacity:
             # try to insert single between every 2 customers and at the start and end of the route
@@ -32,32 +34,45 @@ def cheapest_insertion(capacity, adj_matrix, demands, routes, single):
     # insert single in optimal location
     if inserted:
         i, j = best_insert
+        route_i = routes[i].copy()
+        route_i.route = route_i.route[:j] + [single] + route_i.route[j:]
         return (
             best_insert_cost - adj_matrix[0][single] - adj_matrix[single][0],
-            routes[:i] + [routes[i][:j] + [single] + routes[i][j:]] + routes[i+1:]
+            routes[:i] + [route_i] + routes[i+1:]
         )
     else:
-        return 0, routes + [[single]]
+        return 0, routes + [Route([], [single], 0)]
 
 
 def repair(cost, capacity, adj_matrix, demands, safe_routes, dangerous_routes):
     # split all routes that break capacity constraints
     while dangerous_routes:
-        route = dangerous_routes.pop()
+        dynamic_route = dangerous_routes.pop()
+        route = dynamic_route.route
         if capacity_constraint_route(capacity, demands, route):
-            safe_routes.append(route)
+            safe_routes.append(dynamic_route)
         else:
             # choose best possible split in infeasible route
             split_cost, first_route, second_route = split_route(adj_matrix, route)
             cost += split_cost
-            # if either route has only 1 element, try to insert it in another route
-            for new_route in [first_route, second_route]:
-                if len(new_route) == 1:
-                    insertion_cost, safe_routes = cheapest_insertion(capacity, adj_matrix, demands, safe_routes, new_route[0])
-                    cost += insertion_cost
-                elif capacity_constraint_route(capacity, demands, new_route):
-                    safe_routes.append(new_route)
-                else:
-                    dangerous_routes.append(new_route)
+            
+            dynamic_first_route = dynamic_route.copy()
+            dynamic_first_route.route = first_route
+            if len(first_route) == 1:
+                insertion_cost, safe_routes = cheapest_insertion(capacity, adj_matrix, demands, safe_routes, first_route[0])
+                cost += insertion_cost
+            elif capacity_constraint_route(capacity, demands, first_route):
+                safe_routes.append(dynamic_first_route)
+            else:
+                dangerous_routes.append(dynamic_first_route)
+
+            dynamic_second_route = Route([], second_route, 0)
+            if len(second_route) == 1:
+                insertion_cost, safe_routes = cheapest_insertion(capacity, adj_matrix, demands, safe_routes, second_route[0])
+                cost += insertion_cost
+            elif capacity_constraint_route(capacity, demands, second_route):
+                safe_routes.append(dynamic_second_route)
+            else:
+                dangerous_routes.append(dynamic_second_route)
             
     return cost, safe_routes
