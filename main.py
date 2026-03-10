@@ -14,7 +14,7 @@ from VNS import vns
 from repair import repair, split_route
 
 
-def testOne():
+def testOneCVRP():
     #FILEPATH = 'cvrp_data/toy_examples/Toy-n6-k2.json'
     FILEPATH = 'cvrp_data/processed/CMT/CMT4.json'
     #FILEPATH = 'cvrp_data/processed/X/X-n979-k58.json'
@@ -31,13 +31,13 @@ def testOne():
 
     # Savings algorithm
     t = time.time()
-    savings_cost, _ = savings(n_customers, capacity, weights, demands)
+    savings_cost, _ = savings(list(range(1, n_customers)), capacity, weights, demands)
     print("Savings cost: " + str(savings_cost))
     print("Time(s): " + str(time.time() - t))
 
     # VNS algorithm
     t = time.time()
-    cost, routes = vns(n_customers, capacity, weights, demands)
+    cost, routes = vns(n_customers, capacity, weights, demands, termination_time=5)
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
@@ -46,8 +46,7 @@ def testOne():
 
     print()
 
-
-def testFolder(test_folder):
+def testFolderCVRP(test_folder):
     print("Running on folder " + test_folder)
     files = os.listdir(test_folder)
     print("Folder contains " + str(len(files)) + " files")
@@ -66,7 +65,7 @@ def testFolder(test_folder):
 
         # Savings algorithm
         t = time.time()
-        savings_cost, _ = savings(n_customers, capacity, weights, demands)
+        savings_cost, _ = savings(list(range(1, n_customers)), capacity, weights, demands)
         print("Savings cost: " + str(savings_cost))
         print("Time(s): " + str(time.time() - t))
 
@@ -83,5 +82,5 @@ def testFolder(test_folder):
 
 
 if __name__ == "__main__":
-    #testOne()
-    testFolder("cvrp_data/processed/CMT")
+    testOneCVRP()
+    #testFolderCVRP("cvrp_data/processed/CMT")
