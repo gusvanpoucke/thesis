@@ -10,7 +10,7 @@ from Clarke_and_Wright_savings import savings
 from shake import cross, shake
 from evaluate import evaluate, check_capacity, check_all_customers_served, time_constraint_route
 from local_search import local_search, two_opt_star
-from VNS import vns
+from VNS import cvrp, event_scheduler
 from repair import repair, split_route
 
 
@@ -37,7 +37,7 @@ def testOneCVRP():
 
     # VNS algorithm
     t = time.time()
-    cost, routes = vns(n_customers, capacity, weights, demands, 1000000000, [0]*n_customers, termination_time=5)
+    cost, routes = cvrp(n_customers, capacity, weights, demands, 1000000000, [0]*n_customers, termination_time=5)
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     non_dynamic_routes = []
@@ -74,7 +74,7 @@ def testFolderCVRP(test_folder):
 
         # VNS algorithm
         t = time.time()
-        cost, routes = vns(n_customers, capacity, weights, demands)
+        cost, routes = cvrp(n_customers, capacity, weights, demands)
         print("VNS cost: " + str(cost))
         print("Time(s): " + str(time.time() - t))
         print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
@@ -100,7 +100,7 @@ def testOneDVRP():
 
     # VNS algorithm
     t = time.time()
-    cost, routes = vns(n_customers, capacity, weights, demands, working_day, durations, termination_time=5)
+    cost, routes = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     non_dynamic_routes = []

@@ -14,7 +14,7 @@ class Route:
 
     def start(self):
         if self.covered_route:
-            return covered_route[-1]
+            return self.covered_route[-1]
         return 0
     
     def full_route(self):

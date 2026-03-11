@@ -21,7 +21,10 @@ def savings(new_customers, capacity, adj_matrix, demands, time_left, durations, 
     # find route ends
     route_ends = []
     for dynamic_route in routes:
-        route_ends.append(dynamic_route.route[-1])
+        if dynamic_route.route:
+            route_ends.append(dynamic_route.route[-1])
+        else:
+            route_ends.append(dynamic_route.start())
 
     # compute savings
     savings = []
@@ -41,10 +44,16 @@ def savings(new_customers, capacity, adj_matrix, demands, time_left, durations, 
         route_indices = [-1, -1]
         for x, dynamic_route in enumerate(routes):
             route = dynamic_route.route
-            if (route[0] == i and not(dynamic_route.covered_route)) or route[-1] == i:
-                route_indices[0] = x
-            if (route[0] == j and not(dynamic_route.covered_route)) or route[-1] == j:
-                route_indices[1] = x
+            if not(route):
+                if dynamic_route.start() == i:
+                    route_indices[0] = x
+                if dynamic_route.start() == j:
+                    route_indices[1] = x
+            else:
+                if (route[0] == i and not(dynamic_route.covered_route)) or route[-1] == i:
+                    route_indices[0] = x
+                if (route[0] == j and not(dynamic_route.covered_route)) or route[-1] == j:
+                    route_indices[1] = x
         
         # largest route index first to avoid issues when using pop
         route_indices.sort(reverse=True)
@@ -76,7 +85,7 @@ def savings(new_customers, capacity, adj_matrix, demands, time_left, durations, 
                         route2 = dynamic_route2.route
 
                         # align routes
-                        if route1[0] == i or route1[0] == j:
+                        if route and (route1[0] == i or route1[0] == j):
                             route1 = route1[::-1]
                         if route2[-1] == i or route2[-1] == j:
                             route2 = route2[::-1]
