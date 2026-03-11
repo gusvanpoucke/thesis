@@ -16,9 +16,12 @@ def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
     return False
 
 
-def vns(n, capacity, adj_matrix, demands, k_max = 5, termination_time = 600, min_iterations = 500, theta = 0.05):
+def vns(n, capacity, adj_matrix, demands, working_day, durations, k_max = 5, termination_time = 600, min_iterations = 500, theta = 0.05):
     # build initial solution using Clarke and Wright savings algorithm
-    current_cost, current_solution = savings(list(range(1, n)), capacity, adj_matrix, demands)
+
+    ###current_cost, current_solution = savings(list(range(1, n)), capacity, adj_matrix, demands)
+    current_cost = sum([adj_matrix[0][x] * 2 for x in range(1, n)])
+    current_solution = [[x] for x in range(1,n)]
 
     dynamic_routes = []
     for route in current_solution:
@@ -40,7 +43,7 @@ def vns(n, capacity, adj_matrix, demands, k_max = 5, termination_time = 600, min
             # optimize crossed routes locally
             local_cost, local_solution = local_search(shaked_cost, adj_matrix, shaked_routes)
             # repair incumbent solution
-            repaired_cost, repaired_solution = repair(local_cost, capacity, adj_matrix, demands, unshaked_routes, local_solution)
+            repaired_cost, repaired_solution = repair(local_cost, capacity, adj_matrix, demands, working_day, durations, unshaked_routes, local_solution)
             # move to new solution if conditions are right
             if move_or_not(min_iterations, theta, current_cost, repaired_cost, last_accepted):
                 current_cost, current_solution = repaired_cost, repaired_solution

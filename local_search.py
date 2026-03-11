@@ -9,7 +9,8 @@ def two_opt_try(adj_matrix, dynamic_route):
         for start in random.sample(range(len(route)-length+1), len(route)-length+1):
             cost_increment, new_route = modify_route(adj_matrix,
                 route[:start], route[start:start+length], route[start+length:],
-                list(reversed(route[start:start+length]))
+                list(reversed(route[start:start+length])),
+                start=dynamic_route.start()
             )
             # if improvement found, restart local search
             if cost_increment < 0:
@@ -47,11 +48,13 @@ def two_opt_star_try(adj_matrix, routes):
                 for start2 in random.sample(range(len(route2)+1), len(route2)+1):
                     cost_increment1, new_route1 = modify_route(adj_matrix,
                         route1[:start1], route1[start1:], [],
-                        route2[start2:]
+                        route2[start2:],
+                        start=dynamic_route1.start()
                     )
                     cost_increment2, new_route2 = modify_route(adj_matrix,
                         route2[:start2], route2[start2:], [],
-                        route1[start1:]
+                        route1[start1:],
+                        start=dynamic_route2.start()
                     )
                     # if improvement found, restart local search
                     if cost_increment1 + cost_increment2 < 0:

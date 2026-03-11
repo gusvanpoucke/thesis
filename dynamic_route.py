@@ -11,3 +11,11 @@ class Route:
             route=self.route.copy(),
             duration_until_decision_point=self.duration_until_decision_point
         )
+
+    def start(self):
+        if self.covered_route:
+            return covered_route[-1]
+        return 0
+    
+    def full_route(self):
+        return self.covered_route + self.route

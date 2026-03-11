@@ -10,21 +10,23 @@ def cross(cost, adj_matrix, routes, k, icross = False):
 
     # randomly cut both routes
     pieces = []
+    start_nodes = []
     for dynamic_route in selected_routes:
         route = dynamic_route.route
         segment_length = min(p, len(route))
         X_prime = random.randint(0, len(route) - segment_length)
         Y_prime = X_prime + segment_length
         pieces.append([route[:X_prime], route[X_prime:Y_prime], route[Y_prime:]])
+        start_nodes.append(dynamic_route.start())
     
     # cross routes
     regular_routes = [
-        modify_route(adj_matrix, pieces[0][0], pieces[0][1], pieces[0][2], pieces[1][1]),
-        modify_route(adj_matrix, pieces[1][0], pieces[1][1], pieces[1][2], pieces[0][1])
+        modify_route(adj_matrix, pieces[0][0], pieces[0][1], pieces[0][2], pieces[1][1], start=start_nodes[0]),
+        modify_route(adj_matrix, pieces[1][0], pieces[1][1], pieces[1][2], pieces[0][1], start=start_nodes[1])
     ]
     reversed_routes = [
-        modify_route(adj_matrix, pieces[0][0], pieces[0][1], pieces[0][2], list(reversed(pieces[1][1]))),
-        modify_route(adj_matrix, pieces[1][0], pieces[1][1], pieces[1][2], list(reversed(pieces[0][1])))
+        modify_route(adj_matrix, pieces[0][0], pieces[0][1], pieces[0][2], list(reversed(pieces[1][1])), start=start_nodes[0]),
+        modify_route(adj_matrix, pieces[1][0], pieces[1][1], pieces[1][2], list(reversed(pieces[0][1])), start=start_nodes[1])
     ]
     
     best_routes = []

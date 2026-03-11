@@ -19,6 +19,16 @@ def capacity_constraint_route(capacity, demands, route):
     return sum(demands[customer] for customer in route) <= capacity
 
 
+def time_constraint_route(time_left, durations, adj_matrix, dynamic_route):
+    time_spent = dynamic_route.duration_until_decision_point
+    prev = dynamic_route.start()
+    for customer in dynamic_route.route:
+        time_spent += adj_matrix[prev][customer] + durations[customer]
+        prev = customer
+    time_spent += adj_matrix[prev][0]
+    return time_spent <= time_left
+
+
 def check_capacity(capacity, adj_matrix, demands, routes):
     # CHECK capacity
     for route in routes:
