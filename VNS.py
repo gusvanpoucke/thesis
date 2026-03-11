@@ -18,17 +18,7 @@ def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
 
 def vns(n, capacity, adj_matrix, demands, working_day, durations, k_max = 5, termination_time = 600, min_iterations = 500, theta = 0.05):
     # build initial solution using Clarke and Wright savings algorithm
-
-    ###current_cost, current_solution = savings(list(range(1, n)), capacity, adj_matrix, demands)
-    current_cost = sum([adj_matrix[0][x] * 2 for x in range(1, n)])
-    current_solution = [[x] for x in range(1,n)]
-
-    dynamic_routes = []
-    for route in current_solution:
-        dynamic_route = Route([], route, 0)
-        dynamic_routes.append(dynamic_route)
-    current_solution = dynamic_routes
-
+    current_cost, current_solution = savings(list(range(1, n)), capacity, adj_matrix, demands, working_day, durations)
     best_cost, best_solution = current_cost, current_solution
 
     last_accepted = 0
