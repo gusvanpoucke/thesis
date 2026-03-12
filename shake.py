@@ -38,7 +38,7 @@ def cross(cost, adj_matrix, routes, k, icross = False):
         else:
             route_i.route = reversed_routes[i][1]
             cost += reversed_routes[i][0]
-        best_routes.append(route_i)
+        if route_i.route or route_i.covered_route: best_routes.append(route_i)
     return cost, original_routes, best_routes
 
 

@@ -4,7 +4,7 @@ from modify_route import modify_route
 def two_opt_try(adj_matrix, dynamic_route):
     route = dynamic_route.route
     # iterate over all lengths of segment to invert in a random order
-    for length in random.sample(range(2, len(route)+1), len(route)-1):
+    for length in random.sample(range(2, len(route)+1), max(len(route)-1, 0)):
         # iterate over all starting points of segment to invert in a random order
         for start in random.sample(range(len(route)-length+1), len(route)-length+1):
             cost_increment, new_route = modify_route(adj_matrix,

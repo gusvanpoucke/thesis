@@ -88,7 +88,10 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             # find new customers in current time period
             new_customers = []
             for customer in range(1, n):
-                if availabilities[customer] >= simulation_time - time_period_length and availabilities[customer] < simulation_time:
+                if (availabilities[customer] >= simulation_time - time_period_length
+                    and availabilities[customer] < simulation_time
+                    and simulation_time <= working_day * cut_off
+                ):
                     new_customers.append(customer)
             # add customers to current solution
             current_cost, current_solution = savings(
@@ -112,10 +115,14 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             time_left = time_period_length - dynamic_route.duration_until_decision_point
             # commit customers as long as the time period lasts
             while time_left > 0:
-                committed_customer = dynamic_route.route.pop(0)
-                time_left -= adj_matrix[dynamic_route.start()][committed_customer]
-                time_left -= durations[committed_customer]
-                dynamic_route.covered_route.append(committed_customer)
+                if dynamic_route.route:
+                    committed_customer = dynamic_route.route.pop(0)
+                    time_left -= adj_matrix[dynamic_route.start()][committed_customer]
+                    time_left -= durations[committed_customer]
+                    dynamic_route.covered_route.append(committed_customer)
+                else:
+                    # wait at last customer
+                    time_left = 0.0
             dynamic_route.duration_until_decision_point = -time_left
         simulation_time += time_period_length
 

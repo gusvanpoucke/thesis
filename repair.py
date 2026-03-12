@@ -2,20 +2,15 @@ from evaluate import capacity_constraint_route, time_constraint_route
 from dynamic_route import Route
 
 def split_route(adj_matrix, route, start=0):
-    best_split = 0
-    best_split_cost = 0
-    for split in range(1, len(route)):
-        i, j = route[split-1], route[split]
-        split_cost = adj_matrix[i][0] + adj_matrix[0][j] - adj_matrix[i][j]
-        if split_cost < best_split_cost or split == 1:
-            best_split = split
-            best_split_cost = split_cost
-
-    if start > 0:
-        split_cost_start = adj_matrix[start][0] + adj_matrix[0][route[0]] - adj_matrix[start][route[0]]
-        if split_cost_start < best_split_cost:
-            best_split = 0
-            best_split_cost = split_cost_start
+    best_split = -1
+    best_split_cost = -1
+    for split in range(len(route)):
+        if split > 0 or start > 0:
+            i, j = route[split-1] if split > 0 else start, route[split]
+            split_cost = adj_matrix[i][0] + adj_matrix[0][j] - adj_matrix[i][j]
+            if split_cost < best_split_cost or best_split == -1:
+                best_split = split
+                best_split_cost = split_cost
 
     return best_split_cost, route[:best_split], route[best_split:]
 
@@ -66,7 +61,7 @@ def repair(cost, capacity, adj_matrix, demands, time_left, durations, safe_route
             # choose best possible split in infeasible route
             split_cost, first_route, second_route = split_route(adj_matrix, route, start=dynamic_route.start())
             cost += split_cost
-            
+
             dynamic_first_route = dynamic_route.copy()
             dynamic_first_route.route = first_route
             if len(first_route) == 1 and not(dynamic_route.covered_route):

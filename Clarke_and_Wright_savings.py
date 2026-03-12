@@ -85,7 +85,7 @@ def savings(new_customers, capacity, adj_matrix, demands, time_left, durations, 
                         route2 = dynamic_route2.route
 
                         # align routes
-                        if route and (route1[0] == i or route1[0] == j):
+                        if route1 and (route1[0] == i or route1[0] == j):
                             route1 = route1[::-1]
                         if route2[-1] == i or route2[-1] == j:
                             route2 = route2[::-1]
