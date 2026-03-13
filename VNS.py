@@ -90,7 +90,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             for customer in range(1, n):
                 if (availabilities[customer] >= simulation_time - time_period_length
                     and availabilities[customer] < simulation_time
-                    and simulation_time <= working_day * cut_off
+                    and availabilities[customer] <= working_day * cut_off
                 ):
                     new_customers.append(customer)
             # add customers to current solution
@@ -125,14 +125,5 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                     time_left = 0.0
             dynamic_route.duration_until_decision_point = -time_left
         simulation_time += time_period_length
-
-        print("Cost: " + str(current_cost))
-        print("Time: " + str(simulation_time))
-        for i, route in enumerate(current_solution):
-            print("Route " + str(i))
-            print("Covered route: " + str(route.covered_route))
-            print("Route: " + str(route.route))
-            print("Duration until decision point: " + str(route.duration_until_decision_point))
-        print()
     
     return current_cost, current_solution
