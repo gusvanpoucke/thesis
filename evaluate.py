@@ -15,6 +15,13 @@ def evaluate(adj_matrix, routes):
     return cost
 
 
+def check_constraints(capacity, demands, time_left, durations, adj_matrix, dynamic_route):
+    return (
+        capacity_constraint_route(capacity, demands, dynamic_route.full_route())
+        and time_constraint_route(time_left, durations, adj_matrix, dynamic_route)
+    ) or not(dynamic_route.route)
+
+
 def capacity_constraint_route(capacity, demands, route):
     return sum(demands[customer] for customer in route) <= capacity
 

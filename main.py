@@ -100,13 +100,13 @@ def testOneDVRP():
 
     # VNS algorithm
     t = time.time()
-    cost, routes = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, termination_time=1)
+    cost, routes = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     non_dynamic_routes = []
     for route in routes:
         print("Check time route: " + str(time_constraint_route(working_day, durations, weights, route)))
-        non_dynamic_routes.append(route.route)
+        non_dynamic_routes.append(route.full_route())
     print("Routes: " + str(non_dynamic_routes))
     print("Capacity Check: " + check_capacity(capacity, weights, demands, non_dynamic_routes))
     print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))

@@ -1,4 +1,4 @@
-from evaluate import capacity_constraint_route, time_constraint_route
+from evaluate import capacity_constraint_route, time_constraint_route, check_constraints
 from dynamic_route import Route
 
 def split_route(adj_matrix, route, start=0):
@@ -55,7 +55,7 @@ def repair(cost, capacity, adj_matrix, demands, time_left, durations, safe_route
     while dangerous_routes:
         dynamic_route = dangerous_routes.pop()
         route = dynamic_route.route
-        if capacity_constraint_route(capacity, demands, dynamic_route.full_route()) and time_constraint_route(time_left, durations, adj_matrix, dynamic_route):
+        if check_constraints(capacity, demands, time_left, durations, adj_matrix, dynamic_route):
             safe_routes.append(dynamic_route)
         else:
             # choose best possible split in infeasible route
@@ -67,7 +67,7 @@ def repair(cost, capacity, adj_matrix, demands, time_left, durations, safe_route
             if len(first_route) == 1 and not(dynamic_route.covered_route):
                 insertion_cost, safe_routes = cheapest_insertion(capacity, adj_matrix, demands, time_left, durations, safe_routes, first_route[0])
                 cost += insertion_cost
-            elif capacity_constraint_route(capacity, demands, first_route) and time_constraint_route(time_left, durations, adj_matrix, dynamic_first_route):
+            elif check_constraints(capacity, demands, time_left, durations, adj_matrix, dynamic_first_route):
                 safe_routes.append(dynamic_first_route)
             else:
                 dangerous_routes.append(dynamic_first_route)
@@ -76,7 +76,7 @@ def repair(cost, capacity, adj_matrix, demands, time_left, durations, safe_route
             if len(second_route) == 1:
                 insertion_cost, safe_routes = cheapest_insertion(capacity, adj_matrix, demands, time_left, durations, safe_routes, second_route[0])
                 cost += insertion_cost
-            elif capacity_constraint_route(capacity, demands, second_route) and time_constraint_route(time_left, durations, adj_matrix, dynamic_second_route):
+            elif check_constraints(capacity, demands, time_left, durations, adj_matrix, dynamic_second_route):
                 safe_routes.append(dynamic_second_route)
             else:
                 dangerous_routes.append(dynamic_second_route)
