@@ -184,7 +184,56 @@ def runXTestsOnFile(file_name, number_of_tests=30):
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
+def find_dubious_solution(file_name, score_to_beat):
+    FILEPATH = "dvrp_data/processed/" + file_name
+
+    with open(FILEPATH, 'r') as file:
+        VRP = json.load(file)
+
+    graph_name = VRP['graph_name']
+    print(graph_name)
+    n_customers = VRP['n']
+    weights = np.array(VRP['weights'])
+    demands = np.array(VRP['demands'])
+    capacity = VRP['capacity']
+    durations = np.array(VRP['durations'])
+    working_day = VRP['working_day']
+    availabilities = np.array(VRP['availabilities'])
+
+    # run tests until improving solution is found
+    tests_needed = 0
+    while True:
+        tests_needed += 1
+        cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
+        if cost < score_to_beat:
+            break
+    
+    # write to file
+    data = {
+        "graph_name": graph_name,
+        "tests_ran": tests_needed,
+        "cost_found": cost,
+        "supposed_best_cost": score_to_beat,
+        "solutions": [
+            {
+                "routes": [
+                    {
+                        "covered_route": route.covered_route,
+                        "route": route.route,
+                        "duration_until_decision_point": route.duration_until_decision_point
+                    }
+                for route in solution]
+            }
+        for solution in all_solutions]
+    }
+    json_filename = f"experiment_results/dubious_solution.json"
+    with open(json_filename, "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
 if __name__ == "__main__":
+    find_dubious_solution("tai75a.json", 1778.52)
+
+    """
     list_of_dvrp_files = [
         "c100.json",
         "c100b.json", 
@@ -211,6 +260,7 @@ if __name__ == "__main__":
     ]
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file)
+    """
 
     #testOneDVRP()
     #testAllDVRP()

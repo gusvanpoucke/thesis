@@ -69,6 +69,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
 ):
     simulation_time = 0
     time_period_length = working_day / time_periods
+    solution_list = []
 
     while simulation_time < working_day:
         if simulation_time == 0:
@@ -125,5 +126,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                     time_left = 0.0
             dynamic_route.duration_until_decision_point = -time_left
         simulation_time += time_period_length
+
+        solution_list.append(current_solution)
     
-    return current_cost, current_solution
+    return current_cost, solution_list
