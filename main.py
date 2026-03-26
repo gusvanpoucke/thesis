@@ -8,10 +8,11 @@ import os
 from dynamic_programming import vrp as dynamic_programming
 from Clarke_and_Wright_savings import savings
 from shake import cross, shake
-from evaluate import evaluate, check_capacity, check_all_customers_served, time_constraint_route
+from evaluate import evaluate, check_capacity, check_all_customers_served, time_constraint_route, test_dynamic_solution
 from local_search import local_search, two_opt_star
 from VNS import cvrp, event_scheduler
 from repair import repair, split_route
+from dynamic_route import Route
 
 
 def testOneCVRP():
@@ -43,7 +44,7 @@ def testOneCVRP():
     non_dynamic_routes = []
     for route in routes:
         non_dynamic_routes.append(route.route)
-    print("Capacity Check: " + check_capacity(capacity, weights, demands, non_dynamic_routes))
+    print("Capacity Check: " + check_capacity(capacity, demands, non_dynamic_routes))
     print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))
     print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
 
@@ -77,7 +78,7 @@ def testFolderCVRP(test_folder):
         cost, routes = cvrp(n_customers, capacity, weights, demands)
         print("VNS cost: " + str(cost))
         print("Time(s): " + str(time.time() - t))
-        print("Capacity Check: " + check_capacity(capacity, weights, demands, routes))
+        print("Capacity Check: " + check_capacity(capacity, demands, routes))
         print("Customer Check: " + check_all_customers_served(n_customers-1, routes))
         print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, routes)) < 0.1))
 
@@ -85,7 +86,7 @@ def testFolderCVRP(test_folder):
 
 def testOneDVRP():
     #FILEPATH = 'dvrp_data/toy_examples/toy6.json'
-    FILEPATH = 'dvrp_data/processed/c120.json'
+    FILEPATH = 'dvrp_data/processed/tai75a.json'
 
     with open(FILEPATH, 'r') as file:
         VRP = json.load(file)
@@ -105,12 +106,12 @@ def testOneDVRP():
     print("VNS cost: " + str(cost))
     print("Time(s): " + str(time.time() - t))
     non_dynamic_routes = []
-    for route in routes:
+    for route in routes[-1]:
         print("Check time route: " + str(time_constraint_route(working_day, durations, weights, route)))
         non_dynamic_routes.append(route.full_route())
     print("Routes: " + str(non_dynamic_routes))
-    print("Capacity Check: " + check_capacity(capacity, weights, demands, non_dynamic_routes))
-    print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))
+    print("Capacity Check: " + str(check_capacity(capacity, demands, non_dynamic_routes)))
+    print("Customer Check: " + str(check_all_customers_served(n_customers-1, non_dynamic_routes)))
     print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
 
     print()
@@ -143,7 +144,7 @@ def testAllDVRP():
             print("Check time route: " + str(time_constraint_route(working_day, durations, weights, route)))
             non_dynamic_routes.append(route.full_route())
         print("Routes: " + str(non_dynamic_routes))
-        print("Capacity Check: " + check_capacity(capacity, weights, demands, non_dynamic_routes))
+        print("Capacity Check: " + check_capacity(capacity, demands, non_dynamic_routes))
         print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))
         print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
 
@@ -230,10 +231,46 @@ def find_dubious_solution(file_name, score_to_beat):
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-if __name__ == "__main__":
-    find_dubious_solution("tai75a.json", 1778.52)
+def check_dubious_solution(data_file, solution_file):
+    FILEPATH = "dvrp_data/processed/" + data_file
 
-    """
+    with open(FILEPATH, 'r') as file:
+        VRP = json.load(file)
+
+    graph_name = VRP['graph_name']
+    print(graph_name)
+    n_customers = VRP['n']
+    weights = np.array(VRP['weights'])
+    demands = np.array(VRP['demands'])
+    capacity = VRP['capacity']
+    durations = np.array(VRP['durations'])
+    working_day = VRP['working_day']
+    availabilities = np.array(VRP['availabilities'])
+
+    FILEPATH_SOLUTION = "experiment_results/" + solution_file
+
+    with open(FILEPATH_SOLUTION, 'r') as file:
+        SOLUTION = json.load(file)
+    
+    solutions = [
+        [
+            Route(
+                covered_route=route_data["covered_route"],
+                route=route_data["route"],
+                duration_until_decision_point=route_data["duration_until_decision_point"]
+            )
+            for route_data in solution["routes"]
+        ]
+        for solution in SOLUTION["solutions"]
+    ]
+
+    print(test_dynamic_solution(capacity, demands, working_day, 25, durations, weights, availabilities, 0.5, solutions))
+
+if __name__ == "__main__":
+    #check_dubious_solution("tai75a.json", "dubious_solution.json")
+
+    #find_dubious_solution("tai75a.json", 1778.52)
+
     list_of_dvrp_files = [
         "c100.json",
         "c100b.json", 
@@ -252,7 +289,6 @@ if __name__ == "__main__":
         "tai150b.json",
         "tai150c.json",
         "tai150d.json",
-        "tai385.json",
         "tai75a.json",
         "tai75b.json",
         "tai75c.json",
@@ -260,7 +296,6 @@ if __name__ == "__main__":
     ]
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file)
-    """
 
     #testOneDVRP()
     #testAllDVRP()

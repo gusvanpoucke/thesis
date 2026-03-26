@@ -27,6 +27,9 @@ def capacity_constraint_route(capacity, demands, route):
 
 
 def time_constraint_route(time_left, durations, adj_matrix, dynamic_route):
+    if dynamic_route.duration_until_decision_point == 0.0 and not(dynamic_route.route):
+        return True
+
     time_spent = dynamic_route.duration_until_decision_point
     prev = dynamic_route.start()
     for customer in dynamic_route.route:
@@ -36,13 +39,23 @@ def time_constraint_route(time_left, durations, adj_matrix, dynamic_route):
     return time_spent <= time_left
 
 
-def check_capacity(capacity, adj_matrix, demands, routes):
-    # CHECK capacity
-    for route in routes:
-        if not capacity_constraint_route(capacity, demands, route):
-            return "Capacity constraint violated"
+def check_capacity(capacity, demands, routes):
+    return all([capacity_constraint_route(capacity, demands, route) for route in routes])
 
-    return "Routes are valid"
+
+def check_time(time_left, durations, adj_matrix, dynamic_routes):
+    return all([time_constraint_route(time_left, durations, adj_matrix, dynamic_route) for dynamic_route in dynamic_routes])
+
+
+def check_customers(availabilities, simulation_time, half_way, customers_served):
+    for customer, availability in enumerate(availabilities):
+        if customer != 0 and customer not in customers_served and (availability < simulation_time or availability > half_way):
+            return False
+    for customer in customers_served:
+        if availabilities[customer] >= simulation_time and availabilities[customer] <= half_way:
+            return False
+    return True
+
 
 def check_all_customers_served(customers, routes):
     if sum(len(sl) for sl in routes) < customers:
@@ -51,3 +64,22 @@ def check_all_customers_served(customers, routes):
         return "Too many customers???"
     return "All customers served"
     
+
+def test_dynamic_solution(capacity, demands, working_day, time_periods, durations, adj_matrix, availabilities, cut_off, solutions):
+    # test every solution individually
+    for time_period, dynamic_routes in enumerate(solutions):
+        # CHECK CAPACITIES
+        routes = [route.full_route() for route in dynamic_routes]
+        if not(check_capacity(capacity, demands, routes)):
+            return "Capacity Fail"
+        # CHECK TIME CONSTRAINTS
+        time_left = (working_day / time_periods) * (time_periods - time_period - 1)
+        if not(check_time(time_left, durations, adj_matrix, dynamic_routes)):
+            return "Time Fail in time_period " + str(time_period)
+        # CHECK ALL CUSTOMERS PRESENT
+        simulation_time = (working_day / time_periods) * time_period
+        customers_served = [customer for route in routes for customer in route]
+        half_way = working_day * cut_off
+        if not(check_customers(availabilities, simulation_time, half_way, customers_served)):
+            return "Customer Fail"
+    return "Solution Correct with cost: " + str(evaluate(adj_matrix, routes))
