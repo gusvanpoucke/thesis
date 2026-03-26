@@ -67,7 +67,15 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25
 ):
-    simulation_time = 0
+    # calculate actual availabilities based on cut off time
+    avail = []
+    for availability in availabilities:
+        if availability >= working_day * cut_off:
+            avail.append(0)
+        else:
+            avail.append(availability)
+
+    simulation_time = 0 # time at end of current time period
     time_period_length = working_day / time_periods
     solution_list = []
 
@@ -76,7 +84,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             # find static customers
             static_customers = []
             for customer in range(1, n):
-                if availabilities[customer] > working_day * cut_off:
+                if avail[customer] == 0:
                     static_customers.append(customer)
             # create initial solution
             current_cost, current_solution = savings(
@@ -86,12 +94,12 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                 durations
             )
         else:
-            # find new customers in current time period
+            # find new customers in previous time period
             new_customers = []
             for customer in range(1, n):
-                if (availabilities[customer] >= simulation_time - time_period_length
-                    and availabilities[customer] < simulation_time
-                    and availabilities[customer] <= working_day * cut_off
+                if (avail[customer] >= simulation_time - (time_period_length * 2)
+                    and avail[customer] < simulation_time - time_period_length
+                    and avail[customer] != 0
                 ):
                     new_customers.append(customer)
             # add customers to current solution
