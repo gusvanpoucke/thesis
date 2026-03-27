@@ -1,0 +1,2070 @@
+{
+    "graph_name": "c50",
+    "tests_ran": 1,
+    "cost_found": 601.0020192360048,
+    "supposed_best_cost": 630,
+    "solutions": [
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        24,
+                        25,
+                        41,
+                        40,
+                        42,
+                        47
+                    ],
+                    "duration_until_decision_point": 35.615446902326916
+                },
+                {
+                    "covered_route": [
+                        46
+                    ],
+                    "route": [
+                        32,
+                        29,
+                        35,
+                        36,
+                        28,
+                        31,
+                        26,
+                        48,
+                        27
+                    ],
+                    "duration_until_decision_point": 3.1960679774997907
+                },
+                {
+                    "covered_route": [
+                        37
+                    ],
+                    "route": [
+                        44,
+                        45,
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        49,
+                        38
+                    ],
+                    "duration_until_decision_point": 5.030770276274836
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        37
+                    ],
+                    "route": [
+                        44,
+                        45,
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        49,
+                        38
+                    ],
+                    "duration_until_decision_point": 5.030770276274836
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32
+                    ],
+                    "route": [
+                        29,
+                        35,
+                        36,
+                        28,
+                        31,
+                        26,
+                        48,
+                        27
+                    ],
+                    "duration_until_decision_point": 13.375612434792679
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        24,
+                        25,
+                        41,
+                        40,
+                        42,
+                        47
+                    ],
+                    "duration_until_decision_point": 21.575446902326917
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        24,
+                        25,
+                        41,
+                        40,
+                        42,
+                        4,
+                        47,
+                        5,
+                        1
+                    ],
+                    "duration_until_decision_point": 7.5354469023269175
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44
+                    ],
+                    "route": [
+                        45,
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        49,
+                        38
+                    ],
+                    "duration_until_decision_point": 13.270880165555354
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2
+                    ],
+                    "route": [
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        48,
+                        27
+                    ],
+                    "duration_until_decision_point": 25.73736668578406
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        24
+                    ],
+                    "route": [
+                        25,
+                        41,
+                        40,
+                        42,
+                        4,
+                        47,
+                        5
+                    ],
+                    "duration_until_decision_point": 20.8647637791799
+                },
+                {
+                    "covered_route": [
+                        6
+                    ],
+                    "route": [
+                        27,
+                        1
+                    ],
+                    "duration_until_decision_point": 12.36175425099138
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45
+                    ],
+                    "route": [
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        49,
+                        38
+                    ],
+                    "duration_until_decision_point": 24.526510306542356
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2
+                    ],
+                    "route": [
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        7,
+                        48
+                    ],
+                    "duration_until_decision_point": 11.697366685784061
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        6,
+                        48
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 22.266026160990542
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3
+                    ],
+                    "route": [
+                        36,
+                        35,
+                        29,
+                        50,
+                        34,
+                        9,
+                        38
+                    ],
+                    "duration_until_decision_point": 27.954425226562417
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24
+                    ],
+                    "route": [
+                        25,
+                        41,
+                        40,
+                        42,
+                        4,
+                        47
+                    ],
+                    "duration_until_decision_point": 6.8247637791799
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45
+                    ],
+                    "route": [
+                        33,
+                        39,
+                        30,
+                        49,
+                        5
+                    ],
+                    "duration_until_decision_point": 10.486510306542357
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33
+                    ],
+                    "route": [
+                        39,
+                        10,
+                        49,
+                        5,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 18.446510306542358
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 8.226026160990543
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3
+                    ],
+                    "route": [
+                        36,
+                        35,
+                        29,
+                        50,
+                        34,
+                        30,
+                        9
+                    ],
+                    "duration_until_decision_point": 13.914425226562418
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25
+                    ],
+                    "route": [
+                        41,
+                        40,
+                        42,
+                        4,
+                        47
+                    ],
+                    "duration_until_decision_point": 21.8204326267981
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7
+                    ],
+                    "route": [
+                        26,
+                        8,
+                        31,
+                        28,
+                        1,
+                        11,
+                        27
+                    ],
+                    "duration_until_decision_point": 20.499734659975303
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36
+                    ],
+                    "route": [
+                        35,
+                        29,
+                        50,
+                        34,
+                        30,
+                        9
+                    ],
+                    "duration_until_decision_point": 26.95747120015699
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25
+                    ],
+                    "route": [
+                        13,
+                        41,
+                        40,
+                        42,
+                        4,
+                        47
+                    ],
+                    "duration_until_decision_point": 7.7804326267981025
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33
+                    ],
+                    "route": [
+                        39,
+                        10,
+                        49,
+                        38,
+                        5,
+                        12
+                    ],
+                    "duration_until_decision_point": 4.4065103065423585
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        5
+                    ],
+                    "route": [
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38
+                    ],
+                    "duration_until_decision_point": 15.102135623730952
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7
+                    ],
+                    "route": [
+                        26,
+                        8,
+                        31,
+                        28,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 6.459734659975304
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15
+                    ],
+                    "route": [
+                        42,
+                        40,
+                        41,
+                        13,
+                        4
+                    ],
+                    "duration_until_decision_point": 17.02841409623296
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36
+                    ],
+                    "route": [
+                        35,
+                        29,
+                        16,
+                        11
+                    ],
+                    "duration_until_decision_point": 12.917471200156992
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14
+                    ],
+                    "route": [
+                        47,
+                        12
+                    ],
+                    "duration_until_decision_point": 15.143556864230952
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14
+                    ],
+                    "route": [
+                        13,
+                        41,
+                        40,
+                        42,
+                        4
+                    ],
+                    "duration_until_decision_point": 1.1035568642309528
+                },
+                {
+                    "covered_route": [
+                        5
+                    ],
+                    "route": [
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38
+                    ],
+                    "duration_until_decision_point": 1.0621356237309527
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35
+                    ],
+                    "route": [
+                        29,
+                        16,
+                        11
+                    ],
+                    "duration_until_decision_point": 19.96023373045521
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26
+                    ],
+                    "route": [
+                        8,
+                        31,
+                        28,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 18.600074547474254
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15
+                    ],
+                    "route": [
+                        17,
+                        47,
+                        12
+                    ],
+                    "duration_until_decision_point": 2.9884140962329617
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        5,
+                        49
+                    ],
+                    "route": [
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38
+                    ],
+                    "duration_until_decision_point": 10.268346874966275
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26
+                    ],
+                    "route": [
+                        8,
+                        31,
+                        28,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 4.560074547474255
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35
+                    ],
+                    "route": [
+                        29,
+                        16,
+                        11,
+                        12
+                    ],
+                    "duration_until_decision_point": 5.920233730455212
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18
+                    ],
+                    "route": [
+                        47
+                    ],
+                    "duration_until_decision_point": 12.359187005217954
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42
+                    ],
+                    "route": [
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 20.103908517636473
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10
+                    ],
+                    "route": [
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38
+                    ],
+                    "duration_until_decision_point": 18.844119980830186
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8
+                    ],
+                    "route": [
+                        31,
+                        28,
+                        1,
+                        27,
+                        12
+                    ],
+                    "duration_until_decision_point": 12.731177098402235
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42
+                    ],
+                    "route": [
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 6.063908517636474
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20
+                    ],
+                    "route": [
+                        29,
+                        16,
+                        11
+                    ],
+                    "duration_until_decision_point": 13.951301542320689
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": 21.381444753516504
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": 9.02225774829855
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10
+                    ],
+                    "route": [
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 4.804119980830187
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29
+                    ],
+                    "route": [
+                        21,
+                        16
+                    ],
+                    "duration_until_decision_point": 24.96117716344158
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19
+                    ],
+                    "route": [
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 15.567912262954005
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31
+                    ],
+                    "route": [
+                        28,
+                        22,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 22.910721555695122
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": 7.341444753516505
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29
+                    ],
+                    "route": [
+                        21,
+                        16
+                    ],
+                    "duration_until_decision_point": 10.92117716344158
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19
+                    ],
+                    "route": [
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 1.5279122629540058
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31
+                    ],
+                    "route": [
+                        28,
+                        22,
+                        1,
+                        27
+                    ],
+                    "duration_until_decision_point": 8.870721555695123
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39
+                    ],
+                    "route": [
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 15.764119980830188
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40
+                    ],
+                    "route": [
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 13.118058075688657
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39
+                    ],
+                    "route": [
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 1.7241199808301886
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28
+                    ],
+                    "route": [
+                        22,
+                        1,
+                        23,
+                        27
+                    ],
+                    "duration_until_decision_point": 16.155276876031884
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21
+                    ],
+                    "route": [
+                        16
+                    ],
+                    "duration_until_decision_point": 19.09227971436956
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30
+                    ],
+                    "route": [
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 14.725714559622485
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28
+                    ],
+                    "route": [
+                        22,
+                        1,
+                        23,
+                        27
+                    ],
+                    "duration_until_decision_point": 2.115276876031885
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41
+                    ],
+                    "route": [
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 26.16110404928323
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21
+                    ],
+                    "route": [
+                        16
+                    ],
+                    "duration_until_decision_point": 5.052279714369561
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41
+                    ],
+                    "route": [
+                        13,
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 12.121104049283232
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30
+                    ],
+                    "route": [
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 0.6857145596224861
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22
+                    ],
+                    "route": [
+                        1,
+                        23,
+                        27
+                    ],
+                    "duration_until_decision_point": 13.125152497152776
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": 16.062155335490452
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": 2.022155335490453
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34
+                    ],
+                    "route": [
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 8.353918492121856
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1
+                    ],
+                    "route": [
+                        23,
+                        27
+                    ],
+                    "duration_until_decision_point": 21.156220309018252
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13
+                    ],
+                    "route": [
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 22.515085181339835
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13
+                    ],
+                    "route": [
+                        4,
+                        17
+                    ],
+                    "duration_until_decision_point": 8.475085181339836
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1
+                    ],
+                    "route": [
+                        23,
+                        27
+                    ],
+                    "duration_until_decision_point": 7.116220309018253
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50
+                    ],
+                    "route": [
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 15.717042729554706
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4
+                    ],
+                    "route": [
+                        17
+                    ],
+                    "duration_until_decision_point": 24.468381559712746
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23
+                    ],
+                    "route": [
+                        27
+                    ],
+                    "duration_until_decision_point": 29.663253453941156
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50
+                    ],
+                    "route": [
+                        9,
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 1.6770427295547066
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9
+                    ],
+                    "route": [
+                        38,
+                        11
+                    ],
+                    "duration_until_decision_point": 8.293896979047087
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23
+                    ],
+                    "route": [
+                        27
+                    ],
+                    "duration_until_decision_point": 15.623253453941157
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23
+                    ],
+                    "route": [
+                        27
+                    ],
+                    "duration_until_decision_point": 1.5832534539411576
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38
+                    ],
+                    "route": [
+                        11
+                    ],
+                    "duration_until_decision_point": 16.534006868327605
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23,
+                        27
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23,
+                        27
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23,
+                        27
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        32,
+                        2,
+                        3,
+                        36,
+                        35,
+                        20,
+                        29,
+                        21,
+                        16
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        15,
+                        42,
+                        19,
+                        40,
+                        41,
+                        13,
+                        4,
+                        17
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        43,
+                        24,
+                        25,
+                        14,
+                        18,
+                        47
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        6,
+                        48,
+                        7,
+                        26,
+                        8,
+                        31,
+                        28,
+                        22,
+                        1,
+                        23,
+                        27
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                },
+                {
+                    "covered_route": [
+                        12
+                    ],
+                    "route": [],
+                    "duration_until_decision_point": -0.0
+                }
+            ]
+        }
+    ]
+}
