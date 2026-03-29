@@ -266,9 +266,21 @@ def check_dynamic_solution(data_file, solution_file):
 
     print(test_dynamic_solution(capacity, demands, working_day, 25, durations, weights, availabilities, 0.5, solutions))
 
+def total_costs(files):
+    total_best = 0.0
+    total_average = 0.0
+    for solution_file in files:
+        FILEPATH = "experiment_results/" + solution_file
+
+        with open(FILEPATH, 'r') as file:
+            solution = json.load(file)
+        
+        total_best += solution['best_cost']
+        total_average += solution['average_cost']
+    
+    return total_best, total_average, len(files)
+    
 if __name__ == "__main__":
-    check_dynamic_solution("tai75a.json", "tai75a_solution.json")
-    """
     # 21 files
     list_of_dvrp_files = [
         "c100.json",
@@ -293,6 +305,8 @@ if __name__ == "__main__":
         "tai75c.json",
         "tai75d.json"
     ]
+    print(total_costs(list_of_dvrp_files))
+    """
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file)
     """
