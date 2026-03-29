@@ -185,7 +185,7 @@ def runXTestsOnFile(file_name, number_of_tests=30):
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-def find_dubious_solution(file_name, score_to_beat):
+def find_improving_solution(file_name, score_to_beat):
     FILEPATH = "dvrp_data/processed/" + file_name
 
     with open(FILEPATH, 'r') as file:
@@ -227,11 +227,11 @@ def find_dubious_solution(file_name, score_to_beat):
             }
         for solution in all_solutions]
     }
-    json_filename = f"experiment_results/dubious_solution.json"
+    json_filename = f"experiment_results/{data['graph_name'].replace(' ', '_')}_solution.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-def check_dubious_solution(data_file, solution_file):
+def check_dynamic_solution(data_file, solution_file):
     FILEPATH = "dvrp_data/processed/" + data_file
 
     with open(FILEPATH, 'r') as file:
@@ -267,10 +267,9 @@ def check_dubious_solution(data_file, solution_file):
     print(test_dynamic_solution(capacity, demands, working_day, 25, durations, weights, availabilities, 0.5, solutions))
 
 if __name__ == "__main__":
-    #check_dubious_solution("tai75a.json", "dubious_solution.json")
-
-    #find_dubious_solution("tai75a.json", 1778.52)
-
+    check_dynamic_solution("tai75a.json", "tai75a_solution.json")
+    """
+    # 21 files
     list_of_dvrp_files = [
         "c100.json",
         "c100b.json", 
@@ -296,8 +295,4 @@ if __name__ == "__main__":
     ]
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file)
-
-    #testOneDVRP()
-    #testAllDVRP()
-    #testOneCVRP()
-    #testFolderCVRP("cvrp_data/processed/CMT")
+    """

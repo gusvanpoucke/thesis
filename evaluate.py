@@ -77,7 +77,7 @@ def test_dynamic_solution(capacity, demands, working_day, time_periods, duration
         if not(check_time(time_left, durations, adj_matrix, dynamic_routes)):
             return "Time Fail in time_period " + str(time_period)
         # CHECK ALL CUSTOMERS PRESENT
-        simulation_time = (working_day / time_periods) * time_period
+        simulation_time = (working_day / time_periods) * (time_period - 1)
         customers_served = [customer for route in routes for customer in route]
         half_way = working_day * cut_off
         if not(check_customers(availabilities, simulation_time, half_way, customers_served)):
