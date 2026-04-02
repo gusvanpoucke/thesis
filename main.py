@@ -150,7 +150,7 @@ def testAllDVRP():
 
         print()
 
-def runXTestsOnFile(file_name, number_of_tests=30):
+def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/standard_vns/"):
     FILEPATH = "dvrp_data/processed/" + file_name
 
     with open(FILEPATH, 'r') as file:
@@ -181,7 +181,7 @@ def runXTestsOnFile(file_name, number_of_tests=30):
         "best_cost": best_cost,
         "average_cost": total_cost/number_of_tests
     }
-    json_filename = f"experiment_results/{data['graph_name'].replace(' ', '_')}.json"
+    json_filename = f"{results_folder}{data['graph_name'].replace(' ', '_')}.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
@@ -266,11 +266,11 @@ def check_dynamic_solution(data_file, solution_file):
 
     print(test_dynamic_solution(capacity, demands, working_day, 25, durations, weights, availabilities, 0.5, solutions))
 
-def total_costs(files):
+def total_costs(files, folder="experiment_results/standard_vns/"):
     total_best = 0.0
     total_average = 0.0
     for solution_file in files:
-        FILEPATH = "experiment_results/" + solution_file
+        FILEPATH = folder + solution_file
 
         with open(FILEPATH, 'r') as file:
             solution = json.load(file)
@@ -281,6 +281,8 @@ def total_costs(files):
     return total_best, total_average, len(files)
     
 if __name__ == "__main__":
+    testOneDVRP()
+    """
     # 21 files
     list_of_dvrp_files = [
         "c100.json",
@@ -306,7 +308,6 @@ if __name__ == "__main__":
         "tai75d.json"
     ]
     print(total_costs(list_of_dvrp_files))
-    """
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file)
     """
