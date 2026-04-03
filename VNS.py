@@ -3,7 +3,7 @@ from Clarke_and_Wright_savings import savings
 from shake import shake
 from local_search import local_search
 from repair import repair
-from evaluate import evaluate
+from evaluate import evaluate, time_constraint_route
 from dynamic_route import Route
 
 def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
@@ -64,6 +64,24 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
     )
 
 
+def commit_next_time_period(adj_matrix, time_left_in_day, durations, time_period_length, current_solution):
+    # move all vehicles forward
+    for dynamic_route in current_solution:
+        time_left = time_period_length - dynamic_route.duration_until_decision_point
+        # commit customers as long as the time period lasts
+        while time_left > 0:
+            if dynamic_route.route and not(time_constraint_route(time_left_in_day - time_left, durations, adj_matrix, dynamic_route)):
+                committed_customer = dynamic_route.route.pop(0)
+                time_left -= adj_matrix[dynamic_route.start()][committed_customer]
+                time_left -= durations[committed_customer]
+                dynamic_route.covered_route.append(committed_customer)
+            else:
+                # wait at last customer or when there is margin in time constraint
+                time_left = 0.0
+        dynamic_route.duration_until_decision_point = -time_left
+    return current_solution
+
+
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25
 ):
@@ -119,20 +137,12 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                 durations, k_max, termination_time, min_iterations, theta
             )
 
-        # move all vehicles forward
-        for dynamic_route in current_solution:
-            time_left = time_period_length - dynamic_route.duration_until_decision_point
-            # commit customers as long as the time period lasts
-            while time_left > 0:
-                if dynamic_route.route:
-                    committed_customer = dynamic_route.route.pop(0)
-                    time_left -= adj_matrix[dynamic_route.start()][committed_customer]
-                    time_left -= durations[committed_customer]
-                    dynamic_route.covered_route.append(committed_customer)
-                else:
-                    # wait at last customer
-                    time_left = 0.0
-            dynamic_route.duration_until_decision_point = -time_left
+        # commit next time period
+        current_solution = commit_next_time_period(
+            adj_matrix,
+            working_day - simulation_time,
+            durations, time_period_length, current_solution
+        )
         simulation_time += time_period_length
 
         solution_list.append(current_solution)
