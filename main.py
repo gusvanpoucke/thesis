@@ -6,7 +6,6 @@ import time
 import os
 
 from dynamic_programming import vrp as dynamic_programming
-from Clarke_and_Wright_savings import savings
 from shake import cross, shake
 from evaluate import evaluate, check_capacity, check_all_customers_served, time_constraint_route, test_dynamic_solution
 from local_search import local_search, two_opt_star
@@ -86,7 +85,8 @@ def testFolderCVRP(test_folder):
 
 def testOneDVRP():
     #FILEPATH = 'dvrp_data/toy_examples/toy6.json'
-    FILEPATH = 'dvrp_data/processed/tai75a.json'
+    #FILEPATH = 'dvrp_data/processed/tai75a.json'
+    FILEPATH = 'dvrp_data/processed/c100.json'
 
     with open(FILEPATH, 'r') as file:
         VRP = json.load(file)
@@ -205,6 +205,7 @@ def find_improving_solution(file_name, score_to_beat):
     tests_needed = 0
     while True:
         tests_needed += 1
+        print("Test nr: " + str(tests_needed))
         cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
         if cost < score_to_beat:
             break
@@ -281,33 +282,32 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
     
 if __name__ == "__main__":
-    testOneDVRP()
+    find_improving_solution("c100.json", 0.0)
     """
     # 21 files
     list_of_dvrp_files = [
-        "c100.json",
-        "c100b.json", 
-        "c120.json",
-        "c150.json",
-        "c199.json",
-        "c50.json",
-        "c75.json",
-        "f134.json",
-        "f71.json",
-        "tai100a.json",
-        "tai100b.json",
-        "tai100c.json",
-        "tai100d.json",
-        "tai150a.json",
-        "tai150b.json",
-        "tai150c.json",
-        "tai150d.json",
+        #"c100.json",
+        #"c100b.json", 
+        #"c120.json",
+        #"c150.json",
+        #"c199.json",
+        #"c50.json",
+        #"c75.json",
+        #"f134.json",
+        #"f71.json",
+        #"tai100a.json",
+        #"tai100b.json",
+        #"tai100c.json",
+        #"tai100d.json",
+        #"tai150a.json",
+        #"tai150b.json",
+        #"tai150c.json",
+        #"tai150d.json",
         "tai75a.json",
         "tai75b.json",
         "tai75c.json",
         "tai75d.json"
     ]
-    print(total_costs(list_of_dvrp_files))
     for dvrp_file in list_of_dvrp_files:
-        runXTestsOnFile(dvrp_file)
+        runXTestsOnFile(dvrp_file, results_folder="experiment_results/lazy_vns/")
     """

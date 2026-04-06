@@ -1,10 +1,15 @@
 import time
-from Clarke_and_Wright_savings import savings
+from Clarke_and_Wright_savings import dynamic_savings
 from shake import shake
 from local_search import local_search
 from repair import repair
 from evaluate import evaluate, time_constraint_route
 from dynamic_route import Route
+
+
+def deep_copy_routes(routes):
+    return [route.copy() for route in routes]
+
 
 def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
     # always accept improving solution
@@ -21,7 +26,7 @@ def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, time_left
 ):
     # build initial solution using Clarke and Wright savings algorithm
     current_cost, current_solution = initial_cost, initial_solution
-    best_cost, best_solution = current_cost, current_solution
+    best_cost, best_solution = current_cost, deep_copy_routes(initial_solution)
 
     last_accepted = 0
     # terminate after maximum time used
@@ -43,7 +48,7 @@ def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, time_left
                 last_accepted = 0
                 # update best found solution
                 if current_cost < best_cost:
-                    best_cost, best_solution = current_cost, current_solution
+                    best_cost, best_solution = current_cost, deep_copy_routes(current_solution)
             # if no better solution found, move to next neighbourhood
             else:
                 k += 1
@@ -105,7 +110,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                 if avail[customer] == 0:
                     static_customers.append(customer)
             # create initial solution
-            current_cost, current_solution = savings(
+            current_cost, current_solution = dynamic_savings(
                 static_customers,
                 capacity, adj_matrix, demands,
                 working_day,
@@ -121,13 +126,14 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                 ):
                     new_customers.append(customer)
             # add customers to current solution
-            current_cost, current_solution = savings(
+            new_cost, new_routes = dynamic_savings(
                 new_customers,
                 capacity, adj_matrix, demands,
                 working_day - simulation_time,
-                durations,
-                initial_routes_cost=current_cost, initial_routes=current_solution
+                durations
             )
+            current_cost += new_cost
+            current_solution = deep_copy_routes(current_solution) + new_routes
         
         # can't cross with only 1 route
         if len(current_solution) > 1:
@@ -145,6 +151,6 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         )
         simulation_time += time_period_length
 
-        solution_list.append(current_solution)
+        solution_list.append(deep_copy_routes(current_solution))
     
     return current_cost, solution_list

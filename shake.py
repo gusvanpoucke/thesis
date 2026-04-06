@@ -4,8 +4,7 @@ from modify_route import modify_route
 def cross(cost, adj_matrix, routes, k, icross = False):
     p = random.randint(1, k)
 
-    # randomly select 2 routes
-    original_routes = routes.copy()
+    original_routes = [route.copy() for route in routes]
     selected_routes = [original_routes.pop(random.randrange(0, len(original_routes))) for _ in range(2)]
 
     # randomly cut both routes

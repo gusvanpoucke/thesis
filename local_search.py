@@ -63,11 +63,17 @@ def two_opt_star_try(adj_matrix, routes):
                         new_dynamic_route2 = dynamic_route2.copy()
                         new_dynamic_route2.route = new_route2
                         # only add non-empty routes
-                        new_routes = routes[:i]
-                        if new_dynamic_route1.route or new_dynamic_route1.covered_route: new_routes.append(new_dynamic_route1)
-                        new_routes += routes[i+1:j]
-                        if new_dynamic_route2.route or new_dynamic_route2.covered_route: new_routes.append(new_dynamic_route2)
-                        new_routes += routes[j+1:]
+                        new_routes = []
+                        for idx in range(i):
+                            new_routes.append(routes[idx].copy())
+                        if new_dynamic_route1.route or new_dynamic_route1.covered_route: 
+                            new_routes.append(new_dynamic_route1)
+                        for idx in range(i+1, j):
+                            new_routes.append(routes[idx].copy())
+                        if new_dynamic_route2.route or new_dynamic_route2.covered_route: 
+                            new_routes.append(new_dynamic_route2)
+                        for idx in range(j+1, len(routes)):
+                            new_routes.append(routes[idx].copy())
                         return cost_increment1 + cost_increment2, new_routes
     return 0, []
 
