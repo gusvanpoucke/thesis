@@ -49,10 +49,10 @@ def check_time(time_left, durations, adj_matrix, dynamic_routes):
 
 def check_customers(availabilities, simulation_time, half_way, customers_served):
     for customer, availability in enumerate(availabilities):
-        if customer != 0 and customer not in customers_served and (availability < simulation_time or availability > half_way):
+        if customer != 0 and customer not in customers_served and (availability < simulation_time or availability >= half_way):
             return False
     for customer in customers_served:
-        if availabilities[customer] >= simulation_time and availabilities[customer] <= half_way:
+        if availabilities[customer] != 0 and availabilities[customer] >= simulation_time and availabilities[customer] < half_way:
             return False
     return True
 
@@ -75,11 +75,11 @@ def test_dynamic_solution(capacity, demands, working_day, time_periods, duration
         # CHECK TIME CONSTRAINTS
         time_left = (working_day / time_periods) * (time_periods - time_period - 1)
         if not(check_time(time_left, durations, adj_matrix, dynamic_routes)):
-            return "Time Fail in time_period " + str(time_period)
+            return "Time Fail in time period " + str(time_period)
         # CHECK ALL CUSTOMERS PRESENT
         simulation_time = (working_day / time_periods) * (time_period - 1)
         customers_served = [customer for route in routes for customer in route]
         half_way = working_day * cut_off
         if not(check_customers(availabilities, simulation_time, half_way, customers_served)):
-            return "Customer Fail"
+            return "Customer Fail in time period " + str(time_period)
     return "Solution Correct with cost: " + str(evaluate(adj_matrix, routes))
