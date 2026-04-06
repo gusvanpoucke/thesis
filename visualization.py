@@ -72,13 +72,17 @@ def parse_dat(filepath):
     with open(filepath, 'r') as f:
         text = f.read()
     
+    # parse number of locations
+    match = re.search(r"NUM_LOCATIONS\s*:\s*(\S.*)", text)
+    n = int(match.group(1)) if match else None
+
     # Parse coordinates
     match = re.search(r"LOCATION_COORD_SECTION\s+([\d\s\.\-]+)\s+DEPOT_LOCATION_SECTION", text, re.DOTALL)
     if not match:
         print(f"Error for LOCATION_COORD_SECTION in {filepath}")
         return None
     
-    coords = [None] * 51
+    coords = [None] * n
     for line in match.group(1).strip().split('\n'):
         parts = line.strip().split()
         if parts:
@@ -137,17 +141,20 @@ def visualize_dvrp_solution(dat_file, solution_file):
         customers.extend(new_customers)
 
         for route_idx, route_data in enumerate(routes):
+            """
             first_node = route_data['covered_route'][0]
             if first_node not in route_colors:
                 route_colors[first_node] = route_colors_index
                 route_colors_index += 1
 
             color = colors[route_colors[first_node]]
+            """
+            color = colors[route_idx]
 
             covered = np.array([depot] + [coords[c] for c in route_data['covered_route']])
             ax.plot(covered[:, 0], covered[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
             
-            last_committed_node = coords[route_data['covered_route'][-1]]
+            last_committed_node = coords[route_data['covered_route'][-1]] if route_data['covered_route'] else depot
             planned = np.array([last_committed_node] + [coords[c] for c in route_data['route']] + [depot])
             ax.plot(planned[:, 0], planned[:, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
 
@@ -164,6 +171,7 @@ def visualize_dvrp_solution(dat_file, solution_file):
         plt.close(fig)
 
 if __name__ == "__main__":
+    """
     # 21 files
     list_of_solution_files = [
         "c100",
@@ -236,4 +244,5 @@ if __name__ == "__main__":
     ]
     bar_chart(list_of_solution_files, VNS_best_cost, title="Comparison of Best Costs", start=9)
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
-    #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json')
+    """
+    visualize_dvrp_solution('dvrp_data/raw/c199D.dat', 'experiment_results/c199_solution.json')
