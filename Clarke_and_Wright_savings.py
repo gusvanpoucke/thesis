@@ -1,17 +1,17 @@
 from dynamic_route import Route
 from evaluate import time_constraint_route
 
-def dynamic_savings(new_customers, capacity, adj_matrix, demands, time_left, durations):
-    cost, routes = savings(new_customers, capacity, adj_matrix, demands, time_left, durations)
+def dynamic_savings(new_customers, capacity, adj_matrix, demands, simulation_time, working_day, durations):
+    cost, routes = savings(new_customers, capacity, adj_matrix, demands, simulation_time, working_day, durations)
 
     dynamic_routes = []
     for route in routes:
-        dynamic_routes.append(Route([], route, 0.0))
+        dynamic_routes.append(Route([], route, simulation_time))
 
     return cost, dynamic_routes
 
 
-def savings(new_customers, capacity, adj_matrix, demands, time_left, durations):
+def savings(new_customers, capacity, adj_matrix, demands, simulation_time, working_day, durations):
     # initialize routes
     optimal_route = 0
     routes = []
@@ -65,7 +65,7 @@ def savings(new_customers, capacity, adj_matrix, demands, time_left, durations):
                         route2 = route2[::-1]
 
                     # CHECK if time constraint is not violated
-                    if time_constraint_route(time_left, durations, adj_matrix, Route([], route1 + route2, 0.0)):
+                    if time_constraint_route(working_day, durations, adj_matrix, Route([], route1 + route2, simulation_time)):
                         # add merged route to list and update route demands
                         routes.append(route1 + route2)
                         route_demands.append(i_demand + j_demand)

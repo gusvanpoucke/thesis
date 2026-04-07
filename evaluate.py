@@ -15,36 +15,33 @@ def evaluate(adj_matrix, routes):
     return cost
 
 
-def check_constraints(capacity, demands, time_left, durations, adj_matrix, dynamic_route):
+def check_constraints(capacity, demands, working_day, durations, adj_matrix, dynamic_route):
     return (
         capacity_constraint_route(capacity, demands, dynamic_route.full_route())
-        and time_constraint_route(time_left, durations, adj_matrix, dynamic_route)
-    ) or not(dynamic_route.route)
+        and time_constraint_route(working_day, durations, adj_matrix, dynamic_route)
+    )
 
 
 def capacity_constraint_route(capacity, demands, route):
     return sum(demands[customer] for customer in route) <= capacity
 
 
-def time_constraint_route(time_left, durations, adj_matrix, dynamic_route):
-    if dynamic_route.duration_until_decision_point == 0.0 and not(dynamic_route.route):
-        return True
-
-    time_spent = dynamic_route.duration_until_decision_point
+def time_constraint_route(working_day, durations, adj_matrix, dynamic_route):
+    finishing_time = dynamic_route.processing_time
     prev = dynamic_route.start()
     for customer in dynamic_route.route:
-        time_spent += adj_matrix[prev][customer] + durations[customer]
+        finishing_time += adj_matrix[prev][customer] + durations[customer]
         prev = customer
-    time_spent += adj_matrix[prev][0]
-    return time_spent <= time_left
+    finishing_time += adj_matrix[prev][0]
+    return finishing_time <= working_day
 
 
 def check_capacity(capacity, demands, routes):
     return all([capacity_constraint_route(capacity, demands, route) for route in routes])
 
 
-def check_time(time_left, durations, adj_matrix, dynamic_routes):
-    return all([time_constraint_route(time_left, durations, adj_matrix, dynamic_route) for dynamic_route in dynamic_routes])
+def check_time(working_day, durations, adj_matrix, dynamic_routes):
+    return all([time_constraint_route(working_day, durations, adj_matrix, dynamic_route) for dynamic_route in dynamic_routes])
 
 
 def check_customers(availabilities, simulation_time, half_way, customers_served):
@@ -73,8 +70,7 @@ def test_dynamic_solution(capacity, demands, working_day, time_periods, duration
         if not(check_capacity(capacity, demands, routes)):
             return "Capacity Fail"
         # CHECK TIME CONSTRAINTS
-        time_left = (working_day / time_periods) * (time_periods - time_period - 1)
-        if not(check_time(time_left, durations, adj_matrix, dynamic_routes)):
+        if not(check_time(working_day, durations, adj_matrix, dynamic_routes)):
             return "Time Fail in time period " + str(time_period)
         # CHECK ALL CUSTOMERS PRESENT
         simulation_time = (working_day / time_periods) * (time_period - 1)

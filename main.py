@@ -222,7 +222,7 @@ def find_improving_solution(file_name, score_to_beat):
                     {
                         "covered_route": route.covered_route,
                         "route": route.route,
-                        "duration_until_decision_point": route.duration_until_decision_point
+                        "processing_time": route.processing_time
                     }
                 for route in solution]
             }
@@ -258,7 +258,7 @@ def check_dynamic_solution(data_file, solution_file):
             Route(
                 covered_route=route_data["covered_route"],
                 route=route_data["route"],
-                duration_until_decision_point=route_data["duration_until_decision_point"]
+                processing_time=route_data["processing_time"]
             )
             for route_data in solution["routes"]
         ]
@@ -280,7 +280,7 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
         total_average += solution['average_cost']
     
     return total_best, total_average, len(files)
-    
+
 if __name__ == "__main__":
     find_improving_solution("c100.json", 0.0)
     """
