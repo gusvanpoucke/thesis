@@ -69,13 +69,17 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
     )
 
 
-def commit_next_time_period(adj_matrix, time_left_in_day, durations, time_period_length, current_solution):
+def commit_next_time_period(adj_matrix, time_left_in_day, durations, time_period_length, current_solution, margin):
     # move all vehicles forward
     for dynamic_route in current_solution:
         time_left = time_period_length - dynamic_route.duration_until_decision_point
         # commit customers as long as the time period lasts
         while time_left > 0:
-            if dynamic_route.route and not(time_constraint_route(time_left_in_day - time_left, durations, adj_matrix, dynamic_route)):
+            # margin in terms of time periods
+            if dynamic_route.route and not(time_constraint_route(
+                time_left_in_day - time_left - (time_period_length * margin),
+                durations, adj_matrix, dynamic_route
+            )):
                 committed_customer = dynamic_route.route.pop(0)
                 time_left -= adj_matrix[dynamic_route.start()][committed_customer]
                 time_left -= durations[committed_customer]
@@ -88,7 +92,7 @@ def commit_next_time_period(adj_matrix, time_left_in_day, durations, time_period
 
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
-    k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25
+    k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25, margin=0.1
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -147,7 +151,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         current_solution = commit_next_time_period(
             adj_matrix,
             working_day - simulation_time,
-            durations, time_period_length, current_solution
+            durations, time_period_length, current_solution, margin
         )
         simulation_time += time_period_length
 
