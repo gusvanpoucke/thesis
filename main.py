@@ -13,144 +13,7 @@ from VNS import cvrp, event_scheduler
 from repair import repair, split_route
 from dynamic_route import Route
 
-
-def testOneCVRP():
-    #FILEPATH = 'cvrp_data/toy_examples/Toy-n6-k2.json'
-    FILEPATH = 'cvrp_data/processed/CMT/CMT4.json'
-    #FILEPATH = 'cvrp_data/processed/X/X-n979-k58.json'
-
-    with open(FILEPATH, 'r') as file:
-        VRP = json.load(file)
-
-    print(VRP['graph_name'])
-    print(VRP['solution'])
-    n_customers = VRP['n']
-    weights = np.array(VRP['weights'])
-    demands = np.array(VRP['demands'])
-    capacity = VRP['capacity']
-
-    # Savings algorithm
-    t = time.time()
-    savings_cost, _ = savings(list(range(1, n_customers)), capacity, weights, demands)
-    print("Savings cost: " + str(savings_cost))
-    print("Time(s): " + str(time.time() - t))
-
-    # VNS algorithm
-    t = time.time()
-    cost, routes = cvrp(n_customers, capacity, weights, demands, 1000000000, [0]*n_customers, termination_time=5)
-    print("VNS cost: " + str(cost))
-    print("Time(s): " + str(time.time() - t))
-    non_dynamic_routes = []
-    for route in routes:
-        non_dynamic_routes.append(route.route)
-    print("Capacity Check: " + check_capacity(capacity, demands, non_dynamic_routes))
-    print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))
-    print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
-
-    print()
-
-def testFolderCVRP(test_folder):
-    print("Running on folder " + test_folder)
-    files = os.listdir(test_folder)
-    print("Folder contains " + str(len(files)) + " files")
-
-    for file_name in files:
-        with open(test_folder + "/" + file_name, 'r') as file:
-            VRP = json.load(file)
-        print(VRP['graph_name'])
-        print("Best Known: " + str(VRP['solution']['cost']))
-        print()
-        
-        n_customers = VRP['n']
-        weights = np.array(VRP['weights'])
-        demands = np.array(VRP['demands'])
-        capacity = VRP['capacity']
-
-        # Savings algorithm
-        t = time.time()
-        savings_cost, _ = savings(list(range(1, n_customers)), capacity, weights, demands)
-        print("Savings cost: " + str(savings_cost))
-        print("Time(s): " + str(time.time() - t))
-
-        # VNS algorithm
-        t = time.time()
-        cost, routes = cvrp(n_customers, capacity, weights, demands)
-        print("VNS cost: " + str(cost))
-        print("Time(s): " + str(time.time() - t))
-        print("Capacity Check: " + check_capacity(capacity, demands, routes))
-        print("Customer Check: " + check_all_customers_served(n_customers-1, routes))
-        print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, routes)) < 0.1))
-
-        print()
-
-def testOneDVRP():
-    #FILEPATH = 'dvrp_data/toy_examples/toy6.json'
-    #FILEPATH = 'dvrp_data/processed/tai75a.json'
-    FILEPATH = 'dvrp_data/processed/c100.json'
-
-    with open(FILEPATH, 'r') as file:
-        VRP = json.load(file)
-
-    print(VRP['graph_name'])
-    n_customers = VRP['n']
-    weights = np.array(VRP['weights'])
-    demands = np.array(VRP['demands'])
-    capacity = VRP['capacity']
-    durations = np.array(VRP['durations'])
-    working_day = VRP['working_day']
-    availabilities = np.array(VRP['availabilities'])
-
-    # VNS algorithm
-    t = time.time()
-    cost, routes = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
-    print("VNS cost: " + str(cost))
-    print("Time(s): " + str(time.time() - t))
-    non_dynamic_routes = []
-    for route in routes[-1]:
-        print("Check time route: " + str(time_constraint_route(working_day, durations, weights, route)))
-        non_dynamic_routes.append(route.full_route())
-    print("Routes: " + str(non_dynamic_routes))
-    print("Capacity Check: " + str(check_capacity(capacity, demands, non_dynamic_routes)))
-    print("Customer Check: " + str(check_all_customers_served(n_customers-1, non_dynamic_routes)))
-    print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
-
-    print()
-
-def testAllDVRP():
-    print("Running on all DVRP")
-    files = os.listdir("dvrp_data/processed")
-    print("Folder contains " + str(len(files)) + " files")
-
-    for file_name in files:
-        with open("dvrp_data/processed/" + file_name, 'r') as file:
-            VRP = json.load(file)
-
-        print(VRP['graph_name'])
-        n_customers = VRP['n']
-        weights = np.array(VRP['weights'])
-        demands = np.array(VRP['demands'])
-        capacity = VRP['capacity']
-        durations = np.array(VRP['durations'])
-        working_day = VRP['working_day']
-        availabilities = np.array(VRP['availabilities'])
-
-        # VNS algorithm
-        t = time.time()
-        cost, routes = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
-        print("VNS cost: " + str(cost))
-        print("Time(s): " + str(time.time() - t))
-        non_dynamic_routes = []
-        for route in routes:
-            print("Check time route: " + str(time_constraint_route(working_day, durations, weights, route)))
-            non_dynamic_routes.append(route.full_route())
-        print("Routes: " + str(non_dynamic_routes))
-        print("Capacity Check: " + check_capacity(capacity, demands, non_dynamic_routes))
-        print("Customer Check: " + check_all_customers_served(n_customers-1, non_dynamic_routes))
-        print("Check Incremental Evaluation: " + str(abs(cost - evaluate(weights, non_dynamic_routes)) < 0.1))
-
-        print()
-
-def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/standard_vns/"):
+def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/standard_vns/", waiting_strategy="wait_first"):
     FILEPATH = "dvrp_data/processed/" + file_name
 
     with open(FILEPATH, 'r') as file:
@@ -170,7 +33,7 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
     best_cost = 1000000000000.0
     total_cost = 0.0
     for i in range(number_of_tests):
-        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
+        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, waiting_strategy=waiting_strategy)
         best_cost = min(best_cost, cost)
         total_cost += cost
     
@@ -185,7 +48,7 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-def find_improving_solution(file_name, score_to_beat, solution_file=""):
+def find_improving_solution(file_name, score_to_beat, solution_file="", waiting_strategy="wait_first"):
     FILEPATH = "dvrp_data/processed/" + file_name
 
     with open(FILEPATH, 'r') as file:
@@ -206,7 +69,7 @@ def find_improving_solution(file_name, score_to_beat, solution_file=""):
     while True:
         tests_needed += 1
         print("Test nr: " + str(tests_needed))
-        cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities)
+        cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, waiting_strategy=waiting_strategy)
         if cost < score_to_beat:
             break
     
@@ -282,8 +145,6 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", 580, "experiment_results/c50_wait_first.json")
-    """
     # 21 files
     list_of_dvrp_files = [
         "c100.json",
@@ -310,4 +171,3 @@ if __name__ == "__main__":
     ]
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file, results_folder="experiment_results/wait_first_vns/")
-    """
