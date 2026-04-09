@@ -185,7 +185,7 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-def find_improving_solution(file_name, score_to_beat):
+def find_improving_solution(file_name, score_to_beat, solution_file=""):
     FILEPATH = "dvrp_data/processed/" + file_name
 
     with open(FILEPATH, 'r') as file:
@@ -228,7 +228,7 @@ def find_improving_solution(file_name, score_to_beat):
             }
         for solution in all_solutions]
     }
-    json_filename = f"experiment_results/{data['graph_name'].replace(' ', '_')}_solution.json"
+    json_filename = solution_file if solution_file else f"experiment_results/{data['graph_name'].replace(' ', '_')}_solution.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
@@ -282,6 +282,8 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
+    find_improving_solution("c50.json", 580, "experiment_results/c50_wait_first.json")
+    """
     # 21 files
     list_of_dvrp_files = [
         "c100.json",
@@ -308,3 +310,4 @@ if __name__ == "__main__":
     ]
     for dvrp_file in list_of_dvrp_files:
         runXTestsOnFile(dvrp_file, results_folder="experiment_results/wait_first_vns/")
+    """

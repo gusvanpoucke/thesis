@@ -1,0 +1,2108 @@
+{
+    "graph_name": "c50",
+    "tests_ran": 4,
+    "cost_found": 572.8513996948103,
+    "supposed_best_cost": 580,
+    "solutions": [
+        {
+            "routes": [
+                {
+                    "covered_route": [],
+                    "route": [
+                        46,
+                        32,
+                        29,
+                        35,
+                        36,
+                        28,
+                        31,
+                        26,
+                        48,
+                        27
+                    ],
+                    "processing_time": 14.04
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        37,
+                        44,
+                        45,
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        49,
+                        38
+                    ],
+                    "processing_time": 14.04
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        47,
+                        42,
+                        40,
+                        41,
+                        25,
+                        24,
+                        43
+                    ],
+                    "processing_time": 14.04
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [],
+                    "route": [
+                        46,
+                        32,
+                        29,
+                        35,
+                        36,
+                        28,
+                        31,
+                        26,
+                        48,
+                        27
+                    ],
+                    "processing_time": 28.08
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        43,
+                        24,
+                        25,
+                        41,
+                        40,
+                        42,
+                        47
+                    ],
+                    "processing_time": 28.08
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        38,
+                        49,
+                        50,
+                        34,
+                        30,
+                        39,
+                        33,
+                        45,
+                        44,
+                        37
+                    ],
+                    "processing_time": 28.08
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [],
+                    "route": [
+                        5,
+                        45,
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        49,
+                        38
+                    ],
+                    "processing_time": 42.12
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        24,
+                        25,
+                        41,
+                        40,
+                        42,
+                        44,
+                        37,
+                        4,
+                        47,
+                        46
+                    ],
+                    "processing_time": 49.655446902326915
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        27,
+                        48,
+                        26,
+                        31,
+                        28,
+                        3,
+                        36,
+                        35,
+                        29,
+                        2,
+                        1,
+                        32
+                    ],
+                    "processing_time": 42.12
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        24,
+                        25,
+                        6
+                    ],
+                    "processing_time": 56.16
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        5,
+                        49,
+                        45,
+                        33,
+                        39,
+                        30,
+                        34,
+                        50,
+                        38
+                    ],
+                    "processing_time": 56.16
+                },
+                {
+                    "covered_route": [
+                        32
+                    ],
+                    "route": [
+                        1,
+                        2,
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        48,
+                        27
+                    ],
+                    "processing_time": 56.16
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        47,
+                        4,
+                        41,
+                        40,
+                        42,
+                        44,
+                        37,
+                        46
+                    ],
+                    "processing_time": 56.16
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        32
+                    ],
+                    "route": [
+                        2,
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        8,
+                        1
+                    ],
+                    "processing_time": 70.19999999999999
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        37,
+                        33,
+                        45,
+                        44,
+                        42,
+                        40,
+                        41,
+                        4,
+                        47
+                    ],
+                    "processing_time": 70.19999999999999
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        24,
+                        25,
+                        6,
+                        48,
+                        27
+                    ],
+                    "processing_time": 70.19999999999999
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        46,
+                        38,
+                        9,
+                        50,
+                        34,
+                        30,
+                        39,
+                        49,
+                        5
+                    ],
+                    "processing_time": 70.19999999999999
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [],
+                    "route": [
+                        11,
+                        38,
+                        9,
+                        50,
+                        34,
+                        30,
+                        39,
+                        10,
+                        49,
+                        5
+                    ],
+                    "processing_time": 84.23999999999998
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        41,
+                        40,
+                        42,
+                        44,
+                        45,
+                        33,
+                        37,
+                        46
+                    ],
+                    "processing_time": 84.23999999999998
+                },
+                {
+                    "covered_route": [
+                        32
+                    ],
+                    "route": [
+                        2,
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        8,
+                        1
+                    ],
+                    "processing_time": 84.23999999999998
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        24,
+                        25,
+                        6,
+                        48,
+                        27
+                    ],
+                    "processing_time": 84.23999999999998
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        37
+                    ],
+                    "route": [
+                        33,
+                        45,
+                        44,
+                        42,
+                        40,
+                        41,
+                        13,
+                        25
+                    ],
+                    "processing_time": 98.27999999999997
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        5,
+                        49,
+                        10,
+                        39,
+                        30,
+                        34,
+                        50,
+                        9,
+                        38,
+                        11
+                    ],
+                    "processing_time": 98.27999999999997
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        24,
+                        7,
+                        48,
+                        6,
+                        27
+                    ],
+                    "processing_time": 98.27999999999997
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        12,
+                        46
+                    ],
+                    "processing_time": 98.27999999999997
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2
+                    ],
+                    "route": [
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        8,
+                        1
+                    ],
+                    "processing_time": 110.64175425099135
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        24,
+                        7,
+                        48,
+                        6,
+                        27
+                    ],
+                    "processing_time": 112.31999999999996
+                },
+                {
+                    "covered_route": [],
+                    "route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 112.31999999999996
+                },
+                {
+                    "covered_route": [
+                        37
+                    ],
+                    "route": [
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 112.31999999999996
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2
+                    ],
+                    "route": [
+                        29,
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        8,
+                        1
+                    ],
+                    "processing_time": 112.31999999999996
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        42,
+                        40,
+                        41,
+                        13,
+                        25,
+                        14
+                    ],
+                    "processing_time": 112.31999999999996
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        38,
+                        9,
+                        30,
+                        34,
+                        50,
+                        16,
+                        11,
+                        46
+                    ],
+                    "processing_time": 126.35999999999996
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14
+                    ],
+                    "route": [
+                        25,
+                        13,
+                        41,
+                        40,
+                        42,
+                        17,
+                        4
+                    ],
+                    "processing_time": 126.35999999999996
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29
+                    ],
+                    "route": [
+                        35,
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        8,
+                        1
+                    ],
+                    "processing_time": 136.37538513813737
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        48,
+                        27
+                    ],
+                    "processing_time": 126.35999999999996
+                },
+                {
+                    "covered_route": [
+                        37
+                    ],
+                    "route": [
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 126.35999999999996
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [],
+                    "route": [
+                        11,
+                        16,
+                        50,
+                        34,
+                        30,
+                        9,
+                        38,
+                        46
+                    ],
+                    "processing_time": 140.39999999999995
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35
+                    ],
+                    "route": [
+                        36,
+                        3,
+                        28,
+                        31,
+                        26,
+                        8,
+                        1
+                    ],
+                    "processing_time": 166.8995598343974
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44
+                    ],
+                    "route": [
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 148.64010988928047
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14
+                    ],
+                    "route": [
+                        25,
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 140.39999999999995
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 140.39999999999995
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        48,
+                        27
+                    ],
+                    "processing_time": 140.39999999999995
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [],
+                    "route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 154.43999999999994
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35
+                    ],
+                    "route": [
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        1
+                    ],
+                    "processing_time": 166.8995598343974
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25
+                    ],
+                    "route": [
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 161.8031242374328
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 154.43999999999994
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 154.43999999999994
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15
+                    ],
+                    "route": [
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 169.7228724195787
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        38
+                    ],
+                    "route": [
+                        9,
+                        30,
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 168.47999999999993
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 168.47999999999993
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35
+                    ],
+                    "route": [
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 168.47999999999993
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 168.47999999999993
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15
+                    ],
+                    "route": [
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 169.7228724195787
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25
+                    ],
+                    "route": [
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 168.47999999999993
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 182.51999999999992
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9
+                    ],
+                    "route": [
+                        30,
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 190.76010988928044
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45
+                    ],
+                    "route": [
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 191.43107635207807
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 182.51999999999992
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13
+                    ],
+                    "route": [
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 196.63294643796584
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36
+                    ],
+                    "route": [
+                        20,
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 189.56276253029816
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9
+                    ],
+                    "route": [
+                        30,
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 196.55999999999992
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20
+                    ],
+                    "route": [
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 217.09272661643982
+                },
+                {
+                    "covered_route": [
+                        43
+                    ],
+                    "route": [
+                        23,
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 196.55999999999992
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13
+                    ],
+                    "route": [
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 196.63294643796584
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 196.55999999999992
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45
+                    ],
+                    "route": [
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 196.55999999999992
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        23
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 224.5984048104052
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20
+                    ],
+                    "route": [
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 217.09272661643982
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33
+                    ],
+                    "route": [
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 218.55999999999992
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30
+                    ],
+                    "route": [
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 220.0452813742385
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 210.5999999999999
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41
+                    ],
+                    "route": [
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 221.06692757002244
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3
+                    ],
+                    "route": [
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 239.90297629234647
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 224.6399999999999
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39
+                    ],
+                    "route": [
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 247.48838827718404
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30
+                    ],
+                    "route": [
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 224.6399999999999
+                },
+                {
+                    "covered_route": [
+                        43,
+                        23
+                    ],
+                    "route": [
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 224.6399999999999
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41
+                    ],
+                    "route": [
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 224.6399999999999
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40
+                    ],
+                    "route": [
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 251.72304597359448
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3
+                    ],
+                    "route": [
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 239.90297629234647
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 238.6799999999999
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39
+                    ],
+                    "route": [
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 247.48838827718404
+                },
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7
+                    ],
+                    "route": [
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 245.72276253029813
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34
+                    ],
+                    "route": [
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 246.34820393249927
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21
+                    ],
+                    "route": [
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 270.4035890706367
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 252.71999999999989
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40
+                    ],
+                    "route": [
+                        19,
+                        42,
+                        17
+                    ],
+                    "processing_time": 252.71999999999989
+                },
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26
+                    ],
+                    "route": [
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 271.9031024177971
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28
+                    ],
+                    "route": [
+                        31,
+                        22,
+                        1
+                    ],
+                    "processing_time": 264.3898092728516
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10
+                    ],
+                    "route": [
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 272.4883882771841
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31
+                    ],
+                    "route": [
+                        22,
+                        1
+                    ],
+                    "processing_time": 285.71436459318835
+                },
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26
+                    ],
+                    "route": [
+                        8,
+                        48,
+                        27
+                    ],
+                    "processing_time": 271.9031024177971
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21
+                    ],
+                    "route": [
+                        50,
+                        16,
+                        11
+                    ],
+                    "processing_time": 270.4035890706367
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10
+                    ],
+                    "route": [
+                        49,
+                        5,
+                        12
+                    ],
+                    "processing_time": 272.4883882771841
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 266.7599999999999
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19
+                    ],
+                    "route": [
+                        42,
+                        17
+                    ],
+                    "processing_time": 278.3501458127345
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26,
+                        8
+                    ],
+                    "route": [
+                        48,
+                        27
+                    ],
+                    "processing_time": 294.11420496872506
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31
+                    ],
+                    "route": [
+                        22,
+                        1
+                    ],
+                    "processing_time": 285.71436459318835
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21,
+                        50
+                    ],
+                    "route": [
+                        16,
+                        11
+                    ],
+                    "processing_time": 293.2138387465434
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19
+                    ],
+                    "route": [
+                        42,
+                        17
+                    ],
+                    "processing_time": 280.7999999999999
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49
+                    ],
+                    "route": [
+                        5,
+                        12
+                    ],
+                    "processing_time": 295.104161383048
+                },
+                {
+                    "covered_route": [
+                        47
+                    ],
+                    "route": [
+                        4,
+                        18
+                    ],
+                    "processing_time": 280.7999999999999
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21,
+                        50,
+                        16
+                    ],
+                    "route": [
+                        11
+                    ],
+                    "processing_time": 313.87069299603576
+                },
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26,
+                        8
+                    ],
+                    "route": [
+                        48,
+                        27
+                    ],
+                    "processing_time": 294.8399999999999
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        22
+                    ],
+                    "route": [
+                        1
+                    ],
+                    "processing_time": 313.71436459318835
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19,
+                        42
+                    ],
+                    "route": [
+                        17
+                    ],
+                    "processing_time": 304.3440037453174
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49
+                    ],
+                    "route": [
+                        5,
+                        12
+                    ],
+                    "processing_time": 295.104161383048
+                },
+                {
+                    "covered_route": [
+                        47,
+                        4
+                    ],
+                    "route": [
+                        18
+                    ],
+                    "processing_time": 303.6102496759066
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21,
+                        50,
+                        16
+                    ],
+                    "route": [
+                        11
+                    ],
+                    "processing_time": 313.87069299603576
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        22
+                    ],
+                    "route": [
+                        1
+                    ],
+                    "processing_time": 313.71436459318835
+                },
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26,
+                        8,
+                        48
+                    ],
+                    "route": [
+                        27
+                    ],
+                    "processing_time": 319.0595444572928
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "route": [],
+                    "processing_time": 333.6618248085938
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5
+                    ],
+                    "route": [
+                        12
+                    ],
+                    "processing_time": 318.3503726342833
+                },
+                {
+                    "covered_route": [
+                        47,
+                        4
+                    ],
+                    "route": [
+                        18
+                    ],
+                    "processing_time": 308.87999999999994
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "route": [],
+                    "processing_time": 342.6618697243354
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "route": [],
+                    "processing_time": 333.6618248085938
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "route": [],
+                    "processing_time": 338.87069299603576
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "route": [],
+                    "processing_time": 342.5699170915762
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "route": [],
+                    "processing_time": 335.7854324050538
+                },
+                {
+                    "covered_route": [
+                        47,
+                        4,
+                        18
+                    ],
+                    "route": [],
+                    "processing_time": 331.49577310586386
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "route": [],
+                    "processing_time": 342.6618697243354
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "route": [],
+                    "processing_time": 333.6618248085938
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "route": [],
+                    "processing_time": 338.87069299603576
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "route": [],
+                    "processing_time": 342.5699170915762
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "route": [],
+                    "processing_time": 335.7854324050538
+                },
+                {
+                    "covered_route": [
+                        47,
+                        4,
+                        18
+                    ],
+                    "route": [],
+                    "processing_time": 331.49577310586386
+                }
+            ]
+        },
+        {
+            "routes": [
+                {
+                    "covered_route": [
+                        43,
+                        23,
+                        7,
+                        26,
+                        8,
+                        48,
+                        27
+                    ],
+                    "route": [],
+                    "processing_time": 342.6618697243354
+                },
+                {
+                    "covered_route": [
+                        6,
+                        24,
+                        14,
+                        25,
+                        13,
+                        41,
+                        40,
+                        19,
+                        42,
+                        17
+                    ],
+                    "route": [],
+                    "processing_time": 333.6618248085938
+                },
+                {
+                    "covered_route": [
+                        46,
+                        38,
+                        9,
+                        30,
+                        34,
+                        21,
+                        50,
+                        16,
+                        11
+                    ],
+                    "route": [],
+                    "processing_time": 338.87069299603576
+                },
+                {
+                    "covered_route": [
+                        37,
+                        44,
+                        15,
+                        45,
+                        33,
+                        39,
+                        10,
+                        49,
+                        5,
+                        12
+                    ],
+                    "route": [],
+                    "processing_time": 342.5699170915762
+                },
+                {
+                    "covered_route": [
+                        32,
+                        2,
+                        29,
+                        35,
+                        36,
+                        20,
+                        3,
+                        28,
+                        31,
+                        22,
+                        1
+                    ],
+                    "route": [],
+                    "processing_time": 335.7854324050538
+                },
+                {
+                    "covered_route": [
+                        47,
+                        4,
+                        18
+                    ],
+                    "route": [],
+                    "processing_time": 331.49577310586386
+                }
+            ]
+        }
+    ]
+}

@@ -93,7 +93,7 @@ def parse_dat(filepath):
     
     return np.array(coords)
 
-def visualize_dvrp_solution(dat_file, solution_file):
+def visualize_dvrp_solution(dat_file, solution_file, destination_folder="visualization/"):
     """Visualize DVRP solutions over time"""
     
     # Load coordinates
@@ -141,15 +141,12 @@ def visualize_dvrp_solution(dat_file, solution_file):
         customers.extend(new_customers)
 
         for route_idx, route_data in enumerate(routes):
-            """
-            first_node = route_data['covered_route'][0]
+            first_node = route_data['covered_route'][0] if route_data['covered_route'] else 0
             if first_node not in route_colors:
                 route_colors[first_node] = route_colors_index
                 route_colors_index += 1
 
             color = colors[route_colors[first_node]]
-            """
-            color = colors[route_idx]
 
             covered = np.array([depot] + [coords[c] for c in route_data['covered_route']])
             ax.plot(covered[:, 0], covered[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
@@ -164,7 +161,7 @@ def visualize_dvrp_solution(dat_file, solution_file):
         ax.legend(loc='upper right')
 
         plt.tight_layout()
-        filename = solution_file.replace('.json', f'_visualization_{idx+1}.png').replace('experiment_results/', 'visualization/')
+        filename = solution_file.replace('.json', f'_visualization_{idx+1}.png').replace('experiment_results/', destination_folder)
         plt.savefig(filename, dpi=150, bbox_inches='tight')
         print(f"Visualization saved to {filename}")
         plt.show()
@@ -245,4 +242,4 @@ if __name__ == "__main__":
     bar_chart(list_of_solution_files, VNS_best_cost, title="Comparison of Best Costs", start=9)
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
     """
-    visualize_dvrp_solution('dvrp_data/raw/c199D.dat', 'experiment_results/c199_solution.json')
+    visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_wait_first.json', "visualization/wait_first_visualization/")
