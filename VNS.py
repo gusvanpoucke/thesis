@@ -21,7 +21,7 @@ def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
     return False
 
 
-def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, working_day, durations,
+def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, simulation_time, working_day, durations,
     k_max, termination_time, min_iterations, theta
 ):
     # build initial solution using Clarke and Wright savings algorithm
@@ -40,7 +40,7 @@ def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, working_d
             # optimize crossed routes locally
             local_cost, local_solution = local_search(shaked_cost, adj_matrix, shaked_routes)
             # repair incumbent solution
-            repaired_cost, repaired_solution = repair(local_cost, capacity, adj_matrix, demands, working_day, durations, unshaked_routes, local_solution)
+            repaired_cost, repaired_solution = repair(local_cost, capacity, adj_matrix, demands, simulation_time, working_day, durations, unshaked_routes, local_solution)
             # move to new solution if conditions are right
             if move_or_not(min_iterations, theta, current_cost, repaired_cost, last_accepted):
                 current_cost, current_solution = repaired_cost, repaired_solution
@@ -65,18 +65,18 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
 
     # do vns
     return vns(initial_cost, initial_solution,
-        capacity, adj_matrix, demands, working_day, durations, k_max, termination_time, min_iterations, theta
+        capacity, adj_matrix, demands, 0.0, working_day, durations, k_max, termination_time, min_iterations, theta
     )
 
 
-def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, time_period_length, current_solution):
+def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, time_period_length, current_solution, waiting_strategy):
     # move all vehicles forward
     for dynamic_route in current_solution:
         # commit customers as long as the time period lasts
         while dynamic_route.processing_time < simulation_time and dynamic_route.route:
             if time_constraint_route(working_day, durations, adj_matrix,
                 Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
-            ):
+            ) and waiting_strategy == "wait_first":
                 dynamic_route.processing_time = simulation_time
                 break
             committed_customer = dynamic_route.route.pop(0)
@@ -87,7 +87,8 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
-    k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25
+    k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
+    waiting_strategy = "wait_first"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -138,7 +139,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         if len(current_solution) > 1:
             # improve solution using VNS
             current_cost, current_solution = vns(current_cost, current_solution, capacity, adj_matrix, demands,
-                working_day, durations, k_max, termination_time, min_iterations, theta
+                simulation_time, working_day, durations, k_max, termination_time, min_iterations, theta
             )
 
         # commit next time period
@@ -146,7 +147,8 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         current_solution = commit_next_time_period(
             adj_matrix,
             simulation_time, working_day,
-            durations, time_period_length, current_solution
+            durations, time_period_length, current_solution,
+            waiting_strategy
         )
 
         solution_list.append(deep_copy_routes(current_solution))

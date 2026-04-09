@@ -50,7 +50,7 @@ def cheapest_insertion(capacity, adj_matrix, demands, working_day, durations, ro
         return 0, routes + [Route([], [single], 0)]
 
 
-def repair(cost, capacity, adj_matrix, demands, working_day, durations, safe_routes, dangerous_routes):
+def repair(cost, capacity, adj_matrix, demands, simulation_time, working_day, durations, safe_routes, dangerous_routes):
     # split all routes that break capacity constraints
     while dangerous_routes:
         dynamic_route = dangerous_routes.pop()
@@ -72,7 +72,7 @@ def repair(cost, capacity, adj_matrix, demands, working_day, durations, safe_rou
             else:
                 dangerous_routes.append(dynamic_first_route)
 
-            dynamic_second_route = Route([], second_route, 0)
+            dynamic_second_route = Route([], second_route, simulation_time)
             if len(second_route) == 1:
                 insertion_cost, safe_routes = cheapest_insertion(capacity, adj_matrix, demands, working_day, durations, safe_routes, second_route[0])
                 cost += insertion_cost
