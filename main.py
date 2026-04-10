@@ -14,7 +14,7 @@ from repair import repair, split_route
 from dynamic_route import Route
 
 def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/standard_vns/",
-    waiting_strategy="wait_first", route_orientation_strategy="random"
+    waiting_strategy="wait_first", route_orientation_strategy="random", capacity_strategy="normal"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -37,7 +37,8 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
     for i in range(number_of_tests):
         cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities,
             waiting_strategy=waiting_strategy,
-            route_orientation_strategy=route_orientation_strategy
+            route_orientation_strategy=route_orientation_strategy,
+            capacity_strategy=capacity_strategy
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
@@ -54,7 +55,7 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
         json.dump(data, json_file, indent=4)
 
 def find_improving_solution(file_name, score_to_beat=100000000000000000000, solution_file="",
-    waiting_strategy="wait_first", route_orientation_strategy="random"
+    waiting_strategy="wait_first", route_orientation_strategy="random", capacity_strategy="normal"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -78,7 +79,8 @@ def find_improving_solution(file_name, score_to_beat=100000000000000000000, solu
         print("Test nr: " + str(tests_needed))
         cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities,
             waiting_strategy=waiting_strategy,
-            route_orientation_strategy=route_orientation_strategy
+            route_orientation_strategy=route_orientation_strategy,
+            capacity_strategy=capacity_strategy
         )
         if cost < score_to_beat:
             break
@@ -155,7 +157,7 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", route_orientation_strategy="closest_first")
+    find_improving_solution("c50.json", waiting_strategy="wait_first", capacity_strategy="reduce_capacity")
     """
     # 21 files
     list_of_dvrp_files = [

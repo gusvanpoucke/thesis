@@ -95,7 +95,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
-    waiting_strategy = "wait_first", route_orientation_strategy = "random"
+    waiting_strategy = "wait_first", route_orientation_strategy = "random", capacity_strategy = "normal"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -110,6 +110,11 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
     solution_list = []
 
     while simulation_time < working_day:
+        # reduce capacity early to force more routes
+        reduced_capacity = capacity
+        if capacity_strategy == "reduce_capacity" and simulation_time/working_day < 0.4:
+            reduced_capacity = (0.6 * capacity) + ((simulation_time/working_day) * capacity)
+
         if simulation_time == 0:
             # find static customers
             static_customers = []
@@ -119,7 +124,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             # create initial solution
             current_cost, current_solution = dynamic_savings(
                 static_customers,
-                capacity, adj_matrix, demands,
+                reduced_capacity, adj_matrix, demands,
                 simulation_time, working_day,
                 durations
             )
@@ -135,7 +140,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             # add customers to current solution
             new_cost, new_routes = dynamic_savings(
                 new_customers,
-                capacity, adj_matrix, demands,
+                reduced_capacity, adj_matrix, demands,
                 simulation_time, working_day,
                 durations
             )
@@ -145,7 +150,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         # can't cross with only 1 route
         if len(current_solution) > 1:
             # improve solution using VNS
-            current_cost, current_solution = vns(current_cost, current_solution, capacity, adj_matrix, demands,
+            current_cost, current_solution = vns(current_cost, current_solution, reduced_capacity, adj_matrix, demands,
                 simulation_time, working_day, durations, k_max, termination_time, min_iterations, theta
             )
 
