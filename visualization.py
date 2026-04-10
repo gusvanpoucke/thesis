@@ -93,7 +93,7 @@ def parse_dat(filepath):
     
     return np.array(coords)
 
-def visualize_dvrp_solution(dat_file, solution_file, destination_folder="visualization/"):
+def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_images=True, destination_folder="visualization/"):
     """Visualize DVRP solutions over time"""
     
     # Load coordinates
@@ -115,7 +115,7 @@ def visualize_dvrp_solution(dat_file, solution_file, destination_folder="visuali
 
     customers = []
 
-    colors = list(plt.cm.Paired.colors)
+    colors = list(plt.cm.Paired.colors) + list(plt.cm.tab10.colors)
     for idx, sol in enumerate(solutions):
         routes = sol['routes']
 
@@ -161,10 +161,12 @@ def visualize_dvrp_solution(dat_file, solution_file, destination_folder="visuali
         ax.legend(loc='upper right')
 
         plt.tight_layout()
-        filename = solution_file.replace('.json', f'_visualization_{idx+1}.png').replace('experiment_results/', destination_folder)
-        plt.savefig(filename, dpi=150, bbox_inches='tight')
-        print(f"Visualization saved to {filename}")
-        plt.show()
+        if save_images:
+            filename = solution_file.replace('.json', f'_visualization_{idx+1}.png').replace('experiment_results/', destination_folder)
+            plt.savefig(filename, dpi=150, bbox_inches='tight')
+            print(f"Visualization saved to {filename}")
+        if show_images:
+            plt.show()
         plt.close(fig)
 
 if __name__ == "__main__":
@@ -242,4 +244,4 @@ if __name__ == "__main__":
     bar_chart(list_of_solution_files, VNS_best_cost, title="Comparison of Best Costs", start=9)
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
     """
-    visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_wait_first.json', "visualization/wait_first_visualization/")
+    visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
