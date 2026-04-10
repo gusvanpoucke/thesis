@@ -69,16 +69,23 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
     )
 
 
-def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, time_period_length, current_solution, waiting_strategy):
+def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, time_period_length, current_solution,
+    waiting_strategy, route_orientation_strategy
+):
     # move all vehicles forward
     for dynamic_route in current_solution:
         # commit customers as long as the time period lasts
         while dynamic_route.processing_time < simulation_time and dynamic_route.route:
+            # if possible, wait until next time period to commit next customer
             if time_constraint_route(working_day, durations, adj_matrix,
                 Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
             ) and waiting_strategy == "wait_first":
                 dynamic_route.processing_time = simulation_time
                 break
+            # when first customer is committed, choose the closest one between first and last on route
+            if not(dynamic_route.covered_route) and route_orientation_strategy == "closest_first":
+                if adj_matrix[0][dynamic_route.route[-1]] < adj_matrix[0][dynamic_route.route[0]]:
+                    dynamic_route.route = dynamic_route.route[::-1]
             committed_customer = dynamic_route.route.pop(0)
             dynamic_route.processing_time += adj_matrix[dynamic_route.start()][committed_customer]
             dynamic_route.processing_time += durations[committed_customer]
@@ -88,7 +95,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
-    waiting_strategy = "wait_first"
+    waiting_strategy = "wait_first", route_orientation_strategy = "random"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -148,7 +155,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             adj_matrix,
             simulation_time, working_day,
             durations, time_period_length, current_solution,
-            waiting_strategy
+            waiting_strategy, route_orientation_strategy
         )
 
         solution_list.append(deep_copy_routes(current_solution))
