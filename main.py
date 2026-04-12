@@ -13,8 +13,8 @@ from VNS import cvrp, event_scheduler
 from repair import repair, split_route
 from dynamic_route import Route
 
-def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/standard_vns/",
-    waiting_strategy="wait_first", route_orientation_strategy="random", capacity_strategy="normal"
+def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/", results_file="",
+    waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -50,12 +50,15 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
         "best_cost": best_cost,
         "average_cost": total_cost/number_of_tests
     }
-    json_filename = f"{results_folder}{data['graph_name'].replace(' ', '_')}.json"
+    if results_file:
+        json_filename = f"{results_folder}{results_file}"
+    else:
+        json_filename = f"{results_folder}{data['graph_name'].replace(' ', '_')}.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
 def find_improving_solution(file_name, score_to_beat=100000000000000000000, solution_file="",
-    waiting_strategy="wait_first", route_orientation_strategy="random", capacity_strategy="normal"
+    waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -157,8 +160,6 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", waiting_strategy="wait_first", capacity_strategy="reduce_capacity")
-    """
     # 21 files
     list_of_dvrp_files = [
         #"c100.json",
@@ -169,13 +170,13 @@ if __name__ == "__main__":
         #"c50.json",
         #"c75.json",
         #"f134.json",
-        "f71.json",
-        "tai100a.json",
-        "tai100b.json",
-        "tai100c.json",
-        "tai100d.json",
-        "tai150a.json",
-        "tai150b.json",
+        #"f71.json",
+        #"tai100a.json",
+        #"tai100b.json",
+        #"tai100c.json",
+        #"tai100d.json",
+        #"tai150a.json",
+        #"tai150b.json",
         "tai150c.json",
         "tai150d.json",
         "tai75a.json",
@@ -184,5 +185,15 @@ if __name__ == "__main__":
         "tai75d.json"
     ]
     for dvrp_file in list_of_dvrp_files:
-        runXTestsOnFile(dvrp_file, results_folder="experiment_results/wait_first_vns/")
-    """
+        runXTestsOnFile(dvrp_file, results_folder="experiment_results/closest_first_vns/",
+            waiting_strategy="drive_first", route_orientation_strategy="closest_first"
+        )
+
+    runXTestsOnFile("c199.json", results_file="c199_wait_first_reduce_capacity.json",
+        waiting_strategy="wait_first", capacity_strategy="reduce_capacity")
+    runXTestsOnFile("c199.json", results_file="c199_drive_first_reduce_capacity.json",
+        waiting_strategy="drive_first", capacity_strategy="reduce_capacity")
+    runXTestsOnFile("c199.json", results_file="c199_wait_first_reduce_capacity_closest_first.json",
+        waiting_strategy="wait_first", capacity_strategy="reduce_capacity", route_orientation_strategy="closest_first")
+    runXTestsOnFile("c199.json", results_file="c199_drive_first_reduce_capacity_closest_first.json",
+        waiting_strategy="drive_first", capacity_strategy="reduce_capacity", route_orientation_strategy="closest_first")

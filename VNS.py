@@ -69,6 +69,25 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
     )
 
 
+def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route):
+    if time_constraint_route(working_day, durations, adj_matrix, Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)):
+        if (
+            (
+                waiting_strategy == "wait_first"
+            ) or
+            (
+                waiting_strategy == "max_dist" and
+                len(dynamic_route.route) < len(dynamic_route.covered_route)
+            ) or
+            (
+                waiting_strategy == "location" and
+                len(dynamic_route.covered_route)/len(dynamic_route.full_route()) >= simulation_time/working_day
+            )
+        ):
+            return True
+    return False
+
+
 def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, time_period_length, current_solution,
     waiting_strategy, route_orientation_strategy
 ):
@@ -77,9 +96,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
         # commit customers as long as the time period lasts
         while dynamic_route.processing_time < simulation_time and dynamic_route.route:
             # if possible, wait until next time period to commit next customer
-            if time_constraint_route(working_day, durations, adj_matrix,
-                Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
-            ) and waiting_strategy == "wait_first":
+            if wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route):
                 dynamic_route.processing_time = simulation_time
                 break
             # when first customer is committed, choose the closest one between first and last on route
@@ -95,7 +112,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
-    waiting_strategy = "wait_first", route_orientation_strategy = "random", capacity_strategy = "normal"
+    waiting_strategy = "drive_first", route_orientation_strategy = "random", capacity_strategy = "normal"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
