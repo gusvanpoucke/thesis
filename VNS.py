@@ -112,8 +112,11 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
     while simulation_time < working_day:
         # reduce capacity early to force more routes
         reduced_capacity = capacity
+        reduced_working_day = working_day
         if capacity_strategy == "reduce_capacity" and simulation_time/working_day < 0.4:
-            reduced_capacity = (0.6 * capacity) + ((simulation_time/working_day) * capacity)
+            reduction = 0.6 + simulation_time/working_day
+            reduced_capacity = reduction * capacity
+            reduced_working_day = reduction * working_day
 
         if simulation_time == 0:
             # find static customers
@@ -125,7 +128,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             current_cost, current_solution = dynamic_savings(
                 static_customers,
                 reduced_capacity, adj_matrix, demands,
-                simulation_time, working_day,
+                simulation_time, reduced_working_day,
                 durations
             )
         else:
@@ -141,7 +144,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             new_cost, new_routes = dynamic_savings(
                 new_customers,
                 reduced_capacity, adj_matrix, demands,
-                simulation_time, working_day,
+                simulation_time, reduced_working_day,
                 durations
             )
             current_cost += new_cost
@@ -151,7 +154,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         if len(current_solution) > 1:
             # improve solution using VNS
             current_cost, current_solution = vns(current_cost, current_solution, reduced_capacity, adj_matrix, demands,
-                simulation_time, working_day, durations, k_max, termination_time, min_iterations, theta
+                simulation_time, reduced_working_day, durations, k_max, termination_time, min_iterations, theta
             )
 
         # commit next time period
