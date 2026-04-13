@@ -21,12 +21,24 @@ def move_or_not(min_iterations, theta, original_cost, new_cost, last_accepted):
     return False
 
 
+def calculate_fullness(capacity, demands, dynamic_routes, relevance):
+    absolute_fullness = 0.0
+    for dynamic_route in dynamic_routes:
+        absolute_fullness += sum(demands[customer] for customer in dynamic_route.full_route()) / capacity
+    average_fullness = absolute_fullness / len(dynamic_routes)
+    return (average_fullness * relevance) + (1.0 - relevance)
+
+
 def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, simulation_time, working_day, durations,
-    k_max, termination_time, min_iterations, theta
+    k_max, termination_time, min_iterations, theta, fullness_relevance
 ):
     # build initial solution using Clarke and Wright savings algorithm
     current_cost, current_solution = initial_cost, initial_solution
     best_cost, best_solution = current_cost, deep_copy_routes(initial_solution)
+
+    # calculate fullness of routes in memory
+    current_fullness = calculate_fullness(capacity, demands, current_solution, fullness_relevance)
+    best_fullness = calculate_fullness(capacity, demands, best_solution, fullness_relevance)
 
     last_accepted = 0
     # terminate after maximum time used
@@ -42,13 +54,14 @@ def vns(initial_cost, initial_solution, capacity, adj_matrix, demands, simulatio
             # repair incumbent solution
             repaired_cost, repaired_solution = repair(local_cost, capacity, adj_matrix, demands, simulation_time, working_day, durations, unshaked_routes, local_solution)
             # move to new solution if conditions are right
-            if move_or_not(min_iterations, theta, current_cost, repaired_cost, last_accepted):
-                current_cost, current_solution = repaired_cost, repaired_solution
+            repaired_fullness = calculate_fullness(capacity, demands, repaired_solution, fullness_relevance)
+            if move_or_not(min_iterations, theta, current_cost * current_fullness, repaired_cost * repaired_fullness, last_accepted):
+                current_cost, current_solution, current_fullness = repaired_cost, repaired_solution, repaired_fullness
                 k = 1
                 last_accepted = 0
                 # update best found solution
-                if current_cost < best_cost:
-                    best_cost, best_solution = current_cost, deep_copy_routes(current_solution)
+                if current_cost * current_fullness < best_cost * best_fullness:
+                    best_cost, best_solution, best_fullness = current_cost, deep_copy_routes(current_solution), current_fullness
             # if no better solution found, move to next neighbourhood
             else:
                 k += 1
@@ -177,9 +190,16 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                 altered_termination_time = (termination_time * time_periods) * (new_customers_quantity / n)
             elif time_strategy == "uniform_new_customers":
                 altered_termination_time = 0.0 if new_customers_quantity == 0 else termination_time / cut_off
+
+            # calculate fullness relevance
+            fullness_relevance = 0.0
+            if capacity_strategy == "punish_fullness" and simulation_time/working_day < 0.5:
+                fullness_relevance = 1.0 - (simulation_time/working_day)*2
+
             # improve solution using VNS
             current_cost, current_solution = vns(current_cost, current_solution, reduced_capacity, adj_matrix, demands,
-                simulation_time, reduced_working_day, durations, k_max, altered_termination_time, min_iterations, theta
+                simulation_time, reduced_working_day, durations, k_max, altered_termination_time, min_iterations, theta,
+                fullness_relevance
             )
 
         # commit next time period
