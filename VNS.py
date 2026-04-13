@@ -112,7 +112,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
-    waiting_strategy = "drive_first", route_orientation_strategy = "random", capacity_strategy = "normal"
+    waiting_strategy = "drive_first", route_orientation_strategy = "random", capacity_strategy = "normal", time_strategy="uniform"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -141,6 +141,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             for customer in range(1, n):
                 if avail[customer] == 0:
                     static_customers.append(customer)
+            new_customers_quantity = len(static_customers)
             # create initial solution
             current_cost, current_solution = dynamic_savings(
                 static_customers,
@@ -157,6 +158,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                     and avail[customer] != 0
                 ):
                     new_customers.append(customer)
+            new_customers_quantity = len(new_customers)
             # add customers to current solution
             new_cost, new_routes = dynamic_savings(
                 new_customers,
@@ -169,9 +171,15 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         
         # can't cross with only 1 route
         if len(current_solution) > 1:
+            # divide time based on new customers
+            altered_termination_time = termination_time
+            if time_strategy == "new_customers":
+                altered_termination_time = (termination_time * time_periods) * (new_customers_quantity / n)
+            elif time_strategy == "uniform_new_customers":
+                altered_termination_time = 0.0 if new_customers_quantity == 0 else termination_time / cut_off
             # improve solution using VNS
             current_cost, current_solution = vns(current_cost, current_solution, reduced_capacity, adj_matrix, demands,
-                simulation_time, reduced_working_day, durations, k_max, termination_time, min_iterations, theta
+                simulation_time, reduced_working_day, durations, k_max, altered_termination_time, min_iterations, theta
             )
 
         # commit next time period
