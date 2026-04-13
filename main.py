@@ -162,21 +162,21 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
 if __name__ == "__main__":
     # 21 files
     list_of_dvrp_files = [
-        #"c100.json",
-        #"c100b.json", 
-        #"c120.json",
-        #"c150.json",
-        #"c199.json",
-        #"c50.json",
-        #"c75.json",
-        #"f134.json",
-        #"f71.json",
-        #"tai100a.json",
-        #"tai100b.json",
-        #"tai100c.json",
-        #"tai100d.json",
-        #"tai150a.json",
-        #"tai150b.json",
+        "c100.json",
+        "c100b.json", 
+        "c120.json",
+        "c150.json",
+        "c199.json",
+        "c50.json",
+        "c75.json",
+        "f134.json",
+        "f71.json",
+        "tai100a.json",
+        "tai100b.json",
+        "tai100c.json",
+        "tai100d.json",
+        "tai150a.json",
+        "tai150b.json",
         "tai150c.json",
         "tai150d.json",
         "tai75a.json",
@@ -188,12 +188,3 @@ if __name__ == "__main__":
         runXTestsOnFile(dvrp_file, results_folder="experiment_results/closest_first_vns/",
             waiting_strategy="drive_first", route_orientation_strategy="closest_first"
         )
-
-    runXTestsOnFile("c199.json", results_file="c199_wait_first_reduce_capacity.json",
-        waiting_strategy="wait_first", capacity_strategy="reduce_capacity")
-    runXTestsOnFile("c199.json", results_file="c199_drive_first_reduce_capacity.json",
-        waiting_strategy="drive_first", capacity_strategy="reduce_capacity")
-    runXTestsOnFile("c199.json", results_file="c199_wait_first_reduce_capacity_closest_first.json",
-        waiting_strategy="wait_first", capacity_strategy="reduce_capacity", route_orientation_strategy="closest_first")
-    runXTestsOnFile("c199.json", results_file="c199_drive_first_reduce_capacity_closest_first.json",
-        waiting_strategy="drive_first", capacity_strategy="reduce_capacity", route_orientation_strategy="closest_first")
