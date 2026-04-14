@@ -14,7 +14,7 @@ from repair import repair, split_route
 from dynamic_route import Route
 
 def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder="experiment_results/fullness_parameters/",
-    number_of_tests=30, waiting_strategy="wait_first", termination_time=0.1
+    number_of_tests=1, waiting_strategy="wait_first", termination_time=5
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
