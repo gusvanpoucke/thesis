@@ -13,6 +13,61 @@ from VNS import cvrp, event_scheduler
 from repair import repair, split_route
 from dynamic_route import Route
 
+def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder="experiment_results/fullness_parameters/",
+    number_of_tests=30, waiting_strategy="wait_first", termination_time=0.1
+):
+    FILEPATH = "dvrp_data/processed/" + file_name
+
+    with open(FILEPATH, 'r') as file:
+        VRP = json.load(file)
+
+    graph_name = VRP['graph_name']
+    print(graph_name)
+    n_customers = VRP['n']
+    weights = np.array(VRP['weights'])
+    demands = np.array(VRP['demands'])
+    capacity = VRP['capacity']
+    durations = np.array(VRP['durations'])
+    working_day = VRP['working_day']
+    availabilities = np.array(VRP['availabilities'])
+
+    tests = []
+
+    # run a test for every combination of alpha and epsilon
+    for alpha in list_of_alphas:
+        for epsilon in list_of_epsilons:
+            # run X tests
+            best_cost = 1000000000000.0
+            total_cost = 0.0
+            for i in range(number_of_tests):
+                cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities,
+                    waiting_strategy=waiting_strategy,
+                    termination_time=termination_time,
+                    alpha=alpha, epsilon=epsilon
+                )
+                best_cost = min(best_cost, cost)
+                total_cost += cost
+
+            # record results
+            tests.append({
+                "alpha": alpha,
+                "epsilon": epsilon,
+                "best_cost": best_cost,
+                "average_cost": total_cost/number_of_tests
+            })
+    
+    # write to file
+    data = {
+        "graph_name": graph_name,
+        "number_of_tests": number_of_tests,
+        "waiting_strategy": waiting_strategy,
+        "termination_time": termination_time,
+        "tests": tests
+    }
+    json_filename = f"{results_folder}{waiting_strategy}/{data['graph_name'].replace(' ', '_')}.json"
+    with open(json_filename, "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
 def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/", results_file="",
     waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal", time_strategy="uniform"
 ):
@@ -162,8 +217,6 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", time_strategy="uniform_new_customers", waiting_strategy="wait_first")
-    """
     # 21 files
     list_of_dvrp_files = [
         "c100.json",
@@ -188,8 +241,9 @@ if __name__ == "__main__":
         "tai75c.json",
         "tai75d.json"
     ]
+    alphas = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]
+    epsilons = [0.0, 0.5, 1.0, 1.5, 2.0]
     for dvrp_file in list_of_dvrp_files:
-        runXTestsOnFile(dvrp_file, results_folder="experiment_results/closest_first_vns/",
-            waiting_strategy="drive_first", route_orientation_strategy="closest_first"
-        )
-    """
+        tune_parameters(dvrp_file, alphas, epsilons)
+    for dvrp_file in list_of_dvrp_files:
+        tune_parameters(dvrp_file, alphas, epsilons, waiting_strategy="drive_first")
