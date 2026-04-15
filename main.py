@@ -13,8 +13,8 @@ from VNS import cvrp, event_scheduler
 from repair import repair, split_route
 from dynamic_route import Route
 
-def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder="experiment_results/fullness_parameters/",
-    number_of_tests=1, waiting_strategy="wait_first", termination_time=5
+def check_parameters(file_name, alpha, epsilon, results_folder="experiment_results/fullness_parameters/",
+    number_of_tests=30, waiting_strategy="wait_first", termination_time=5
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -30,6 +30,56 @@ def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder=
     durations = np.array(VRP['durations'])
     working_day = VRP['working_day']
     availabilities = np.array(VRP['availabilities'])
+    angles = np.array(VRP['angles'])
+
+    tests = []
+
+    # run X tests
+    best_cost = 1000000000000.0
+    total_cost = 0.0
+    for i in range(number_of_tests):
+        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
+            waiting_strategy=waiting_strategy,
+            termination_time=termination_time,
+            alpha=alpha, epsilon=epsilon
+        )
+        best_cost = min(best_cost, cost)
+        total_cost += cost
+
+    # record results
+    data = {
+        "graph_name": graph_name,
+        "number_of_tests": number_of_tests,
+        "waiting_strategy": waiting_strategy,
+        "termination_time": termination_time,
+        "alpha": alpha,
+        "epsilon": epsilon,
+        "best_cost": best_cost,
+        "average_cost": total_cost/number_of_tests
+    }
+    json_filename = f"{results_folder}{waiting_strategy}/alpha_{str(alpha).replace('.', '_')}_epsilon_{str(epsilon).replace('.', '_')}.json"
+    with open(json_filename, "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
+
+def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder="experiment_results/fullness_parameters/",
+    number_of_tests=30, waiting_strategy="wait_first", termination_time=5
+):
+    FILEPATH = "dvrp_data/processed/" + file_name
+
+    with open(FILEPATH, 'r') as file:
+        VRP = json.load(file)
+
+    graph_name = VRP['graph_name']
+    print(graph_name)
+    n_customers = VRP['n']
+    weights = np.array(VRP['weights'])
+    demands = np.array(VRP['demands'])
+    capacity = VRP['capacity']
+    durations = np.array(VRP['durations'])
+    working_day = VRP['working_day']
+    availabilities = np.array(VRP['availabilities'])
+    angles = np.array(VRP['angles'])
 
     tests = []
 
@@ -40,7 +90,7 @@ def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder=
             best_cost = 1000000000000.0
             total_cost = 0.0
             for i in range(number_of_tests):
-                cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities,
+                cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
                     waiting_strategy=waiting_strategy,
                     termination_time=termination_time,
                     alpha=alpha, epsilon=epsilon
@@ -85,12 +135,13 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
     durations = np.array(VRP['durations'])
     working_day = VRP['working_day']
     availabilities = np.array(VRP['availabilities'])
+    angles = np.array(VRP['angles'])
 
     # run 30 tests
     best_cost = 1000000000000.0
     total_cost = 0.0
     for i in range(number_of_tests):
-        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities,
+        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
             route_orientation_strategy=route_orientation_strategy,
             capacity_strategy=capacity_strategy,
@@ -114,7 +165,8 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
         json.dump(data, json_file, indent=4)
 
 def find_improving_solution(file_name, score_to_beat=100000000000000000000, solution_file="",
-    waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal", time_strategy="uniform"
+    waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal", time_strategy="uniform",
+    alpha=0.0, epsilon=0.0
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -130,17 +182,19 @@ def find_improving_solution(file_name, score_to_beat=100000000000000000000, solu
     durations = np.array(VRP['durations'])
     working_day = VRP['working_day']
     availabilities = np.array(VRP['availabilities'])
+    angles = np.array(VRP['angles'])
 
     # run tests until improving solution is found
     tests_needed = 0
     while True:
         tests_needed += 1
         print("Test nr: " + str(tests_needed))
-        cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities,
+        cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
             route_orientation_strategy=route_orientation_strategy,
             capacity_strategy=capacity_strategy,
-            time_strategy=time_strategy
+            time_strategy=time_strategy,
+            alpha=alpha, epsilon=epsilon
         )
         if cost < score_to_beat:
             break
@@ -217,33 +271,8 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    # 21 files
-    list_of_dvrp_files = [
-        "c100.json",
-        "c100b.json", 
-        "c120.json",
-        "c150.json",
-        "c199.json",
-        "c50.json",
-        "c75.json",
-        "f134.json",
-        "f71.json",
-        "tai100a.json",
-        "tai100b.json",
-        "tai100c.json",
-        "tai100d.json",
-        "tai150a.json",
-        "tai150b.json",
-        "tai150c.json",
-        "tai150d.json",
-        "tai75a.json",
-        "tai75b.json",
-        "tai75c.json",
-        "tai75d.json"
-    ]
-    alphas = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0]
-    epsilons = [0.0, 0.5, 1.0, 1.5, 2.0]
-    for dvrp_file in list_of_dvrp_files:
-        tune_parameters(dvrp_file, alphas, epsilons)
-    for dvrp_file in list_of_dvrp_files:
-        tune_parameters(dvrp_file, alphas, epsilons, waiting_strategy="drive_first")
+    alphas = [2.0, 4.0, 6.0, 8.0, 10.0]
+    epsilons = [0.0, 1.0, 2.0, 3.0, 4.0]
+    for alpha in alphas:
+        for epsilon in epsilons:
+            check_parameters("c150.json", alpha, epsilon)

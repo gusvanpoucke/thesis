@@ -1,4 +1,5 @@
 import time
+import math
 from Clarke_and_Wright_savings import dynamic_savings
 from shake import shake
 from local_search import local_search
@@ -102,7 +103,7 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_m
     return False
 
 
-def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, time_period_length, current_solution,
+def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, angles, time_period_length, current_solution,
     waiting_strategy, route_orientation_strategy
 ):
     # move all vehicles forward
@@ -113,9 +114,15 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
             if wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route):
                 dynamic_route.processing_time = simulation_time
                 break
+        
             # when first customer is committed, choose the closest one between first and last on route
             if not(dynamic_route.covered_route) and route_orientation_strategy == "closest_first":
                 if adj_matrix[0][dynamic_route.route[-1]] < adj_matrix[0][dynamic_route.route[0]]:
+                    dynamic_route.route = dynamic_route.route[::-1]
+            
+            # when first customer is committed, traverse route in clockwise order
+            if not(dynamic_route.covered_route) and route_orientation_strategy == "clockwise":
+                if ((angles[dynamic_route.route[-1]] - angles[dynamic_route.route[0]]) % (2 * math.pi)) < math.pi:
                     dynamic_route.route = dynamic_route.route[::-1]
             committed_customer = dynamic_route.route.pop(0)
             dynamic_route.processing_time += adj_matrix[dynamic_route.start()][committed_customer]
@@ -124,7 +131,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
     return current_solution
 
 
-def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities,
+def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities, angles,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
     waiting_strategy = "drive_first", route_orientation_strategy = "random", capacity_strategy = "normal", time_strategy="uniform",
     alpha = 0.0, epsilon = 0.0
@@ -209,7 +216,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         current_solution = commit_next_time_period(
             adj_matrix,
             simulation_time, working_day,
-            durations, time_period_length, current_solution,
+            durations, angles, time_period_length, current_solution,
             waiting_strategy, route_orientation_strategy
         )
 
