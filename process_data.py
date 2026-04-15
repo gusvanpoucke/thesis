@@ -200,6 +200,13 @@ def parse_dat(filepath):
     diff = coords[:, np.newaxis, :] - coords[np.newaxis, :, :]
     distance_matrix = np.sqrt(np.sum(diff**2, axis=-1))
 
+    # Calculate angles
+    angles = [0.0] * n
+    x1, y1 = coords[0]
+    for index, coord in enumerate(coords[1:]):
+        x2, y2 = coord
+        angles[index+1] = math.atan2(y2 - y1, x2 - x1)
+
     # Parse visit durations
     match = re.search(r"DURATION_SECTION\s+([\d\s\.]+)\s+DEPOT_TIME_WINDOW_SECTION", text, re.DOTALL)
     if not match:
@@ -247,7 +254,8 @@ def parse_dat(filepath):
         "weights": distance_matrix.tolist(),
         "durations": durations,
         "working_day": working_day,
-        "availabilities": availabilities
+        "availabilities": availabilities,
+        "angles": angles
     }
 
     return data
