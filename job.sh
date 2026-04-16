@@ -1,6 +1,6 @@
 #!/bin/bash
-#PBS -N test
-#PBS -l walltime=01:00:00
+#PBS -N standard_vns
+#PBS -l walltime=30:00:00
 #PBS -l nodes=1:ppn=1
 
 cd $PBS_O_WORKDIR
