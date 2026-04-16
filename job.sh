@@ -5,6 +5,7 @@
 
 cd $PBS_O_WORKDIR
 
-module load numpy
+module load Python/3.11.3-GCCcore-12.3.0
+module load SciPy-bundle/2023.07-gfbf-2023a
 
 python job.py
