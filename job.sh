@@ -7,6 +7,4 @@ cd $PBS_O_WORKDIR
 
 module load numpy
 
-python --version
-
 python job.py
