@@ -57,7 +57,7 @@ def check_parameters(file_name, alpha, epsilon, results_folder="experiment_resul
         "best_cost": best_cost,
         "average_cost": total_cost/number_of_tests
     }
-    json_filename = results_folder + waiting_strategy + "/alpha_" + str(alpha).replace('.', '_') + "_epsilon_" + str(epsilon).replace('.', '_') + ".json"
+    json_filename = f"{results_folder}{waiting_strategy}/alpha_{str(alpha).replace('.', '_')}_epsilon_{str(epsilon).replace('.', '_')}.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
@@ -114,7 +114,7 @@ def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder=
         "termination_time": termination_time,
         "tests": tests
     }
-    json_filename = results_folder + waiting_strategy + "/" + data['graph_name'].replace(' ', '_') + ".json"
+    json_filename = f"{results_folder}{waiting_strategy}/{data['graph_name'].replace(' ', '_')}.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
@@ -158,9 +158,9 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
         "average_cost": total_cost/number_of_tests
     }
     if results_file:
-        json_filename = results_folder + results_file
+        json_filename = f"{results_folder}{results_file}"
     else:
-        json_filename = results_folder + data['graph_name'].replace(' ', '_') + ".json"
+        json_filename = f"{results_folder}{data['graph_name'].replace(' ', '_')}.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
@@ -217,7 +217,7 @@ def find_improving_solution(file_name, score_to_beat=100000000000000000000, solu
             }
         for solution in all_solutions]
     }
-    json_filename = solution_file if solution_file else "experiment_results/" + data['graph_name'].replace(' ', '_') + "_solution.json"
+    json_filename = solution_file if solution_file else f"experiment_results/{data['graph_name'].replace(' ', '_')}_solution.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
