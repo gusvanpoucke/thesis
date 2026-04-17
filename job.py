@@ -28,6 +28,6 @@ list_of_dvrp_files = [
 ]
 
 os.makedirs("hpc_jobs/", exist_ok=True)
-os.makedirs("hpc_jobs/standard_vns/", exist_ok=True)
+os.makedirs("hpc_jobs/wait_first_vns/", exist_ok=True)
 for dvrp_file in list_of_dvrp_files:
-    runXTestsOnFile(dvrp_file, results_folder="hpc_jobs/standard_vns/")
+    runXTestsOnFile(dvrp_file, results_folder="hpc_jobs/standard_vns/", waiting_strategy="wait_first")
