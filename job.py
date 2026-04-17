@@ -18,7 +18,7 @@ array_id = int(sys.argv[1])
 dvrp_file = list_of_dvrp_files[array_id]
 
 # Results folder
-FOLDER = f"hpc_jobs/fullness_parameters/drive_first/{dvrp_file.replace(".json", "")}/"
+FOLDER = f"hpc_jobs/fullness_parameters/drive_first/{dvrp_file.replace('.json', '')}/"
 os.makedirs(FOLDER, exist_ok=True)
 
 # Run the function
