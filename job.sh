@@ -1,7 +1,7 @@
 #!/bin/bash
-#PBS -N closest_first_vns
-#PBS -l walltime=30:00:00
-#PBS -l nodes=1:ppn=1
+#PBS -N parallel_test
+#PBS -l walltime=01:00:00
+#PBS -l nodes=1:ppn=21
 
 cd $PBS_O_WORKDIR
 
