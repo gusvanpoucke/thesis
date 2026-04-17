@@ -1,7 +1,8 @@
 import os
-from multiprocessing import Pool
+import sys
 from main import find_improving_solution
 
+# Your 21 files in order
 list_of_dvrp_files = [
     "c100.json", "c100b.json", "c120.json", "c150.json", "c199.json",
     "c50.json", "c75.json", "f134.json", "f71.json", "tai100a.json",
@@ -10,17 +11,17 @@ list_of_dvrp_files = [
     "tai75b.json", "tai75c.json", "tai75d.json"
 ]
 
+# Get array ID from command line argument
+array_id = int(sys.argv[1])
+
+# Get the file for this task
+dvrp_file = list_of_dvrp_files[array_id]
+
+# Results folder
 FOLDER = "hpc_jobs/parallel_test/"
 os.makedirs(FOLDER, exist_ok=True)
 
-def process_file(dvrp_file):
-    print(f"Processing {dvrp_file}")
-    find_improving_solution(dvrp_file, solution_file=f"{FOLDER}{dvrp_file}")
-    return f"Completed {dvrp_file}"
-
-if __name__ == '__main__':
-    with Pool(processes=int(os.environ.get('PBS_NUM_PPN', 21))) as pool:
-        results = pool.map(process_file, list_of_dvrp_files)
-
-    for result in results:
-        print(result)
+# Run the function
+print(f"Task {array_id}: Processing {dvrp_file}")
+find_improving_solution(dvrp_file, solution_file=f"{FOLDER}{dvrp_file}")
+print(f"Task {array_id}: Completed {dvrp_file}")
