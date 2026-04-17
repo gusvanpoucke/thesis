@@ -18,8 +18,9 @@ def process_file(dvrp_file):
     find_improving_solution(dvrp_file, solution_file=f"{FOLDER}{dvrp_file}")
     return f"Completed {dvrp_file}"
 
-with Pool(processes=int(os.environ.get('PBS_NUM_PPN', 21))) as pool:
-    results = pool.map(process_file, list_of_dvrp_files)
+if __name__ == '__main__':
+    with Pool(processes=int(os.environ.get('PBS_NUM_PPN', 21))) as pool:
+        results = pool.map(process_file, list_of_dvrp_files)
 
-for result in results:
-    print(result)
+    for result in results:
+        print(result)
