@@ -27,7 +27,7 @@ list_of_dvrp_files = [
     "tai75d.json"
 ]
 
-FOLDER = "hpc_jobs/wait_first_vns/"
+FOLDER = "hpc_jobs/closest_first_vns/"
 os.makedirs(FOLDER, exist_ok=True)
 for dvrp_file in list_of_dvrp_files:
-    runXTestsOnFile(dvrp_file, results_folder=FOLDER, waiting_strategy="wait_first")
+    runXTestsOnFile(dvrp_file, results_folder=FOLDER, route_orientation_strategy="closest_first")

@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N wait_first_vns
+#PBS -N closest_first_vns
 #PBS -l walltime=30:00:00
 #PBS -l nodes=1:ppn=1
 
