@@ -1,6 +1,6 @@
 import os
 import sys
-from main import find_improving_solution
+from main import check_parameters
 
 # Your 21 files in order
 list_of_dvrp_files = [
@@ -18,10 +18,16 @@ array_id = int(sys.argv[1])
 dvrp_file = list_of_dvrp_files[array_id]
 
 # Results folder
-FOLDER = "hpc_jobs/parallel_test/"
+FOLDER = f"hpc_jobs/fullness_parameters/drive_first/{dvrp_file.replace(".json", "")}/"
 os.makedirs(FOLDER, exist_ok=True)
 
 # Run the function
 print(f"Task {array_id}: Processing {dvrp_file}")
-find_improving_solution(dvrp_file, solution_file=f"{FOLDER}{dvrp_file}")
+
+alphas = [2.0, 4.0, 6.0, 8.0, 10.0]
+epsilons = [0.0, 0.5, 1.0, 1.5, 2.0]
+for alpha in alphas:
+    for epsilon in epsilons:
+        check_parameters(dvrp_file, alpha, epsilon, results_folder=FOLDER, waiting_strategy="drive_first")
+
 print(f"Task {array_id}: Completed {dvrp_file}")

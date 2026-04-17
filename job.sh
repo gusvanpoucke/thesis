@@ -1,6 +1,6 @@
 #!/bin/bash
-#PBS -N parallel_test
-#PBS -l walltime=01:00:00
+#PBS -N fullness_drive
+#PBS -l walltime=32:00:00
 #PBS -l nodes=1:ppn=1
 #PBS -t 0-20
 #PBS -o logs/output_${PBS_ARRAYID}.out
