@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 
 # Your 21 files in order
 list_of_dvrp_files = [
@@ -37,6 +38,26 @@ def compare_heuristics(heuristic_folder, comparison_folder):
     json_filename = f"{heuristic_folder}_compare_heuristics.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
+    
+    return data
+
+def compare_parameters(parameter_folder, comparison_folder):
+    parameters = {}
+    for item in os.listdir(parameter_folder):
+        item_path = os.path.join(parameter_folder, item)
+        if os.path.isdir(item_path):
+            data = compare_heuristics(item_path, comparison_folder)
+            parameters[item] = data['average_relative_improvement']
+    
+    # write to file
+    data = {
+        "heuristic": parameter_folder,
+        "comparison": comparison_folder,
+        "relative_improvement_for_parameters": parameters
+    }
+    json_filename = f"{parameter_folder}_compare_heuristics.json"
+    with open(json_filename, "w") as json_file:
+        json.dump(data, json_file, indent=4)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Compare heuristic to standard case")
@@ -48,8 +69,18 @@ if __name__ == "__main__":
         "comparison_folder",
         help="Path to the comparison folder"
     )
+    parser.add_argument(
+        "--mode",
+        choices=["heuristics", "parameters"],
+        default="heuristics",
+        help="Mode to run: heuristics or parameters (default: heuristics)"
+    )
     
     args = parser.parse_args()
     
-    compare_heuristics(args.heuristic_folder, args.comparison_folder)
-    print(f"Comparison complete. Results saved to {args.heuristic_folder}compare_heuristics.json")
+    if args.mode == "heuristics":
+        compare_heuristics(args.heuristic_folder, args.comparison_folder)
+        print(f"Heuristics comparison complete. Results saved to {args.heuristic_folder}_compare_heuristics.json")
+    elif args.mode == "parameters":
+        compare_parameters(args.heuristic_folder, args.parameter_folder)
+        print(f"Parameters comparison complete. Results saved to {args.heuristic_folder}_compare_heuristics.json")
