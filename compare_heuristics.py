@@ -44,7 +44,7 @@ def compare_heuristics(heuristic_folder, comparison_folder):
 def compare_parameters(parameter_folder, comparison_folder):
     parameters = {}
     for item in os.listdir(parameter_folder):
-        item_path = os.path.join(parameter_folder, item)
+        item_path = f"{parameter_folder}{item}/"
         if os.path.isdir(item_path):
             data = compare_heuristics(item_path, comparison_folder)
             parameters[item] = data['average_relative_improvement']
