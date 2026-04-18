@@ -155,7 +155,8 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         if simulation_time/working_day < full_capacity_time:
             reduction = starting_capacity + (simulation_time/working_day) * (1 - starting_capacity) / full_capacity_time
             reduced_capacity = reduction * capacity
-            reduced_working_day = reduction * working_day
+            # is this breaking capacity_drive?
+            #reduced_working_day = reduction * working_day 
 
         if simulation_time == 0:
             # find static customers

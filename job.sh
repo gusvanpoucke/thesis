@@ -2,7 +2,6 @@
 #PBS -N capacity_drive
 #PBS -l walltime=32:00:00
 #PBS -l nodes=1:ppn=1
-#PBS -l mem=20gb
 #PBS -t 0-20
 #PBS -o logs/output_${PBS_ARRAYID}.out
 #PBS -e logs/error_${PBS_ARRAYID}.err
