@@ -107,6 +107,50 @@ def check_parameters_reduce_capacity(file_name, starting_capacity, full_capacity
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
+def check_parameters_max_fullness(file_name, alpha, results_folder, waiting_strategy, number_of_tests=30):
+    FILEPATH = "dvrp_data/processed/" + file_name
+
+    with open(FILEPATH, 'r') as file:
+        VRP = json.load(file)
+
+    graph_name = VRP['graph_name']
+    print(graph_name)
+    n_customers = VRP['n']
+    weights = np.array(VRP['weights'])
+    demands = np.array(VRP['demands'])
+    capacity = VRP['capacity']
+    durations = np.array(VRP['durations'])
+    working_day = VRP['working_day']
+    availabilities = np.array(VRP['availabilities'])
+    angles = np.array(VRP['angles'])
+
+    tests = []
+
+    # run X tests
+    best_cost = 1000000000000.0
+    total_cost = 0.0
+    for i in range(number_of_tests):
+        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
+            waiting_strategy=waiting_strategy,
+            fullness_strategy="max",
+            alpha=alpha
+        )
+        best_cost = min(best_cost, cost)
+        total_cost += cost
+
+    # record results
+    data = {
+        "graph_name": graph_name,
+        "number_of_tests": number_of_tests,
+        "waiting_strategy": waiting_strategy,
+        "alpha": alpha,
+        "best_cost": best_cost,
+        "average_cost": total_cost/number_of_tests
+    }
+    json_filename = f"{results_folder}{file_name}"
+    with open(json_filename, "w") as json_file:
+        json.dump(data, json_file, indent=4)
+
 def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/", results_file="",
     waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform"
 ):
@@ -258,4 +302,4 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    check_parameters_reduce_capacity("c50.json", 0.5, 0.5, "experiment_results/", "drive_first", number_of_tests=1)
+    check_parameters_max_fullness("c50.json", 4.0, "experiment_results/", "drive_first", number_of_tests=1)
