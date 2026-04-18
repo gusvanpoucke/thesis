@@ -82,5 +82,5 @@ if __name__ == "__main__":
         compare_heuristics(args.heuristic_folder, args.comparison_folder)
         print(f"Heuristics comparison complete. Results saved to {args.heuristic_folder}_compare_heuristics.json")
     elif args.mode == "parameters":
-        compare_parameters(args.heuristic_folder, args.parameter_folder)
+        compare_parameters(args.heuristic_folder, args.comparison_folder)
         print(f"Parameters comparison complete. Results saved to {args.heuristic_folder}_compare_heuristics.json")
