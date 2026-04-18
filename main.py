@@ -303,7 +303,7 @@ def compare_heuristics(heuristic_folder, comparison_folder):
         "count_improved": count_improved,
         "average_relative_improvement": average_relative_improvement
     }
-    json_filename = f"{heuristic_folder}compare_heuristics.json"
+    json_filename = f"{heuristic_folder}_compare_heuristics.json"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
