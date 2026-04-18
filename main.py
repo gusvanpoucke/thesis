@@ -13,15 +13,6 @@ from VNS import cvrp, event_scheduler
 from repair import repair, split_route
 from dynamic_route import Route
 
-# Your 21 files in order
-list_of_dvrp_files = [
-    "c100.json", "c100b.json", "c120.json", "c150.json", "c199.json",
-    "c50.json", "c75.json", "f134.json", "f71.json", "tai100a.json",
-    "tai100b.json", "tai100c.json", "tai100d.json", "tai150a.json",
-    "tai150b.json", "tai150c.json", "tai150d.json", "tai75a.json",
-    "tai75b.json", "tai75c.json", "tai75d.json"
-]
-
 def check_parameters(file_name, alpha, epsilon, results_folder="experiment_results/fullness_parameters/",
     number_of_tests=30, waiting_strategy="wait_first", termination_time=5
 ):
@@ -70,9 +61,8 @@ def check_parameters(file_name, alpha, epsilon, results_folder="experiment_resul
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-
-def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder="experiment_results/fullness_parameters/",
-    number_of_tests=30, waiting_strategy="wait_first", termination_time=5
+def check_parameters_reduce_capacity(file_name, starting_capacity, full_capacity_time, results_folder, waiting_strategy,
+    number_of_tests=30
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -92,43 +82,33 @@ def tune_parameters(file_name, list_of_alphas, list_of_epsilons, results_folder=
 
     tests = []
 
-    # run a test for every combination of alpha and epsilon
-    for alpha in list_of_alphas:
-        for epsilon in list_of_epsilons:
-            # run X tests
-            best_cost = 1000000000000.0
-            total_cost = 0.0
-            for i in range(number_of_tests):
-                cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
-                    waiting_strategy=waiting_strategy,
-                    termination_time=termination_time,
-                    alpha=alpha, epsilon=epsilon
-                )
-                best_cost = min(best_cost, cost)
-                total_cost += cost
+    # run X tests
+    best_cost = 1000000000000.0
+    total_cost = 0.0
+    for i in range(number_of_tests):
+        cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
+            waiting_strategy=waiting_strategy,
+            starting_capacity=starting_capacity, full_capacity_time=full_capacity_time
+        )
+        best_cost = min(best_cost, cost)
+        total_cost += cost
 
-            # record results
-            tests.append({
-                "alpha": alpha,
-                "epsilon": epsilon,
-                "best_cost": best_cost,
-                "average_cost": total_cost/number_of_tests
-            })
-    
-    # write to file
+    # record results
     data = {
         "graph_name": graph_name,
         "number_of_tests": number_of_tests,
         "waiting_strategy": waiting_strategy,
-        "termination_time": termination_time,
-        "tests": tests
+        "starting_capacity": starting_capacity,
+        "full_capacity_time": full_capacity_time,
+        "best_cost": best_cost,
+        "average_cost": total_cost/number_of_tests
     }
-    json_filename = f"{results_folder}{waiting_strategy}/{data['graph_name'].replace(' ', '_')}.json"
+    json_filename = f"{results_folder}{file_name}"
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
 def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/", results_file="",
-    waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal", time_strategy="uniform"
+    waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -153,7 +133,6 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
         cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
             route_orientation_strategy=route_orientation_strategy,
-            capacity_strategy=capacity_strategy,
             time_strategy=time_strategy
         )
         best_cost = min(best_cost, cost)
@@ -174,7 +153,7 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
         json.dump(data, json_file, indent=4)
 
 def find_improving_solution(file_name, score_to_beat=100000000000000000000, solution_file="",
-    waiting_strategy="drive_first", route_orientation_strategy="random", capacity_strategy="normal", time_strategy="uniform",
+    waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform",
     alpha=0.0, epsilon=0.0
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
@@ -201,7 +180,6 @@ def find_improving_solution(file_name, score_to_beat=100000000000000000000, solu
         cost, all_solutions = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
             route_orientation_strategy=route_orientation_strategy,
-            capacity_strategy=capacity_strategy,
             time_strategy=time_strategy,
             alpha=alpha, epsilon=epsilon
         )
@@ -279,33 +257,5 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     
     return total_best, total_average, len(files)
 
-def compare_heuristics(heuristic_folder, comparison_folder):
-    count_improved = 0
-    total_relative_improvement = 0.0
-    for dvrp_file in list_of_dvrp_files:
-        heuristic_file = heuristic_folder + dvrp_file
-        comparison_file = comparison_folder + dvrp_file
-
-        with open(heuristic_file, 'r') as file:
-            heuristic_average = json.load(file)['average_cost']
-        with open(comparison_file, 'r') as file:
-            comparison_average = json.load(file)['average_cost']
-
-        if heuristic_average < comparison_average:
-            count_improved += 1
-        total_relative_improvement += heuristic_average / comparison_average
-    average_relative_improvement = total_relative_improvement / len(list_of_dvrp_files)
-
-    # write to file
-    data = {
-        "heuristic": heuristic_folder,
-        "comparison": comparison_folder,
-        "count_improved": count_improved,
-        "average_relative_improvement": average_relative_improvement
-    }
-    json_filename = f"{heuristic_folder}_compare_heuristics.json"
-    with open(json_filename, "w") as json_file:
-        json.dump(data, json_file, indent=4)
-
 if __name__ == "__main__":
-    compare_heuristics("experiment_results/wait_first_vns/", "experiment_results/standard_vns/")
+    check_parameters_reduce_capacity("c50.json", 0.5, 0.5, "experiment_results/", "drive_first", number_of_tests=1)

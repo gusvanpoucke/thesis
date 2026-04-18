@@ -133,8 +133,8 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities, angles,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
-    waiting_strategy = "drive_first", route_orientation_strategy = "random", capacity_strategy = "normal", time_strategy="uniform",
-    alpha = 0.0, epsilon = 0.0
+    waiting_strategy = "drive_first", route_orientation_strategy = "random", time_strategy="uniform",
+    alpha = 0.0, epsilon = 0.0, starting_capacity = 1.0, full_capacity_time = 0.0
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -152,8 +152,8 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         # reduce capacity early to force more routes
         reduced_capacity = capacity
         reduced_working_day = working_day
-        if capacity_strategy == "reduce_capacity" and simulation_time/working_day < 0.4:
-            reduction = 0.6 + simulation_time/working_day
+        if simulation_time/working_day < full_capacity_time:
+            reduction = starting_capacity + (simulation_time/working_day) * (1 - starting_capacity) / full_capacity_time
             reduced_capacity = reduction * capacity
             reduced_working_day = reduction * working_day
 
