@@ -24,6 +24,6 @@ print(f"Task {array_id}: Processing {dvrp_file}")
 FOLDER = f"hpc_jobs/closest_first_tests/wait_first/"
 os.makedirs(FOLDER, exist_ok=True)
 
-runXTestsOnFile(dvrp_file, results_folder=FOLDER, waiting_strategy="wait_first")
+runXTestsOnFile(dvrp_file, results_folder=FOLDER, waiting_strategy="wait_first", route_orientation_strategy="closest_first")
 
 print(f"Task {array_id}: Completed {dvrp_file}")
