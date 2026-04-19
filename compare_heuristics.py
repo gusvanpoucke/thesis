@@ -53,7 +53,7 @@ def compare_parameters(parameter_folder, comparison_folder):
     data = {
         "heuristic": parameter_folder,
         "comparison": comparison_folder,
-        "relative_improvement_for_parameters": parameters
+        "relative_improvement_for_parameters": sorted(parameters.items(), key=lambda item: item[1])
     }
     json_filename = f"{parameter_folder}_compare_heuristics.json"
     with open(json_filename, "w") as json_file:
