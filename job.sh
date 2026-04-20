@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N wait_depot
+#PBS -N wait_spread
 #PBS -l walltime=03:00:00
 #PBS -l nodes=1:ppn=1
 #PBS -t 0-20
@@ -13,4 +13,4 @@ mkdir -p logs
 module load Python/3.11.3-GCCcore-12.3.0
 module load SciPy-bundle/2023.07-gfbf-2023a
 
-python job_wait_depot.py ${PBS_ARRAYID}
+python job_wait_spread.py ${PBS_ARRAYID}

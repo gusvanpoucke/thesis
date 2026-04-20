@@ -105,6 +105,10 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_m
                 waiting_strategy == "max_dist" and
                 max([adj_matrix[0][c] for c in dynamic_route.covered_route], default=0.0) >
                 max([adj_matrix[0][c] for c in dynamic_route.route], default=0.0)
+            ) or
+            (
+                waiting_strategy == "spread" and
+                len(dynamic_route.covered_route)/len(dynamic_route.full_route()) >= simulation_time/working_day
             )
         ):
             return True
