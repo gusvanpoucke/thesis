@@ -98,12 +98,13 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_m
                 waiting_strategy == "wait_first"
             ) or
             (
-                waiting_strategy == "max_dist" and
-                len(dynamic_route.route) < len(dynamic_route.covered_route)
-            ) or
+                waiting_strategy == "depot" and
+                len(dynamic_route.covered_route) == 0
+            )
             (
-                waiting_strategy == "location" and
-                len(dynamic_route.covered_route)/len(dynamic_route.full_route()) >= simulation_time/working_day
+                waiting_strategy == "max_dist" and
+                max([adj_matrix[0][c] for c in dynamic_route.covered_route], default=0.0) >
+                max([adj_matrix[0][c] for c in dynamic_route.route], default=0.0)
             )
         ):
             return True
