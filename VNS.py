@@ -91,8 +91,11 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
     )
 
 
-def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route):
-    if time_constraint_route(working_day, durations, adj_matrix, Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)):
+def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route, margin):
+    if time_constraint_route(
+        working_day * (1.0 - margin), durations, adj_matrix,
+        Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
+    ):
         if (
             (
                 waiting_strategy == "wait_first"
@@ -116,14 +119,14 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_m
 
 
 def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, angles, time_period_length, current_solution,
-    waiting_strategy, route_orientation_strategy
+    waiting_strategy, route_orientation_strategy, margin
 ):
     # move all vehicles forward
     for dynamic_route in current_solution:
         # commit customers as long as the time period lasts
         while dynamic_route.processing_time < simulation_time and dynamic_route.route:
             # if possible, wait until next time period to commit next customer
-            if wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route):
+            if wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route, margin):
                 dynamic_route.processing_time = simulation_time
                 break
         
@@ -146,7 +149,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities, angles,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
     waiting_strategy = "drive_first", route_orientation_strategy = "random", time_strategy="uniform", fullness_strategy="epsilon",
-    alpha = 0.0, epsilon = 0.0, starting_capacity = 1.0, full_capacity_time = 0.0
+    alpha = 0.0, epsilon = 0.0, starting_capacity = 1.0, full_capacity_time = 0.0, wait_margin = 0.0
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -229,7 +232,8 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             adj_matrix,
             simulation_time, working_day,
             durations, angles, time_period_length, current_solution,
-            waiting_strategy, route_orientation_strategy
+            waiting_strategy, route_orientation_strategy,
+            wait_margin
         )
 
         solution_list.append(deep_copy_routes(current_solution))
