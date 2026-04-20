@@ -100,7 +100,7 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_m
             (
                 waiting_strategy == "depot" and
                 len(dynamic_route.covered_route) == 0
-            )
+            ) or
             (
                 waiting_strategy == "max_dist" and
                 max([adj_matrix[0][c] for c in dynamic_route.covered_route], default=0.0) >
