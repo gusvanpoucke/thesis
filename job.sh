@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -N wait_margin
-#PBS -l walltime=08:00:00
+#PBS -l walltime=20:00:00
 #PBS -l nodes=1:ppn=1
 #PBS -t 0-20
 #PBS -o logs/output_${PBS_ARRAYID}.out
