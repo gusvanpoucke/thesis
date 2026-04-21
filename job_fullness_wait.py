@@ -20,8 +20,8 @@ dvrp_file = list_of_dvrp_files[array_id]
 # Run the function
 print(f"Task {array_id}: Processing {dvrp_file}")
 
-alphas = [0.1, 0.5, 1.0]
-epsilons = [0.0, 0.1, 0.5, 1.0]
+alphas = [0.01, 0.05, 0.15, 0.2]
+epsilons = [0.0, 0.01, 0.1, 0.2]
 for alpha in alphas:
     for epsilon in epsilons:
         # Results folder
