@@ -199,7 +199,8 @@ def check_parameters_wait_margin(file_name, wait_margin, results_folder, waiting
         json.dump(data, json_file, indent=4)
 
 def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/", results_file="",
-    waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform", initial_routes_strategy="regular"
+    waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform", initial_routes_strategy="regular",
+    wait_margin=0.0
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -225,7 +226,8 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
             waiting_strategy=waiting_strategy,
             route_orientation_strategy=route_orientation_strategy,
             time_strategy=time_strategy,
-            initial_routes_strategy=initial_routes_strategy
+            initial_routes_strategy=initial_routes_strategy,
+            wait_margin=wait_margin
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
