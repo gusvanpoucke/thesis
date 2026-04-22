@@ -3,7 +3,7 @@ import math
 from Clarke_and_Wright_savings import dynamic_savings
 from shake import shake
 from local_search import local_search
-from repair import repair
+from repair import repair, split_route
 from evaluate import evaluate, time_constraint_route
 from dynamic_route import Route
 
@@ -146,10 +146,31 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
     return current_solution
 
 
+def initial_routes(adj_matrix, working_day, durations, angles, time_period_length,
+    current_cost, current_solution, initial_routes_strategy
+):
+    if initial_routes_strategy == "split_routes":
+        new_routes = []
+        for dynamic_route in current_solution:
+            split_cost, route1, route2 = split_route(adj_matrix, dynamic_route.route)
+            current_cost += split_cost
+            new_routes.append(Route([], route1, 0.0))
+            new_routes.append(Route([], route2, 0.0))
+        return current_cost, commit_next_time_period(
+            adj_matrix, 0.1, working_day, durations, angles, time_period_length,
+            new_routes,
+            "drive_first", "random", 0.0
+        )
+    elif initial_routes_strategy == "VIP_list":
+        pass #TODO implement VIP LIST
+    return current_cost, current_solution
+
+
 def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, availabilities, angles,
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
     waiting_strategy = "drive_first", route_orientation_strategy = "random", time_strategy="uniform", fullness_strategy="epsilon",
-    alpha = 0.0, epsilon = 0.0, starting_capacity = 1.0, full_capacity_time = 0.0, wait_margin = 0.0
+    alpha = 0.0, epsilon = 0.0, starting_capacity = 1.0, full_capacity_time = 0.0, wait_margin = 0.0,
+    initial_routes_strategy = "regular"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -185,6 +206,11 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
                 reduced_capacity, adj_matrix, demands,
                 simulation_time, reduced_working_day,
                 durations
+            )
+            # execute initial routes strategy
+            current_cost, current_solution = initial_routes(
+                adj_matrix, working_day, durations, angles, time_period_length,
+                current_cost, current_solution, initial_routes_strategy
             )
         else:
             # find new customers in previous time period
