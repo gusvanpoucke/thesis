@@ -64,7 +64,7 @@ def check_parameters(file_name, alpha, epsilon, results_folder="experiment_resul
         json.dump(data, json_file, indent=4)
 
 def check_parameters_reduce_capacity(file_name, starting_capacity, full_capacity_time, results_folder, waiting_strategy,
-    number_of_tests=30
+    number_of_tests=30, wait_margin=0.0
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -90,7 +90,8 @@ def check_parameters_reduce_capacity(file_name, starting_capacity, full_capacity
     for i in range(number_of_tests):
         cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
-            starting_capacity=starting_capacity, full_capacity_time=full_capacity_time
+            starting_capacity=starting_capacity, full_capacity_time=full_capacity_time,
+            wait_margin=wait_margin
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
@@ -100,6 +101,7 @@ def check_parameters_reduce_capacity(file_name, starting_capacity, full_capacity
         "graph_name": graph_name,
         "number_of_tests": number_of_tests,
         "waiting_strategy": waiting_strategy,
+        "wait_margin": wait_margin,
         "starting_capacity": starting_capacity,
         "full_capacity_time": full_capacity_time,
         "best_cost": best_cost,
