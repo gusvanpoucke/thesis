@@ -20,7 +20,7 @@ dvrp_file = list_of_dvrp_files[array_id]
 # Run the function
 print(f"Task {array_id}: Processing {dvrp_file}")
 
-starting_capacities = [0.5, 0.6, 0.7, 0.8, 0.9]
+starting_capacities = [0.8, 0.85, 0.9, 0.95]
 full_capacity_times = [0.4, 0.5, 0.6]
 for starting_capacity in starting_capacities:
     for full_capacity_time in full_capacity_times:
