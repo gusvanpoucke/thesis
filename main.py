@@ -14,7 +14,7 @@ from repair import repair, split_route
 from dynamic_route import Route
 
 def check_parameters(file_name, alpha, epsilon, results_folder="experiment_results/fullness_parameters/",
-    number_of_tests=30, waiting_strategy="wait_first", termination_time=5
+    number_of_tests=30, waiting_strategy="wait_first", termination_time=5, wait_margin=0.0
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -41,7 +41,8 @@ def check_parameters(file_name, alpha, epsilon, results_folder="experiment_resul
         cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
             termination_time=termination_time,
-            alpha=alpha, epsilon=epsilon
+            alpha=alpha, epsilon=epsilon,
+            wait_margin=wait_margin
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
@@ -51,6 +52,7 @@ def check_parameters(file_name, alpha, epsilon, results_folder="experiment_resul
         "graph_name": graph_name,
         "number_of_tests": number_of_tests,
         "waiting_strategy": waiting_strategy,
+        "wait_margin": wait_margin,
         "termination_time": termination_time,
         "alpha": alpha,
         "epsilon": epsilon,
@@ -241,7 +243,7 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
 
 def find_improving_solution(file_name, score_to_beat=100000000000000000000, solution_file="",
     waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform", fullness_strategy="epsilon",
-    alpha=0.0, epsilon=0.0, starting_capacity=1.0, full_capacity_time=0.0
+    alpha=0.0, epsilon=0.0, starting_capacity=1.0, full_capacity_time=0.0, wait_margin=0.0
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -270,7 +272,8 @@ def find_improving_solution(file_name, score_to_beat=100000000000000000000, solu
             time_strategy=time_strategy,
             fullness_strategy=fullness_strategy,
             alpha=alpha, epsilon=epsilon,
-            starting_capacity=starting_capacity, full_capacity_time=full_capacity_time
+            starting_capacity=starting_capacity, full_capacity_time=full_capacity_time,
+            wait_margin=wait_margin
         )
         if cost < score_to_beat:
             break
@@ -347,4 +350,4 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", waiting_strategy="spread")
+    find_improving_solution("c50.json", waiting_strategy="wait_first", wait_margin=0.1)
