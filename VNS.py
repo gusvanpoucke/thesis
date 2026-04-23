@@ -146,7 +146,7 @@ def commit_next_time_period(adj_matrix, simulation_time, working_day, durations,
     return current_solution
 
 
-def initial_routes(adj_matrix, working_day, durations, angles, time_period_length,
+def initial_routes(capacity, adj_matrix, demands, working_day, durations, angles, time_period_length,
     current_cost, current_solution, initial_routes_strategy
 ):
     if initial_routes_strategy == "split_routes":
@@ -162,7 +162,27 @@ def initial_routes(adj_matrix, working_day, durations, angles, time_period_lengt
             "drive_first", "random", 0.0
         )
     elif initial_routes_strategy == "VIP_list":
-        pass #TODO implement VIP LIST
+        # determine vips
+        n_vips = len(current_solution) * 2
+        customers = [customer for dynamic_route in current_solution for customer in dynamic_route.route]
+        customers_with_distance = [(adj_matrix[0][customer], customer) for customer in customers]
+        vips = [customer for _, customer in sorted(customers_with_distance)[:n_vips]]
+        
+        # each vip gets a route
+        vip_routes = []
+        vip_cost = 0.0
+        for vip in vips:
+            vip_routes.append(Route([vip], [], adj_matrix[0][vip] + durations[vip]))
+            vip_cost += 2 * adj_matrix[0][vip]
+        
+        # put other customers on routes
+        other_cost, other_routes = dynamic_savings(
+            [customer for customer in customers if customer not in vips],
+            capacity, adj_matrix, demands,
+            0.0, working_day,
+            durations
+        )
+        return vip_cost + other_cost, vip_routes + other_routes
     return current_cost, current_solution
 
 
@@ -209,7 +229,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
             )
             # execute initial routes strategy
             current_cost, current_solution = initial_routes(
-                adj_matrix, working_day, durations, angles, time_period_length,
+                reduced_capacity, adj_matrix, demands, reduced_working_day, durations, angles, time_period_length,
                 current_cost, current_solution, initial_routes_strategy
             )
         else:
