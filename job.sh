@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N VIP_wait
+#PBS -N VIP_margin
 #PBS -l walltime=02:00:00
 #PBS -l nodes=1:ppn=1
 #PBS -t 0-20
@@ -13,4 +13,4 @@ mkdir -p logs
 module load Python/3.11.3-GCCcore-12.3.0
 module load SciPy-bundle/2023.07-gfbf-2023a
 
-python job_VIP_list_wait.py ${PBS_ARRAYID}
+python job_VIP_list_wait_margin.py ${PBS_ARRAYID}
