@@ -6,27 +6,32 @@ import re
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-def small_visualization():
+def dynamic_route_visualization():
     depot = [10, 10]
-    customers = np.array([[0, 0], [20, 0], [20, 20], [0, 20]])
+    customers = np.array([[0, 10], [0, 0], [10, 0], [20, 0], [20, 10], [20, 20], [10, 20]])
+    vehicle = [15, 0]
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    ax.set_title(f"Small example")
     ax.set_aspect('equal')
 
     ax.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
-    ax.scatter(depot[0], depot[1], s=50, c='red', marker='s', zorder=3, label='Depot')
+    ax.scatter(depot[0], depot[1], s=200, c='red', marker='s', zorder=3, label='Depot')
+    ax.scatter(vehicle[0], vehicle[1], s=100, c='green', marker='^', zorder=3, label='Vehicle')
 
-    color = list(plt.cm.Paired.colors)[0]
-    covered = np.array([depot] + list(customers[:3]))
-    ax.plot(covered[:, 0], covered[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
-    planned = np.array(list(customers[2:]) + [depot])
-    ax.plot(planned[:, 0], planned[:, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
+    color_past = list(plt.cm.Paired.colors)[1]
+    color_future = list(plt.cm.Paired.colors)[0]
+    covered = np.array([depot] + list(customers[:3]) + [vehicle])
+    ax.plot(covered[:, 0], covered[:, 1], '-', color=color_past, linewidth=2, zorder=2, alpha=0.7)
+    committed = np.array([vehicle] + [customers[3]])
+    ax.plot(committed[:, 0], committed[:, 1], '-', color=color_future, linewidth=2, zorder=2, alpha=0.7)
+    planned = np.array(list(customers[3:]) + [depot])
+    ax.plot(planned[:, 0], planned[:, 1], '--', color=color_future, linewidth=2, zorder=2, alpha=0.7)
 
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
-    ax.grid(True, alpha=0.3)
-    ax.legend(loc='upper center')
+    ax.grid(False)
+    ax.axis('off')
+    ax.legend(loc='upper left')
 
     plt.tight_layout()
     plt.show()
@@ -244,4 +249,5 @@ if __name__ == "__main__":
     bar_chart(list_of_solution_files, VNS_best_cost, title="Comparison of Best Costs", start=9)
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
     """
-    visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
+    #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
+    dynamic_route_visualization()
