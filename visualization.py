@@ -6,7 +6,7 @@ import re
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-def dynamic_route_visualization():
+def dynamic_routevisualization():
     depot = [10, 10]
     customers = np.array([[0, 10], [0, 0], [10, 0], [20, 0], [20, 10], [20, 20], [10, 20]])
     vehicle = [15, 0]
@@ -32,6 +32,59 @@ def dynamic_route_visualization():
     ax.grid(False)
     ax.axis('off')
     ax.legend(loc='upper left')
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
+def cross_operation_visualization():
+    # PRE CROSS
+    depot1 = [0, 0]
+    route1 = np.array([[10, 10], [10, 20], [10, 30], [10, 40]])
+    route2 = np.array([[-10, 10], [-10, 20], [-10, 30], [-10, 40]])
+    depot2 = [0, 50]
+
+    fig, axs = plt.subplots(1, 2, figsize=(8, 6), sharey=True)
+    customers = np.vstack((route1, route2))
+    depots = np.array([depot1, depot2])
+    color = list(plt.cm.Paired.colors)[0]
+    route1 = np.array([depot1] + list(route1) + [depot2])
+    route2 = np.array([depot1] + list(route2) + [depot2])
+
+    ax0, ax1 = axs
+
+    ax0.set_aspect('equal')
+    ax0.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax0.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
+    for route in [route1, route2]:
+        ax0.plot(route[:2, 0], route[:2, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        ax0.plot(route[1:3, 0], route[1:3, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
+        ax0.plot(route[2:4, 0], route[2:4, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        ax0.plot(route[3:5, 0], route[3:5, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
+        ax0.plot(route[4:, 0], route[4:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+    ax0.set_xlabel('X')
+    ax0.set_ylabel('Y')
+    ax0.grid(False)
+    ax0.axis('off')
+
+    ax1.set_aspect('equal')
+    ax1.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax1.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
+    for route, other_route in [(route1, route2), (route2, route1)]:
+        ax1.plot(route[:2, 0], route[:2, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        cross = np.array([route[1], other_route[2]])
+        ax1.plot(cross[:, 0], cross[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        ax1.plot(route[2:4, 0], route[2:4, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        cross = np.array([route[3], other_route[4]])
+        ax1.plot(cross[:, 0], cross[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        ax1.plot(route[4:, 0], route[4:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+    ax1.set_xlabel('X')
+    ax1.set_ylabel('Y')
+    ax1.grid(False)
+    ax1.axis('off')
+
+    handles, labels = ax0.get_legend_handles_labels()
+    fig.legend(handles, labels, loc='upper center')
 
     plt.tight_layout()
     plt.show()
@@ -115,8 +168,8 @@ def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_imag
     
     depot = coords[0]
 
-    route_colors = {}
-    route_colors_index = 0
+    routecolors = {}
+    routecolors_index = 0
 
     customers = []
 
@@ -129,8 +182,8 @@ def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_imag
         ax.set_aspect('equal')
 
         new_customers = []
-        for route_data in routes:
-            for customer in route_data['covered_route'] + route_data['route']:
+        for routedata in routes:
+            for customer in routedata['covered_route'] + routedata['route']:
                 if customer not in customers:
                     new_customers.append(customer)
         
@@ -145,19 +198,19 @@ def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_imag
 
         customers.extend(new_customers)
 
-        for route_idx, route_data in enumerate(routes):
-            first_node = route_data['covered_route'][0] if route_data['covered_route'] else 0
-            if first_node not in route_colors:
-                route_colors[first_node] = route_colors_index
-                route_colors_index += 1
+        for routeidx, routedata in enumerate(routes):
+            first_node = routedata['covered_route'][0] if routedata['covered_route'] else 0
+            if first_node not in routecolors:
+                routecolors[first_node] = routecolors_index
+                routecolors_index += 1
 
-            color = colors[route_colors[first_node]]
+            color = colors[routecolors[first_node]]
 
-            covered = np.array([depot] + [coords[c] for c in route_data['covered_route']])
+            covered = np.array([depot] + [coords[c] for c in routedata['covered_route']])
             ax.plot(covered[:, 0], covered[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
             
-            last_committed_node = coords[route_data['covered_route'][-1]] if route_data['covered_route'] else depot
-            planned = np.array([last_committed_node] + [coords[c] for c in route_data['route']] + [depot])
+            last_committed_node = coords[routedata['covered_route'][-1]] if routedata['covered_route'] else depot
+            planned = np.array([last_committed_node] + [coords[c] for c in routedata['route']] + [depot])
             ax.plot(planned[:, 0], planned[:, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
 
         ax.set_xlabel('X')
@@ -250,4 +303,4 @@ if __name__ == "__main__":
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
     """
     #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
-    dynamic_route_visualization()
+    cross_operation_visualization()
