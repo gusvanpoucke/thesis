@@ -6,7 +6,7 @@ import re
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-def dynamic_routevisualization():
+def dynamic_route_visualization():
     depot = [10, 10]
     customers = np.array([[0, 10], [0, 0], [10, 0], [20, 0], [20, 10], [20, 20], [10, 20]])
     vehicle = [15, 0]
@@ -31,14 +31,13 @@ def dynamic_routevisualization():
     ax.set_ylabel('Y')
     ax.grid(False)
     ax.axis('off')
-    ax.legend(loc='upper left')
+    ax.legend(loc='upper left', fontsize=16)
 
     plt.tight_layout()
     plt.show()
     plt.close(fig)
 
 def cross_operation_visualization():
-    # PRE CROSS
     depot1 = [0, 0]
     route1 = np.array([[10, 10], [10, 20], [10, 30], [10, 40]])
     route2 = np.array([[-10, 10], [-10, 20], [-10, 30], [-10, 40]])
@@ -53,6 +52,7 @@ def cross_operation_visualization():
 
     ax0, ax1 = axs
 
+    # PRE CROSS
     ax0.set_aspect('equal')
     ax0.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
     ax0.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
@@ -67,6 +67,7 @@ def cross_operation_visualization():
     ax0.grid(False)
     ax0.axis('off')
 
+    # POST CROSS
     ax1.set_aspect('equal')
     ax1.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
     ax1.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
@@ -84,7 +85,7 @@ def cross_operation_visualization():
     ax1.axis('off')
 
     handles, labels = ax0.get_legend_handles_labels()
-    fig.legend(handles, labels, loc='upper center')
+    fig.legend(handles, labels, loc='upper center', fontsize=16)
 
     plt.tight_layout()
     plt.show()
@@ -303,4 +304,4 @@ if __name__ == "__main__":
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
     """
     #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
-    cross_operation_visualization()
+    dynamic_route_visualization()
