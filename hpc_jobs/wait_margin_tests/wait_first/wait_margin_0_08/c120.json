@@ -1,0 +1,8 @@
+{
+    "graph_name": "c120",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.08,
+    "best_cost": 1052.6607540234577,
+    "average_cost": 1187.4801073705696
+}

@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/split_routes_tests/drive_first/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "count_improved": 0,
+    "average_relative_improvement": 1.1033532110861306
+}

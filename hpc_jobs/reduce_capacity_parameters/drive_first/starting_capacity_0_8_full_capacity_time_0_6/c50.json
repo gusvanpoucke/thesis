@@ -1,0 +1,10 @@
+{
+    "graph_name": "c50",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "wait_margin": 0.0,
+    "starting_capacity": 0.8,
+    "full_capacity_time": 0.6,
+    "best_cost": 634.7747577407248,
+    "average_cost": 659.2662018647558
+}

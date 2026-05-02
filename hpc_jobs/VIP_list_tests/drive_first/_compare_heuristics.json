@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/VIP_list_tests/drive_first/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "count_improved": 1,
+    "average_relative_improvement": 1.1049031855142193
+}

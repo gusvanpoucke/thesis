@@ -1,0 +1,10 @@
+{
+    "graph_name": "c199",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "termination_time": 5,
+    "alpha": 2.0,
+    "epsilon": -0.25,
+    "best_cost": 1390.0209163515153,
+    "average_cost": 1463.054853724335
+}

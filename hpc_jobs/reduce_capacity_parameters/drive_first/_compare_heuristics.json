@@ -1,0 +1,54 @@
+{
+    "heuristic": "hpc_jobs/reduce_capacity_parameters/drive_first/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "relative_improvement_for_parameters": [
+        [
+            "starting_capacity_0_95_full_capacity_time_0_5",
+            1.0099302072918936
+        ],
+        [
+            "starting_capacity_0_95_full_capacity_time_0_4",
+            1.0115966880860001
+        ],
+        [
+            "starting_capacity_0_95_full_capacity_time_0_6",
+            1.012844654136251
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_4",
+            1.0150441161334383
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_5",
+            1.017239872592586
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_6",
+            1.0218820945972698
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_4",
+            1.0274956719234314
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_5",
+            1.0348913919658496
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_4",
+            1.0359954884242553
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_5",
+            1.041044679718812
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_6",
+            1.0421085335304845
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_6",
+            1.0530669305597762
+        ]
+    ]
+}

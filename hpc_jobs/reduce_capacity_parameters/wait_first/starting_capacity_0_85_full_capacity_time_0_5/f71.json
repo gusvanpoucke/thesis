@@ -1,0 +1,10 @@
+{
+    "graph_name": "f71",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
+    "starting_capacity": 0.85,
+    "full_capacity_time": 0.5,
+    "best_cost": 296.6378277508973,
+    "average_cost": 321.21205710740185
+}

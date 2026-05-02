@@ -1,0 +1,10 @@
+{
+    "graph_name": "c150",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "termination_time": 5,
+    "alpha": 8.0,
+    "epsilon": 2.0,
+    "best_cost": 1770.6751036138464,
+    "average_cost": 1838.8061705833559
+}

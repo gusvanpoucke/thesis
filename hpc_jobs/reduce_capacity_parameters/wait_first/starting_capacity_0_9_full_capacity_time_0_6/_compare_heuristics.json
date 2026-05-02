@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/reduce_capacity_parameters/wait_first/starting_capacity_0_9_full_capacity_time_0_6/",
+    "comparison": "hpc_jobs/wait_first_vns/",
+    "count_improved": 0,
+    "average_relative_improvement": 1.0415348045407893
+}

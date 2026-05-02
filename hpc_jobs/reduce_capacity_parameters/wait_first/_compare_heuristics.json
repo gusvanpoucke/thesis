@@ -1,0 +1,54 @@
+{
+    "heuristic": "hpc_jobs/reduce_capacity_parameters/wait_first/",
+    "comparison": "hpc_jobs/wait_first_vns/",
+    "relative_improvement_for_parameters": [
+        [
+            "starting_capacity_0_95_full_capacity_time_0_4",
+            1.0070990313710808
+        ],
+        [
+            "starting_capacity_0_95_full_capacity_time_0_5",
+            1.0101324605159043
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_4",
+            1.0130891149616763
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_4",
+            1.0146675893513974
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_4",
+            1.0189065243632487
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_5",
+            1.021836856225472
+        ],
+        [
+            "starting_capacity_0_95_full_capacity_time_0_6",
+            1.0225249772666953
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_5",
+            1.0302306137335318
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_5",
+            1.0374399132253498
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_6",
+            1.0415348045407893
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_6",
+            1.054660168932332
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_6",
+            1.0706618183121759
+        ]
+    ]
+}

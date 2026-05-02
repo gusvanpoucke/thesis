@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/standard_vns/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "count_improved": 0,
+    "average_relative_improvement": 1.0
+}

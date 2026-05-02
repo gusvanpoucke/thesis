@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/VIP_list_tests/wait_margin_0_08/",
+    "comparison": "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/",
+    "count_improved": 0,
+    "average_relative_improvement": 1.0749264918438417
+}

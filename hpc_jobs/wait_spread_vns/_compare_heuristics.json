@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/wait_spread_vns/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "count_improved": 21,
+    "average_relative_improvement": 0.9354533135678887
+}

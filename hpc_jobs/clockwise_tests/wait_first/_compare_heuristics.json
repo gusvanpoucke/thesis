@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/clockwise_tests/wait_first/",
+    "comparison": "hpc_jobs/wait_first_vns/",
+    "count_improved": 6,
+    "average_relative_improvement": 1.004049448231793
+}

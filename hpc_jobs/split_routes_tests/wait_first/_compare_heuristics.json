@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/split_routes_tests/wait_first/",
+    "comparison": "hpc_jobs/wait_first_vns/",
+    "count_improved": 2,
+    "average_relative_improvement": 1.0597497636548379
+}

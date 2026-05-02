@@ -1,0 +1,10 @@
+{
+    "graph_name": "c100b",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "termination_time": 5,
+    "alpha": 4.0,
+    "epsilon": -0.25,
+    "best_cost": 990.9195501330488,
+    "average_cost": 1063.0466058900552
+}

@@ -1,0 +1,8 @@
+{
+    "graph_name": "tai75a",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.13,
+    "best_cost": 1690.8410387236306,
+    "average_cost": 1734.4465874608434
+}

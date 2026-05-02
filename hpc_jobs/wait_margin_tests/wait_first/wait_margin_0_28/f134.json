@@ -1,0 +1,8 @@
+{
+    "graph_name": "f134",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.28,
+    "best_cost": 11720.716248752784,
+    "average_cost": 11950.884571503564
+}

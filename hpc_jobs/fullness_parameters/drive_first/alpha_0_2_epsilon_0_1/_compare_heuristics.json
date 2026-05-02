@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/fullness_parameters/drive_first/alpha_0_2_epsilon_0_1/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "count_improved": 7,
+    "average_relative_improvement": 1.0014447502705577
+}

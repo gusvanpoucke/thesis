@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/closest_first_vns/",
+    "comparison": "hpc_jobs/standard_vns/",
+    "count_improved": 9,
+    "average_relative_improvement": 1.0084961365775145
+}

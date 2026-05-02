@@ -1,0 +1,54 @@
+{
+    "heuristic": "hpc_jobs/reduce_capacity_parameters/wait_margin_0_08/",
+    "comparison": "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/",
+    "relative_improvement_for_parameters": [
+        [
+            "starting_capacity_0_95_full_capacity_time_0_4",
+            1.0033081475839793
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_4",
+            1.005170216098529
+        ],
+        [
+            "starting_capacity_0_95_full_capacity_time_0_5",
+            1.0062275435511003
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_4",
+            1.007140422144204
+        ],
+        [
+            "starting_capacity_0_95_full_capacity_time_0_6",
+            1.0094949373847986
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_4",
+            1.0100241856308187
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_5",
+            1.0107397214077143
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_5",
+            1.0137697151041294
+        ],
+        [
+            "starting_capacity_0_9_full_capacity_time_0_6",
+            1.014614127286498
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_5",
+            1.018348427978817
+        ],
+        [
+            "starting_capacity_0_85_full_capacity_time_0_6",
+            1.0203497868041338
+        ],
+        [
+            "starting_capacity_0_8_full_capacity_time_0_6",
+            1.0320054812534898
+        ]
+    ]
+}
