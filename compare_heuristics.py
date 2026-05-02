@@ -13,27 +13,33 @@ list_of_dvrp_files = [
 
 def compare_heuristics(heuristic_folder, comparison_folder):
     count_improved = 0
-    total_relative_improvement = 0.0
+    total_relative_deviation = 0.0
     for dvrp_file in list_of_dvrp_files:
         heuristic_file = heuristic_folder + dvrp_file
         comparison_file = comparison_folder + dvrp_file
 
         with open(heuristic_file, 'r') as file:
-            heuristic_average = json.load(file)['average_cost']
+            heuristic_data = json.load(file)
         with open(comparison_file, 'r') as file:
             comparison_average = json.load(file)['average_cost']
 
+        heuristic_average = heuristic_data['average_cost']
         if heuristic_average < comparison_average:
             count_improved += 1
-        total_relative_improvement += heuristic_average / comparison_average
-    average_relative_improvement = total_relative_improvement / len(list_of_dvrp_files)
+        relative_deviation = (heuristic_average - comparison_average) / comparison_average
+        total_relative_deviation += relative_deviation
+
+        heuristic_data['relative_deviation'] = relative_deviation
+        with open(heuristic_file, "w") as json_file:
+            json.dump(heuristic_data, json_file, indent=4)
+    average_relative_deviation = total_relative_deviation / len(list_of_dvrp_files)
 
     # write to file
     data = {
         "heuristic": heuristic_folder,
         "comparison": comparison_folder,
         "count_improved": count_improved,
-        "average_relative_improvement": average_relative_improvement
+        "average_relative_deviation": average_relative_deviation
     }
     json_filename = f"{heuristic_folder}_compare_heuristics.json"
     with open(json_filename, "w") as json_file:
