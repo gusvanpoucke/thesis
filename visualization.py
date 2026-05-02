@@ -91,6 +91,151 @@ def cross_operation_visualization():
     plt.show()
     plt.close(fig)
 
+def two_opt_visualization():
+    depot1 = [0, 0]
+    route = np.array([[0, 10], [5, 20], [-5, 30], [0, 40]])
+    depot2 = [0, 50]
+
+    fig, axs = plt.subplots(1, 2, figsize=(8, 6), sharey=True)
+    customers = route
+    depots = np.array([depot1, depot2])
+    color =  list(plt.cm.Paired.colors)[0]
+    color2 = list(plt.cm.Paired.colors)[1]
+    route = np.array([depot1] + list(route) + [depot2])
+
+    ax0, ax1 = axs
+
+    # PRE 2 OPT
+    ax0.set_aspect('equal')
+    ax0.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax0.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
+
+    arrow1 = FancyArrowPatch(route[0], route[1], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax0.add_patch(arrow1)
+    arrow2 = FancyArrowPatch(route[1], route[2], linestyle='--',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax0.add_patch(arrow2)
+    arrow3 = FancyArrowPatch(route[2], route[3], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color2, linewidth=2, alpha=0.7)
+    ax0.add_patch(arrow3)
+    arrow4 = FancyArrowPatch(route[3], route[4], linestyle='--',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax0.add_patch(arrow4)
+    arrow5 = FancyArrowPatch(route[4], route[5], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax0.add_patch(arrow5)
+
+    ax0.set_xlabel('X')
+    ax0.set_ylabel('Y')
+    ax0.grid(False)
+    ax0.axis('off')
+
+    # POST 2 OPT
+    ax1.set_aspect('equal')
+    ax1.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax1.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
+
+    arrow1 = FancyArrowPatch(route[0], route[1], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax1.add_patch(arrow1)
+    arrow2 = FancyArrowPatch(route[1], route[3], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax1.add_patch(arrow2)
+    arrow3 = FancyArrowPatch(route[3], route[2], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color2, linewidth=2, alpha=0.7)
+    ax1.add_patch(arrow3)
+    arrow4 = FancyArrowPatch(route[2], route[4], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax1.add_patch(arrow4)
+    arrow5 = FancyArrowPatch(route[4], route[5], linestyle='-',
+                            arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+    ax1.add_patch(arrow5)
+
+    ax1.set_xlabel('X')
+    ax1.set_ylabel('Y')
+    ax1.grid(False)
+    ax1.axis('off')
+
+    handles, labels = ax0.get_legend_handles_labels()
+    fig.legend(handles, labels, loc='upper center', fontsize=16)
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
+def two_opt_star_visualization():
+    depot1 = [0, 0]
+    route1 = np.array([[10, 10], [10, 20], [10, 30], [10, 40]])
+    route2 = np.array([[-10, 10], [-10, 20], [-10, 30], [-10, 40]])
+    depot2 = [0, 50]
+
+    fig, axs = plt.subplots(1, 2, figsize=(8, 6), sharey=True)
+    customers = np.vstack((route1, route2))
+    depots = np.array([depot1, depot2])
+    color =  list(plt.cm.Paired.colors)[0]
+    route1 = np.array([depot1] + list(route1) + [depot2])
+    route2 = np.array([depot1] + list(route2) + [depot2])
+
+    ax0, ax1 = axs
+
+    # PRE 2 OPT
+    ax0.set_aspect('equal')
+    ax0.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax0.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
+    for route in [route1, route2]:
+        arrow1 = FancyArrowPatch(route[0], route[1], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax0.add_patch(arrow1)
+        arrow2 = FancyArrowPatch(route[1], route[2], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax0.add_patch(arrow2)
+        arrow3 = FancyArrowPatch(route[2], route[3], linestyle='--',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax0.add_patch(arrow3)
+        arrow4 = FancyArrowPatch(route[3], route[4], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax0.add_patch(arrow4)
+        arrow5 = FancyArrowPatch(route[4], route[5], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax0.add_patch(arrow5)
+    ax0.set_xlabel('X')
+    ax0.set_ylabel('Y')
+    ax0.grid(False)
+    ax0.axis('off')
+
+    # POST 2 OPT
+    ax1.set_aspect('equal')
+    ax1.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax1.scatter(depots[:, 0], depots[:, 1], s=200, c='red', marker='s', zorder=3, label='Depot')
+    for route, other_route in [(route1, route2), (route2, route1)]:
+        arrow1 = FancyArrowPatch(route[0], route[1], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax1.add_patch(arrow1)
+        arrow2 = FancyArrowPatch(route[1], route[2], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax1.add_patch(arrow2)
+        arrow3 = FancyArrowPatch(route[2], other_route[3], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax1.add_patch(arrow3)
+        arrow4 = FancyArrowPatch(route[3], route[4], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax1.add_patch(arrow4)
+        arrow5 = FancyArrowPatch(route[4], route[5], linestyle='-',
+                                arrowstyle='->', mutation_scale=20, color=color, linewidth=2, alpha=0.7)
+        ax1.add_patch(arrow5)
+    ax1.set_xlabel('X')
+    ax1.set_ylabel('Y')
+    ax1.grid(False)
+    ax1.axis('off')
+
+    handles, labels = ax0.get_legend_handles_labels()
+    fig.legend(handles, labels, loc='upper center', fontsize=16)
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
 def bar_chart(solution_files, comparison, title="Comparison of Two Lists", compare_value="best_cost", start=0, end=-1):
     solution_files = solution_files[start:end]
     comparison = comparison[start:end]
@@ -304,4 +449,4 @@ if __name__ == "__main__":
     bar_chart(list_of_solution_files, VNS_average_cost, title="Comparison of Average Costs", compare_value="average_cost", start=9)
     """
     #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
-    dynamic_route_visualization()
+    two_opt_star_visualization()
