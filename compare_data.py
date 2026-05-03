@@ -1,6 +1,8 @@
 import argparse
 import json
 import os
+import numpy as np
+import matplotlib.pyplot as plt
 
 # Your 21 files in order
 list_of_dvrp_files = [
@@ -10,54 +12,12 @@ list_of_dvrp_files = [
     "tai150b.json", "tai150c.json", "tai150d.json", "tai75a.json",
     "tai75b.json", "tai75c.json", "tai75d.json"
 ]
-VNS_best_cost = [
-    943.87,
-    883.91,
-    1219.73,
-    1253.66,
-    1538.87,
-    592.60,
-    940.25,
-    14559.58,
-    273.08,
-    2134.95,
-    2126.68,
-    1517.57,
-    1807.86,
-    3274.78,
-    2819.46,
-    2491.58,
-    2927.21,
-    1833.18,
-    1460.65,
-    1558.05,
-    1428.74
-]
-VNS_average_cost = [
-    985.94,
-    910.67,
-    1319.39,
-    1323.40,
-    1608.40,
-    618.44,
-    994.89,
-    15423.87,
-    291.21,
-    2246.88,
-    2204.05,
-    1650.93,
-    1950.62,
-    3408.89,
-    2902.42,
-    2643.11,
-    3006.04,
-    1913.51,
-    1496.77,
-    1616.87,
-    1452.73
-]
 
-def vns_folder():
+color = list(plt.cm.Paired.colors)[0]
+color2 = list(plt.cm.Paired.colors)[1]
+
+def load_public_data(algorithm, best_costs, average_costs):
+    os.makedirs(f"hpc_jobs/{algorithm}/", exist_ok=True)
     for i, dvrp_file in enumerate(list_of_dvrp_files):
         FILEPATH = "dvrp_data/processed/" + dvrp_file
 
@@ -69,12 +29,72 @@ def vns_folder():
         data = {
             "graph_name": graph_name,
             "tests_ran": 30,
-            "best_cost": VNS_best_cost[i],
-            "average_cost": VNS_average_cost[i]
+            "best_cost": best_costs[i],
+            "average_cost": average_costs[i]
         }
-        json_filename = f"hpc_jobs/sarasola_vns/{dvrp_file}"
+        json_filename = f"hpc_jobs/{algorithm}/{dvrp_file}"
         with open(json_filename, "w") as json_file:
             json.dump(data, json_file, indent=4)
 
+def RD_bar_chart(folder):
+    relative_deviations = []
+    for dvrp_file in list_of_dvrp_files:
+        file = folder + dvrp_file
+        with open(file, 'r') as file:
+            relative_deviation = json.load(file)['relative_deviation']
+        relative_deviations.append(relative_deviation * 100)
+
+    labels = [file.replace('.json', '') for file in list_of_dvrp_files]
+    
+    x = np.arange(len(labels))  # the label locations
+    width = 0.8  # the width of the bars
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    rects1 = ax.bar(x, relative_deviations, width, color=color)
+
+    ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=16)
+    ax.tick_params(axis='y', labelsize=16)
+
+    fig.tight_layout()
+    plt.show()
+    plt.close(fig)
+
+def latex_table(folders):
+    for dvrp_file in list_of_dvrp_files:
+        best_costs = []
+        best_best = 0
+        average_costs = []
+        best_average = 0
+        for i, folder in enumerate(folders):
+            file = folder + dvrp_file
+            with open(file, 'r') as file:
+                data = json.load(file)
+
+            best = data['best_cost']
+            average = data['average_cost']
+            best_costs.append(best)
+            average_costs.append(average)
+        
+            if i > 0 and best < best_costs[best_best]:
+                best_best = i
+            if i > 0 and average < average_costs[best_average]:
+                best_average = i
+        
+        line = f"{dvrp_file.replace('.json', '')}"
+        for i, _ in enumerate(folders):
+            best_string = f"\\textbf{{{best_costs[i]:.2f}}}" if i == best_best else f"{best_costs[i]:.2f}"
+            average_string = f"\\textbf{{{average_costs[i]:.2f}}}" if i == best_average else f"{average_costs[i]:.2f}"
+            line += f" & {best_string} & {average_string}"
+        line += " \\\\"
+        print(line)
+
 if __name__ == "__main__":
-    vns_folder()
+    latex_table([
+        "hpc_jobs/standard_vns/",
+        "hpc_jobs/sarasola_vns/",
+        "hpc_jobs/genetic_algorithm/",
+        "hpc_jobs/particle_swarm/",
+        "hpc_jobs/multi_environmental/"
+    ])
