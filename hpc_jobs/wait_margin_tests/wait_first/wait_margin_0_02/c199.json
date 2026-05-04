@@ -1,0 +1,9 @@
+{
+    "graph_name": "c199",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.02,
+    "best_cost": 1386.3835260729663,
+    "average_cost": 1433.3178626678573,
+    "relative_deviation": -0.018127514555093007
+}

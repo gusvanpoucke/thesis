@@ -1,0 +1,6 @@
+{
+    "heuristic": "hpc_jobs/wait_relative_margin_vns/",
+    "comparison": "hpc_jobs/wait_first_vns/",
+    "count_improved": 14,
+    "average_relative_deviation": -0.003975988693589359
+}
