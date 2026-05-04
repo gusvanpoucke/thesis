@@ -2,5 +2,5 @@
     "heuristic": "hpc_jobs/wait_depot_vns/",
     "comparison": "hpc_jobs/standard_vns/",
     "count_improved": 21,
-    "average_relative_improvement": 0.9110189143435354
+    "average_relative_deviation": -0.08898108565646425
 }

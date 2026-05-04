@@ -2,5 +2,6 @@
     "graph_name": "c100",
     "tests_ran": 30,
     "best_cost": 901.5314683125875,
-    "average_cost": 961.1040104572161
+    "average_cost": 961.1040104572161,
+    "relative_deviation": -0.06934148423413924
 }

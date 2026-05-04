@@ -13,6 +13,15 @@ list_of_dvrp_files = [
     "tai75b.json", "tai75c.json", "tai75d.json"
 ]
 
+# 20 files
+dvrp_files_without_f134 = [
+    "c100.json", "c100b.json", "c120.json", "c150.json", "c199.json",
+    "c50.json", "c75.json", "f71.json", "tai100a.json",
+    "tai100b.json", "tai100c.json", "tai100d.json", "tai150a.json",
+    "tai150b.json", "tai150c.json", "tai150d.json", "tai75a.json",
+    "tai75b.json", "tai75c.json", "tai75d.json"
+]
+
 color = list(plt.cm.Paired.colors)[0]
 color2 = list(plt.cm.Paired.colors)[1]
 
@@ -36,15 +45,15 @@ def load_public_data(algorithm, best_costs, average_costs):
         with open(json_filename, "w") as json_file:
             json.dump(data, json_file, indent=4)
 
-def RD_bar_chart(folder):
+def RD_bar_chart(files, folder):
     relative_deviations = []
-    for dvrp_file in list_of_dvrp_files:
+    for dvrp_file in files:
         file = folder + dvrp_file
         with open(file, 'r') as file:
             relative_deviation = json.load(file)['relative_deviation']
         relative_deviations.append(relative_deviation * 100)
 
-    labels = [file.replace('.json', '') for file in list_of_dvrp_files]
+    labels = [file.replace('.json', '') for file in files]
     
     x = np.arange(len(labels))  # the label locations
     width = 0.8  # the width of the bars
@@ -56,6 +65,7 @@ def RD_bar_chart(folder):
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
+    ax.set_ylim(-16, 2)
 
     fig.tight_layout()
     plt.show()
@@ -91,10 +101,4 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    latex_table([
-        "hpc_jobs/standard_vns/",
-        "hpc_jobs/sarasola_vns/",
-        "hpc_jobs/genetic_algorithm/",
-        "hpc_jobs/particle_swarm/",
-        "hpc_jobs/multi_environmental/"
-    ])
+    RD_bar_chart(dvrp_files_without_f134, "hpc_jobs/wait_max_dist_vns/")
