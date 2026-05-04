@@ -4,5 +4,6 @@
     "waiting_strategy": "wait_first",
     "wait_margin": 0.2,
     "best_cost": 819.9650564340897,
-    "average_cost": 860.6935827868643
+    "average_cost": 860.6935827868643,
+    "relative_deviation": 0.02724153535232138
 }
