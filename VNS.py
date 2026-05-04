@@ -91,10 +91,29 @@ def cvrp(n, capacity, adj_matrix, demands, working_day, durations,
     )
 
 
-def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route, margin):
-    if time_constraint_route(
-        working_day * (1.0 - margin), durations, adj_matrix,
-        Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
+def wait_or_not(waiting_strategy, simulation_time, working_day, durations, capacity, adj_matrix, demands, dynamic_route, margin, margin_strategy):
+    # calculate relative margin
+    time_in_route = 0.0
+    prev = 0
+    for customer in dynamic_route.full_route():
+        time_in_route += adj_matrix[prev][customer] + durations[customer]
+        prev = customer
+    time_in_route += adj_matrix[prev][0]
+    capacity_fullness = sum(demands[customer] for customer in dynamic_route.full_route()) / capacity
+    relative_margin = (time_in_route / capacity_fullness) * (1.0 - capacity_fullness)
+
+    if (
+        margin_strategy == "absolute" and
+        time_constraint_route(
+            working_day * (1.0 - margin), durations, adj_matrix,
+            Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
+        )
+    ) or (
+        margin_strategy == "relative" and
+        time_constraint_route(
+            working_day - relative_margin, durations, adj_matrix,
+            Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
+        )
     ):
         if (
             (
@@ -118,15 +137,19 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_m
     return False
 
 
-def commit_next_time_period(adj_matrix, simulation_time, working_day, durations, angles, time_period_length, current_solution,
-    waiting_strategy, route_orientation_strategy, margin
+def commit_next_time_period(capacity, adj_matrix, demands, simulation_time, working_day, durations, angles, time_period_length, current_solution,
+    waiting_strategy, route_orientation_strategy, margin, margin_strategy
 ):
     # move all vehicles forward
     for dynamic_route in current_solution:
         # commit customers as long as the time period lasts
         while dynamic_route.processing_time < simulation_time and dynamic_route.route:
             # if possible, wait until next time period to commit next customer
-            if wait_or_not(waiting_strategy, simulation_time, working_day, durations, adj_matrix, dynamic_route, margin):
+            if wait_or_not(
+                waiting_strategy, simulation_time, working_day,
+                durations, capacity, adj_matrix, demands,
+                dynamic_route, margin, margin_strategy
+            ):
                 dynamic_route.processing_time = simulation_time
                 break
         
@@ -190,7 +213,7 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
     k_max = 5, termination_time = 5, min_iterations = 500, theta = 0.05, cut_off=0.5, time_periods=25,
     waiting_strategy = "drive_first", route_orientation_strategy = "random", time_strategy="uniform", fullness_strategy="epsilon",
     alpha = 0.0, epsilon = 0.0, starting_capacity = 1.0, full_capacity_time = 0.0, wait_margin = 0.0,
-    initial_routes_strategy = "regular"
+    initial_routes_strategy = "regular", margin_strategy = "absolute"
 ):
     # calculate actual availabilities based on cut off time
     avail = []
@@ -275,11 +298,11 @@ def event_scheduler(n, capacity, adj_matrix, demands, working_day, durations, av
         # commit next time period
         simulation_time += time_period_length
         current_solution = commit_next_time_period(
-            adj_matrix,
+            capacity, adj_matrix, demands,
             simulation_time, working_day,
             durations, angles, time_period_length, current_solution,
             waiting_strategy, route_orientation_strategy,
-            wait_margin
+            wait_margin, margin_strategy
         )
 
         solution_list.append(deep_copy_routes(current_solution))

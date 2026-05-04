@@ -200,7 +200,7 @@ def check_parameters_wait_margin(file_name, wait_margin, results_folder, waiting
 
 def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_results/", results_file="",
     waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform", initial_routes_strategy="regular",
-    wait_margin=0.0
+    wait_margin=0.0, margin_strategy="absolute"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -227,7 +227,8 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
             route_orientation_strategy=route_orientation_strategy,
             time_strategy=time_strategy,
             initial_routes_strategy=initial_routes_strategy,
-            wait_margin=wait_margin
+            wait_margin=wait_margin,
+            margin_strategy=margin_strategy
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
@@ -248,7 +249,8 @@ def runXTestsOnFile(file_name, number_of_tests=30, results_folder="experiment_re
 
 def find_improving_solution(file_name, score_to_beat=100000000000000000000, solution_file="",
     waiting_strategy="drive_first", route_orientation_strategy="random", time_strategy="uniform", fullness_strategy="epsilon",
-    alpha=0.0, epsilon=0.0, starting_capacity=1.0, full_capacity_time=0.0, wait_margin=0.0, initial_routes_strategy="regular"
+    alpha=0.0, epsilon=0.0, starting_capacity=1.0, full_capacity_time=0.0, wait_margin=0.0,
+    initial_routes_strategy="regular", margin_strategy="absolute"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -279,7 +281,8 @@ def find_improving_solution(file_name, score_to_beat=100000000000000000000, solu
             alpha=alpha, epsilon=epsilon,
             starting_capacity=starting_capacity, full_capacity_time=full_capacity_time,
             wait_margin=wait_margin,
-            initial_routes_strategy=initial_routes_strategy
+            initial_routes_strategy=initial_routes_strategy,
+            margin_strategy=margin_strategy
         )
         if cost < score_to_beat:
             break
@@ -356,4 +359,4 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", initial_routes_strategy="split_routes", waiting_strategy="wait_first")
+    find_improving_solution("c50.json", waiting_strategy="wait_first", margin_strategy="relative")
