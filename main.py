@@ -155,7 +155,7 @@ def check_parameters_max_fullness(file_name, alpha, results_folder, waiting_stra
     with open(json_filename, "w") as json_file:
         json.dump(data, json_file, indent=4)
 
-def check_parameters_wait_margin(file_name, wait_margin, results_folder, waiting_strategy, number_of_tests=30):
+def check_parameters_wait_margin(file_name, wait_margin, results_folder, waiting_strategy, number_of_tests=30, margin_strategy="absolute"):
     FILEPATH = "dvrp_data/processed/" + file_name
 
     with open(FILEPATH, 'r') as file:
@@ -180,7 +180,8 @@ def check_parameters_wait_margin(file_name, wait_margin, results_folder, waiting
     for i in range(number_of_tests):
         cost, _ = event_scheduler(n_customers, capacity, weights, demands, working_day, durations, availabilities, angles,
             waiting_strategy=waiting_strategy,
-            wait_margin=wait_margin
+            wait_margin=wait_margin,
+            margin_strategy=margin_strategy
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
@@ -191,6 +192,7 @@ def check_parameters_wait_margin(file_name, wait_margin, results_folder, waiting
         "number_of_tests": number_of_tests,
         "waiting_strategy": waiting_strategy,
         "wait_margin": wait_margin,
+        "margin_strategy": margin_strategy,
         "best_cost": best_cost,
         "average_cost": total_cost/number_of_tests
     }
@@ -359,4 +361,4 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", waiting_strategy="wait_first", margin_strategy="relative")
+    find_improving_solution("c50.json", waiting_strategy="wait_first", margin_strategy="bounded")

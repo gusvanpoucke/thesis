@@ -102,6 +102,9 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, capac
     capacity_fullness = sum(demands[customer] for customer in dynamic_route.full_route()) / capacity
     relative_margin = (time_in_route / capacity_fullness) * (1.0 - capacity_fullness)
 
+    # calculate bounded relative margin
+    bounded_margin = min(relative_margin, margin * working_day)
+
     if (
         margin_strategy == "absolute" and
         time_constraint_route(
@@ -112,6 +115,12 @@ def wait_or_not(waiting_strategy, simulation_time, working_day, durations, capac
         margin_strategy == "relative" and
         time_constraint_route(
             working_day - relative_margin, durations, adj_matrix,
+            Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
+        )
+    ) or (
+        margin_strategy == "bounded" and
+        time_constraint_route(
+            working_day - bounded_margin, durations, adj_matrix,
             Route(dynamic_route.covered_route, dynamic_route.route, simulation_time)
         )
     ):
