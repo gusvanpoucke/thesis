@@ -21,8 +21,8 @@ dvrp_file = list_of_dvrp_files[array_id]
 print(f"Task {array_id}: Processing {dvrp_file}")
 
 wait_margin = 0.08
-alphas = [0.1, 0.2, 0.5, 1.0, 2.0, 5.0]
-epsilons = [0.0, 0.1, 0.2, 0.5, 1.0]
+alphas = [0.05, 0.1, 0.15, 0.2, 0.5, 1.0, 1.5, 2.0]
+epsilons = [0.0, 0.05, 0.1, 0.15, 0.2, 0.5, 1.0]
 for alpha in alphas:
     for epsilon in epsilons:
         # Results folder
