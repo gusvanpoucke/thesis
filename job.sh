@@ -1,6 +1,6 @@
 #!/bin/bash
-#PBS -N bounded_margin
-#PBS -l walltime=02:00:00
+#PBS -N fullness_drive
+#PBS -l walltime=128:00:00
 #PBS -l nodes=1:ppn=1
 #PBS -t 0-20
 #PBS -o logs/output_${PBS_ARRAYID}.out
@@ -13,4 +13,4 @@ mkdir -p logs
 module load Python/3.11.3-GCCcore-12.3.0
 module load SciPy-bundle/2023.07-gfbf-2023a
 
-python job_wait_bounded_margin.py ${PBS_ARRAYID}
+python job_fullness.py ${PBS_ARRAYID}
