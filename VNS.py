@@ -29,7 +29,7 @@ def calculate_fullness(capacity, demands, dynamic_routes, alpha, epsilon, fullne
         fullness = sum(demands[customer] for customer in dynamic_route.full_route()) / capacity
         absolute_fullness += fullness ** (1.0 + epsilon)
         max_fullness = max(max_fullness, fullness)
-    average_fullness = absolute_fullness / len(dynamic_routes)
+    average_fullness = (absolute_fullness / len(dynamic_routes)) ** (1 / (1.0 + epsilon))
 
     if fullness_strategy == "epsilon":
         return 1.0 + (alpha * average_fullness)
