@@ -1,0 +1,10 @@
+{
+    "graph_name": "c75",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.08,
+    "margin_strategy": "bounded",
+    "best_cost": 873.7089379042826,
+    "average_cost": 906.1588080065184,
+    "relative_deviation": 0.0012645100088483742
+}
