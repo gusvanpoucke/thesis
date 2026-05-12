@@ -45,7 +45,7 @@ def load_public_data(algorithm, best_costs, average_costs):
         with open(json_filename, "w") as json_file:
             json.dump(data, json_file, indent=4)
 
-def RD_bar_chart(files, folder):
+def RD_bar_chart(files, folder, y_range=(-16, 2)):
     relative_deviations = []
     for dvrp_file in files:
         file = folder + dvrp_file
@@ -65,7 +65,29 @@ def RD_bar_chart(files, folder):
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
-    ax.set_ylim(-16, 2)
+    ax.set_ylim(y_range[0], y_range[1])
+
+    fig.tight_layout()
+    plt.show()
+    plt.close(fig)
+
+def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2)):
+    relative_deviations = []
+    for parameter in parameters:
+        file = prefix + str(parameter).replace(".", "_") + "/_compare_heuristics.json"
+        with open(file, 'r') as file:
+            relative_deviation = json.load(file)['average_relative_deviation']
+        relative_deviations.append(relative_deviation * 100)
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.plot(parameters, relative_deviations, marker='o', linestyle='-', color=color)
+
+    ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
+    ax.set_xticks(parameters)
+    ax.set_xticklabels([f"{p:.2f}" for p in parameters], rotation=45, ha='right', fontsize=16)
+    ax.tick_params(axis='y', labelsize=16)
+    ax.set_xlim(parameters[0], parameters[-1])
+    ax.set_ylim(y_range[0], y_range[1])
 
     fig.tight_layout()
     plt.show()
@@ -101,4 +123,5 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    RD_bar_chart(dvrp_files_without_f134, "hpc_jobs/wait_max_dist_vns/")
+    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/", (-6, 2))
+    RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_")
