@@ -53,6 +53,11 @@ def RD_bar_chart(files, folder, y_range=(-16, 2)):
             relative_deviation = json.load(file)['relative_deviation']
         relative_deviations.append(relative_deviation * 100)
 
+    file = folder + "_compare_heuristics.json"
+    with open(file, 'r') as file:
+        average_relative_deviation = json.load(file)['average_relative_deviation']
+    average_relative_deviation *= 100
+
     labels = [file.replace('.json', '') for file in files]
     
     x = np.arange(len(labels))  # the label locations
@@ -62,6 +67,7 @@ def RD_bar_chart(files, folder, y_range=(-16, 2)):
     rects1 = ax.bar(x, relative_deviations, width, color=color)
 
     ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
+    ax.axhline(y=average_relative_deviation, color=color2, linestyle='--', linewidth=0.8)
     ax.set_xticks(x)
     ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
@@ -123,5 +129,5 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/", (-6, 2))
-    RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_")
+    RD_bar_chart(list_of_dvrp_files, "hpc_jobs/standard_vns/", (-6, 12))
+    #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_")
