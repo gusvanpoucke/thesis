@@ -24,6 +24,7 @@ dvrp_files_without_f134 = [
 
 color = list(plt.cm.Paired.colors)[0]
 color2 = list(plt.cm.Paired.colors)[1]
+color3 = list(plt.cm.Paired.colors)[5]
 
 def load_public_data(algorithm, best_costs, average_costs):
     os.makedirs(f"hpc_jobs/{algorithm}/", exist_ok=True)
@@ -45,13 +46,15 @@ def load_public_data(algorithm, best_costs, average_costs):
         with open(json_filename, "w") as json_file:
             json.dump(data, json_file, indent=4)
 
-def RD_bar_chart(files, folder, y_range=(-16, 2)):
+def RD_bar_chart(files, folder, y_range=(-16, 2), error_lines=False):
     relative_deviations = []
+    relative_deviations_best = []
     for dvrp_file in files:
         file = folder + dvrp_file
         with open(file, 'r') as file:
-            relative_deviation = json.load(file)['relative_deviation']
-        relative_deviations.append(relative_deviation * 100)
+            data = json.load(file)
+        relative_deviations.append(data['relative_deviation'] * 100)
+        relative_deviations_best.append(data['relative_deviation_best'] * 100)
 
     file = folder + "_compare_heuristics.json"
     with open(file, 'r') as file:
@@ -64,7 +67,9 @@ def RD_bar_chart(files, folder, y_range=(-16, 2)):
     width = 0.8  # the width of the bars
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    rects1 = ax.bar(x, relative_deviations, width, color=color)
+    ax.bar(x, relative_deviations, width, color=color)
+    if error_lines:
+        ax.vlines(x, relative_deviations, relative_deviations_best, color=color3, linewidth=0.8)
 
     ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
     ax.axhline(y=average_relative_deviation, color=color2, linestyle='--', linewidth=0.8)
@@ -78,18 +83,22 @@ def RD_bar_chart(files, folder, y_range=(-16, 2)):
     plt.show()
     plt.close(fig)
 
-def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2)):
+def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2), error_lines=False):
     relative_deviations = []
+    relative_deviations_best = []
     parameters_percent = []
     for parameter in parameters:
         file = prefix + str(parameter).replace(".", "_") + "/_compare_heuristics.json"
         with open(file, 'r') as file:
-            relative_deviation = json.load(file)['average_relative_deviation']
-        relative_deviations.append(relative_deviation * 100)
+            data = json.load(file)
+        relative_deviations.append(data['average_relative_deviation'] * 100)
+        relative_deviations_best.append(data['average_relative_deviation_best'] * 100)
         parameters_percent.append(parameter * 100)
 
     fig, ax = plt.subplots(figsize=(8, 6))
     ax.plot(parameters_percent, relative_deviations, marker='o', linestyle='-', color=color)
+    if error_lines:
+        ax.vlines(parameters_percent, relative_deviations, relative_deviations_best, color=color3, linewidth=0.8)
 
     ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
     ax.set_xlabel('Wait Margin (%)', fontsize=16)
@@ -134,5 +143,5 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/standard_vns/", (-6, 12))
-    RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_")
+    RD_bar_chart(list_of_dvrp_files, "hpc_jobs/standard_vns/", (-12, 12), error_lines=True)
+    #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-5, 1),  error_lines=True)
