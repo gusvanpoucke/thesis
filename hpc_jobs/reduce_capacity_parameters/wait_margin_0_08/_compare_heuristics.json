@@ -1,54 +1,54 @@
 {
     "heuristic": "hpc_jobs/reduce_capacity_parameters/wait_margin_0_08/",
     "comparison": "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/",
-    "relative_improvement_for_parameters": [
+    "relative_deviation_for_parameters": [
         [
             "starting_capacity_0_95_full_capacity_time_0_4",
-            1.0033081475839793
+            0.0033081475839790635
         ],
         [
             "starting_capacity_0_9_full_capacity_time_0_4",
-            1.005170216098529
+            0.005170216098528745
         ],
         [
             "starting_capacity_0_95_full_capacity_time_0_5",
-            1.0062275435511003
+            0.006227543551100609
         ],
         [
             "starting_capacity_0_85_full_capacity_time_0_4",
-            1.007140422144204
+            0.0071404221442041334
         ],
         [
             "starting_capacity_0_95_full_capacity_time_0_6",
-            1.0094949373847986
+            0.009494937384798485
         ],
         [
             "starting_capacity_0_8_full_capacity_time_0_4",
-            1.0100241856308187
+            0.010024185630818912
         ],
         [
             "starting_capacity_0_9_full_capacity_time_0_5",
-            1.0107397214077143
+            0.010739721407714307
         ],
         [
             "starting_capacity_0_85_full_capacity_time_0_5",
-            1.0137697151041294
+            0.01376971510412909
         ],
         [
             "starting_capacity_0_9_full_capacity_time_0_6",
-            1.014614127286498
+            0.014614127286497493
         ],
         [
             "starting_capacity_0_8_full_capacity_time_0_5",
-            1.018348427978817
+            0.01834842797881731
         ],
         [
             "starting_capacity_0_85_full_capacity_time_0_6",
-            1.0203497868041338
+            0.02034978680413386
         ],
         [
             "starting_capacity_0_8_full_capacity_time_0_6",
-            1.0320054812534898
+            0.032005481253489516
         ]
     ]
 }

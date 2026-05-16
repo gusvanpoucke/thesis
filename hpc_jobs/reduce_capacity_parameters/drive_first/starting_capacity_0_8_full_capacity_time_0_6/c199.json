@@ -6,5 +6,6 @@
     "starting_capacity": 0.8,
     "full_capacity_time": 0.6,
     "best_cost": 1715.4315624531166,
-    "average_cost": 1786.1693381216776
+    "average_cost": 1786.1693381216776,
+    "relative_deviation": 0.054547095466742634
 }

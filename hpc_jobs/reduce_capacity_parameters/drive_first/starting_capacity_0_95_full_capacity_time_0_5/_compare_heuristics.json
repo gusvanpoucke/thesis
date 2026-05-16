@@ -2,5 +2,5 @@
     "heuristic": "hpc_jobs/reduce_capacity_parameters/drive_first/starting_capacity_0_95_full_capacity_time_0_5/",
     "comparison": "hpc_jobs/standard_vns/",
     "count_improved": 9,
-    "average_relative_improvement": 1.0099302072918936
+    "average_relative_deviation": 0.009930207291893726
 }
