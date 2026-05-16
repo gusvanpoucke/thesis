@@ -6,5 +6,6 @@
     "margin_strategy": "bounded",
     "best_cost": 570.9103282843375,
     "average_cost": 594.5302348549682,
-    "relative_deviation": -0.001959193841959287
+    "relative_deviation": -0.001959193841959287,
+    "relative_deviation_best": -0.04161004625130805
 }

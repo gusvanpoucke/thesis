@@ -2,5 +2,6 @@
     "heuristic": "hpc_jobs/wait_max_dist_vns/",
     "comparison": "hpc_jobs/standard_vns/",
     "count_improved": 21,
-    "average_relative_deviation": -0.05143296648379159
+    "average_relative_deviation": -0.05143296648379159,
+    "average_relative_deviation_best": -0.09592048745358539
 }

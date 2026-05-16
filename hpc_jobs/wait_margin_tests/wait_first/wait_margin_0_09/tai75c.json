@@ -5,5 +5,6 @@
     "wait_margin": 0.09,
     "best_cost": 1427.665649409144,
     "average_cost": 1486.6741485478394,
-    "relative_deviation": -0.030020143860852885
+    "relative_deviation": -0.030020143860852885,
+    "relative_deviation_best": -0.06852021165408592
 }

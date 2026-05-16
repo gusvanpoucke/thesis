@@ -2,5 +2,6 @@
     "heuristic": "hpc_jobs/standard_vns/",
     "comparison": "hpc_jobs/sarasola_vns/",
     "count_improved": 5,
-    "average_relative_deviation": 0.027669583816162396
+    "average_relative_deviation": 0.027669583816162396,
+    "average_relative_deviation_best": -0.023533623941222704
 }

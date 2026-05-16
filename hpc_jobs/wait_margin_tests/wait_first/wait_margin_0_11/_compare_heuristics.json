@@ -2,5 +2,6 @@
     "heuristic": "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_11/",
     "comparison": "hpc_jobs/wait_first_vns/",
     "count_improved": 13,
-    "average_relative_deviation": -0.009482783119299334
+    "average_relative_deviation": -0.009482783119299334,
+    "average_relative_deviation_best": -0.04356411017173636
 }
