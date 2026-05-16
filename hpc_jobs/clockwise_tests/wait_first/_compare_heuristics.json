@@ -2,5 +2,5 @@
     "heuristic": "hpc_jobs/clockwise_tests/wait_first/",
     "comparison": "hpc_jobs/wait_first_vns/",
     "count_improved": 6,
-    "average_relative_improvement": 1.004049448231793
+    "average_relative_deviation": 0.004049448231793066
 }
