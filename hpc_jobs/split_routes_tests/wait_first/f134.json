@@ -2,5 +2,7 @@
     "graph_name": "f134",
     "tests_ran": 30,
     "best_cost": 13290.020330191159,
-    "average_cost": 13495.895996306017
+    "average_cost": 13495.895996306017,
+    "relative_deviation": 0.14151853531642825,
+    "relative_deviation_best": 0.12410502761712083
 }

@@ -2,5 +2,7 @@
     "graph_name": "c150",
     "tests_ran": 30,
     "best_cost": 1442.8063048399838,
-    "average_cost": 1502.0036231754236
+    "average_cost": 1502.0036231754236,
+    "relative_deviation": 0.09133194248682622,
+    "relative_deviation_best": 0.04832011254699838
 }

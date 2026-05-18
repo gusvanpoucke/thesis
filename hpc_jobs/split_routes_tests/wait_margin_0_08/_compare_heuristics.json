@@ -2,5 +2,6 @@
     "heuristic": "hpc_jobs/split_routes_tests/wait_margin_0_08/",
     "comparison": "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/",
     "count_improved": 1,
-    "average_relative_improvement": 1.0655865269113969
+    "average_relative_deviation": 0.06558652691139685,
+    "average_relative_deviation_best": 0.03300050562558047
 }

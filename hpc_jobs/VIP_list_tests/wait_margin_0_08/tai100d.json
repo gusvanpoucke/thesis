@@ -2,5 +2,7 @@
     "graph_name": "tai100d",
     "tests_ran": 30,
     "best_cost": 1731.7859061775969,
-    "average_cost": 1769.565295220256
+    "average_cost": 1769.565295220256,
+    "relative_deviation": 0.028980656842586574,
+    "relative_deviation_best": 0.0070124024598691255
 }

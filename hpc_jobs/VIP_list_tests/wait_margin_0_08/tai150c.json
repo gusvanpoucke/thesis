@@ -2,5 +2,7 @@
     "graph_name": "tai150c",
     "tests_ran": 30,
     "best_cost": 2617.111494729187,
-    "average_cost": 2757.8164230569105
+    "average_cost": 2757.8164230569105,
+    "relative_deviation": 0.1158815383889307,
+    "relative_deviation_best": 0.05894880328424745
 }

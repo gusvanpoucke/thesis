@@ -2,5 +2,6 @@
     "heuristic": "hpc_jobs/VIP_list_tests/drive_first/",
     "comparison": "hpc_jobs/standard_vns/",
     "count_improved": 1,
-    "average_relative_improvement": 1.1049031855142193
+    "average_relative_deviation": 0.10490318551421937,
+    "average_relative_deviation_best": 0.05423439922941967
 }

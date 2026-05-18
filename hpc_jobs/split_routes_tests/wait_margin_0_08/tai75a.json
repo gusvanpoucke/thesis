@@ -2,5 +2,7 @@
     "graph_name": "tai75a",
     "tests_ran": 30,
     "best_cost": 1825.6429553050073,
-    "average_cost": 1873.6673039172344
+    "average_cost": 1873.6673039172344,
+    "relative_deviation": 0.08454787498943789,
+    "relative_deviation_best": 0.056749607321399595
 }

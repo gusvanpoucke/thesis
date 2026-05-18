@@ -2,5 +2,7 @@
     "graph_name": "c120",
     "tests_ran": 30,
     "best_cost": 1103.306838357713,
-    "average_cost": 1209.7455097510576
+    "average_cost": 1209.7455097510576,
+    "relative_deviation": 0.018750126627207393,
+    "relative_deviation_best": -0.0708839402785794
 }
