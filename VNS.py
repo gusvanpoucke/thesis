@@ -189,9 +189,9 @@ def initial_routes(capacity, adj_matrix, demands, working_day, durations, angles
             new_routes.append(Route([], route1, 0.0))
             new_routes.append(Route([], route2, 0.0))
         return current_cost, commit_next_time_period(
-            adj_matrix, 0.1, working_day, durations, angles, time_period_length,
+            capacity, adj_matrix, demands, 0.1, working_day, durations, angles, time_period_length,
             new_routes,
-            "drive_first", "random", 0.0
+            "drive_first", "random", 0.0, "absolute"
         )
     elif initial_routes_strategy == "VIP_list":
         # determine vips
