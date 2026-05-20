@@ -37,6 +37,63 @@ def dynamic_route_visualization():
     plt.show()
     plt.close(fig)
 
+def time_line_visualization():
+    depot = [0, 10]
+    customers = np.array([[0, 20], [10, 20], [10, 10], [10, 0], [0, 0]])
+    color_past = list(plt.cm.Paired.colors)[1]
+    color_future = list(plt.cm.Paired.colors)[0]
+
+    vehicle_list = [[0, 10], [2, 20], [10, 16], [4, 10]]
+    new_customer = [4, 10]
+    new_customer_list = [[], new_customer, new_customer, []]
+    covered_list = [
+        [],
+        np.array([depot] + list(customers[:1]) + [vehicle_list[1]]),
+        np.array([depot] + list(customers[:2]) + [vehicle_list[2]]),
+        np.array([depot] + list(customers[:3]) + [vehicle_list[3]]),
+    ]
+    committed_list = [
+        np.array([depot] + list(customers[:2])),
+        np.array([vehicle_list[1]] + list(customers[1:3])),
+        np.array([vehicle_list[2]] + [customers[2]] + [new_customer] + [customers[3]]),
+        np.array([vehicle_list[3]] + list(customers[3:])),
+    ]
+    planned_list = [
+        np.array(list(customers[1:]) + [depot]),
+        np.array(list(customers[2:]) + [depot]),
+        np.array(list(customers[3:]) + [depot]),
+        np.array(list(customers[4:]) + [depot]),
+    ]
+
+    for frame in range(4):
+        vehicle = vehicle_list[frame]
+        new_customer = new_customer_list[frame]
+
+        fig, ax = plt.subplots(figsize=(4, 6))
+        ax.set_aspect('equal')
+
+        ax.scatter(customers[:, 0], customers[:, 1], s=50, c='blue', zorder=3, label='Customer')
+        if new_customer:
+            ax.scatter(new_customer[0], new_customer[1], s=50, c='green', zorder=3, label='New Customer')
+        ax.scatter(depot[0], depot[1], s=200, c='red', marker='s', zorder=3, label='Depot')
+        ax.scatter(vehicle[0], vehicle[1], s=100, c='green', marker='^', zorder=3, label='Vehicle')
+
+        covered = covered_list[frame]
+        if len(covered) > 0:
+            ax.plot(covered[:, 0], covered[:, 1], '-', color=color_past, linewidth=2, zorder=2, alpha=0.7)
+        committed = committed_list[frame]
+        ax.plot(committed[:, 0], committed[:, 1], '-', color=color_future, linewidth=2, zorder=2, alpha=0.7)
+        planned = planned_list[frame]
+        ax.plot(planned[:, 0], planned[:, 1], '--', color=color_future, linewidth=2, zorder=2, alpha=0.7)
+
+        ax.grid(False)
+        ax.axis('off')
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, 0.92), fontsize=16)
+
+        plt.tight_layout()
+        plt.show()
+        plt.close(fig)
+
 def cross_operation_visualization():
     depot1 = [0, 0]
     route1 = np.array([[10, 10], [10, 20], [10, 30], [10, 40]])
@@ -432,5 +489,5 @@ def time_period_visualization(dat_file, solution_file, time_period, important_ro
 
 if __name__ == "__main__":
     #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
-    time_period_visualization('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', 1, [27, 46, 38])
-    #two_opt_star_visualization()
+    #time_period_visualization('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', 1, [27, 46, 38])
+    time_line_visualization()
