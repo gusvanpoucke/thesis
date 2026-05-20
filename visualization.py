@@ -323,9 +323,10 @@ def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_imag
     for idx, sol in enumerate(solutions):
         routes = sol['routes']
 
-        fig, ax = plt.subplots(figsize=(8, 6))
-        ax.set_title(f"Decision Point {idx + 1}")
+        fig, ax = plt.subplots(figsize=(6, 6))
+        ax.set_title(f"Time Period {idx + 1}", fontsize=16)
         ax.set_aspect('equal')
+        ax.axis('off')
 
         new_customers = []
         for routedata in routes:
@@ -359,10 +360,7 @@ def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_imag
             planned = np.array([last_committed_node] + [coords[c] for c in routedata['route']] + [depot])
             ax.plot(planned[:, 0], planned[:, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
 
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.grid(True, alpha=0.3)
-        ax.legend(loc='upper right')
+        ax.legend(loc='upper right', fontsize=16)
 
         plt.tight_layout()
         if save_images:
@@ -373,6 +371,66 @@ def visualize_dvrp_solution(dat_file, solution_file, save_images=True, show_imag
             plt.show()
         plt.close(fig)
 
+def time_period_visualization(dat_file, solution_file, time_period, important_routes=[]):
+    # Load coordinates
+    coords = parse_dat(dat_file)
+    if coords is None:
+        return
+    
+    # Load solution
+    with open(solution_file, 'r') as f:
+        solution = json.load(f)
+    
+    solutions = solution['solutions']
+    num_solutions = len(solutions)
+    
+    depot = coords[0]
+
+    sol = solutions[time_period-1]
+    routes = sol['routes']
+
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.set_title(f"Time Period {time_period}", fontsize=16)
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    customers = []
+    for routedata in routes:
+        for customer in routedata['covered_route'] + routedata['route']:
+            customers.append(customer)
+    customers_coords = np.array([coords[i] for i in customers])
+
+    ax.scatter(customers_coords[:, 0], customers_coords[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax.scatter(depot[0], depot[1], s=50, c='red', marker='s', zorder=3, label='Depot')
+
+    for routeidx, routedata in enumerate(routes):
+        first_node = routedata['covered_route'][0] if routedata['covered_route'] else 0
+        if first_node in important_routes:
+            color = plt.cm.Reds(0.4)
+            color2 = plt.cm.Reds(0.7)
+        else:
+            color = plt.cm.Blues(routeidx/len(routes)*0.6 + 0.2)
+            color2 = color
+
+        covered = np.array([depot] + [coords[c] for c in routedata['covered_route']])
+        if first_node in important_routes:
+            committed = np.array([covered[-2], covered[-1]])
+            covered = covered[:-1]
+        ax.plot(covered[:, 0], covered[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+        if first_node in important_routes:
+            ax.plot(committed[:, 0], committed[:, 1], '-', color=color2, linewidth=4, zorder=2, alpha=0.7)
+        
+        last_committed_node = coords[routedata['covered_route'][-1]] if routedata['covered_route'] else depot
+        planned = np.array([last_committed_node] + [coords[c] for c in routedata['route']] + [depot])
+        ax.plot(planned[:, 0], planned[:, 1], '--', color=color, linewidth=2, zorder=2, alpha=0.7)
+
+    ax.legend(loc='upper right', fontsize=16)
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
 if __name__ == "__main__":
     #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
-    two_opt_star_visualization()
+    time_period_visualization('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', 1, [27, 46, 38])
+    #two_opt_star_visualization()
