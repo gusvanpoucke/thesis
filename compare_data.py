@@ -83,20 +83,32 @@ def RD_bar_chart(files, folder, y_range=(-16, 2)):
 
 def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2)):
     relative_deviations = []
-    relative_deviations_best = []
+    standard_deviations = []
     parameters_percent = []
     for parameter in parameters:
         file = prefix + str(parameter).replace(".", "_") + "/_compare_heuristics.json"
         with open(file, 'r') as file:
             data = json.load(file)
         relative_deviations.append(data['average_relative_deviation'] * 100)
-        relative_deviations_best.append(data['average_relative_deviation_best'] * 100)
+        standard_deviations.append(data['standard_deviation_relative_deviation'] * 100)
         parameters_percent.append(parameter * 100)
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    ax.plot(parameters_percent, relative_deviations, marker='o', linestyle='-', color=color)
+    #ax.plot(parameters_percent, relative_deviations, marker='o', linestyle='-', color=color)
+    #ax.vlines(parameters_percent, relative_deviations, standard_deviations, color=color3, linewidth=0.8)
+    ax.errorbar(
+        parameters_percent,
+        relative_deviations,
+        yerr=standard_deviations,
+        fmt='o-',
+        color=color,
+        ecolor=color3,
+        capsize=4,
+        elinewidth=1.5,
+        label='Average RD'
+    )
 
-    ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
     ax.set_xlabel('Wait Margin (%)', fontsize=16)
     ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
     ax.set_xticks(parameters_percent)
@@ -112,7 +124,6 @@ def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2)):
 def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, y_range):
     relative_deviations = []
     parameters_axis_percent = [parameter*100 for parameter in parameters_axis]
-    parameters_lines_percent = [parameter*100 for parameter in parameters_lines]
     for parameter_line in parameters_lines:
         line = []
         for parameter_axis in parameters_axis:
@@ -124,25 +135,25 @@ def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, y_ran
         relative_deviations.append(line)
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    for i, parameter_line in enumerate(parameters_lines_percent):
+    for i, parameter_line in enumerate(parameters_lines):
         ax.plot(
             parameters_axis_percent,
             relative_deviations[i],
             marker='o',
             linestyle='-',
-            color=plt.cm.Blues(i/len(parameters_lines_percent)*0.6 + 0.4),
-            label=f'{parameter_line:.0f}%'
+            color=plt.cm.Blues(i/len(parameters_lines)*0.6 + 0.4),
+            label=f'{parameter_line:.1f} · T'
         )
 
-    ax.axhline(y=0, color=color2, linestyle='-', linewidth=0.8)
-    ax.set_xlabel('Starting Capacity (%)', fontsize=16)
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
+    ax.set_xlabel('Capacity Reduction at Start (%)', fontsize=16)
     ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
     ax.set_xticks(parameters_axis_percent)
-    ax.set_xticklabels([f"{p:.0f}" for p in parameters_axis_percent], fontsize=16)
+    ax.set_xticklabels([f"{100-p:.0f}" for p in parameters_axis_percent], fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
     ax.set_xlim(parameters_axis_percent[0], parameters_axis_percent[-1])
     ax.set_ylim(y_range[0], y_range[1])
-    ax.legend(title='Full Capacity Time (%)', fontsize=16, title_fontsize=16)
+    ax.legend(title='Full Capacity Time', fontsize=16, title_fontsize=16)
 
     fig.tight_layout()
     plt.show()
@@ -178,12 +189,14 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/standard_vns/", (-12, 12))
-    #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-1.2, 0.2))
+    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/split_routes_tests/wait_margin_0_08/", (-4, 30))
+    RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-3, 2))
+    """
     RD_double_parameters(
         [1.0, 0.95, 0.9, 0.85, 0.8],
         [0.4, 0.5, 0.6],
-        "hpc_jobs/reduce_capacity_parameters/wait_first/starting_capacity_",
+        "hpc_jobs/reduce_capacity_parameters/drive_first/starting_capacity_",
         "_full_capacity_time_",
         (-1, 6)
     )
+    """
