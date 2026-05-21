@@ -81,7 +81,7 @@ def RD_bar_chart(files, folder, y_range=(-16, 2)):
     plt.show()
     plt.close(fig)
 
-def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2)):
+def RD_parameters(parameters, prefix, x_range=(0, 16), y_range=(-1.2, 0.2)):
     relative_deviations = []
     standard_deviations = []
     parameters_percent = []
@@ -114,16 +114,16 @@ def RD_parameters(parameters, prefix, y_range=(-1.2, 0.2)):
     ax.set_xticks(parameters_percent)
     ax.set_xticklabels([f"{p:.0f}" for p in parameters_percent], fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
-    ax.set_xlim(parameters_percent[0], parameters_percent[-1])
+    ax.set_xlim(x_range[0], x_range[1])
     ax.set_ylim(y_range[0], y_range[1])
 
     fig.tight_layout()
     plt.show()
     plt.close(fig)
 
-def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, y_range):
+def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, x_range, y_range):
     relative_deviations = []
-    parameters_axis_percent = [parameter*100 for parameter in parameters_axis]
+    parameters_axis_percent = [(1-parameter)*100 for parameter in parameters_axis]
     for parameter_line in parameters_lines:
         line = []
         for parameter_axis in parameters_axis:
@@ -149,9 +149,9 @@ def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, y_ran
     ax.set_xlabel('Capacity Reduction at Start (%)', fontsize=16)
     ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
     ax.set_xticks(parameters_axis_percent)
-    ax.set_xticklabels([f"{100-p:.0f}" for p in parameters_axis_percent], fontsize=16)
+    ax.set_xticklabels([f"{p:.0f}" for p in parameters_axis_percent], fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
-    ax.set_xlim(parameters_axis_percent[0], parameters_axis_percent[-1])
+    ax.set_xlim(x_range[0], x_range[1])
     ax.set_ylim(y_range[0], y_range[1])
     ax.legend(title='Full Capacity Time', fontsize=16, title_fontsize=16)
 
@@ -190,13 +190,12 @@ def latex_table(folders):
 
 if __name__ == "__main__":
     #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/split_routes_tests/wait_margin_0_08/", (-4, 30))
-    RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-3, 2))
-    """
+    #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-0.5, 16.5), (-3, 2))
     RD_double_parameters(
         [1.0, 0.95, 0.9, 0.85, 0.8],
         [0.4, 0.5, 0.6],
-        "hpc_jobs/reduce_capacity_parameters/drive_first/starting_capacity_",
+        "hpc_jobs/reduce_capacity_parameters/wait_margin_0_08/starting_capacity_",
         "_full_capacity_time_",
+        (-0.5, 20.5),
         (-1, 6)
     )
-    """
