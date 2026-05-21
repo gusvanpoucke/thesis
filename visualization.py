@@ -5,6 +5,7 @@ import re
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from matplotlib.lines import Line2D
 
 def dynamic_route_visualization():
     depot = [10, 10]
@@ -37,14 +38,61 @@ def dynamic_route_visualization():
     plt.show()
     plt.close(fig)
 
+def computer_pictogram():
+    for x in range(2):
+        fig, ax = plt.subplots(figsize=(4, 4))
+        # draw arrow
+        arrow = mpatches.FancyArrow(-0.1, 1.05, 1.2, 0, width=0.06, length_includes_head=True, color='black')
+        ax.add_patch(arrow)
+        # Draw monitor
+        monitor = mpatches.FancyBboxPatch((0.2, 0.5), 0.6, 0.35, boxstyle="round,pad=0.05", linewidth=2, edgecolor='black', facecolor='#B0C4DE')
+        ax.add_patch(monitor)
+        # Draw screen
+        screen = mpatches.Rectangle((0.25, 0.55), 0.5, 0.25, linewidth=1, edgecolor='black', facecolor='white')
+        ax.add_patch(screen)
+        # Draw stand
+        stand = mpatches.FancyBboxPatch((0.45, 0.45), 0.1, 0.07, boxstyle="round,pad=0.02", linewidth=1, edgecolor='black', facecolor='#A9A9A9')
+        ax.add_patch(stand)
+        # Draw base
+        base = mpatches.FancyBboxPatch((0.38, 0.38), 0.24, 0.06, boxstyle="round,pad=0.03", linewidth=1, edgecolor='black', facecolor='#696969')
+        ax.add_patch(base)
+        # Draw keyboard
+        keyboard = mpatches.FancyBboxPatch((0.25, 0.25), 0.5, 0.1, boxstyle="round,pad=0.02", linewidth=1, edgecolor='black', facecolor='#D3D3D3')
+        ax.add_patch(keyboard)
+        # Optionally, add some keys
+        for i in range(6):
+            for j in range(2):
+                key = mpatches.Rectangle((0.27 + i*0.08, 0.27 + j*0.04), 0.06, 0.03, linewidth=0.5, edgecolor='#888', facecolor='#F8F8FF')
+                ax.add_patch(key)
+        # Draw circles and plus sign under the computer
+        y = 0
+        if x == 0:
+            # Only blue circle
+            circ = mpatches.Circle((0.5, y), 0.15, color='blue')
+            ax.add_patch(circ)
+        else:
+            # Blue circle, plus, green circle
+            circ1 = mpatches.Circle((0.2, y), 0.15, color='blue')
+            circ2 = mpatches.Circle((0.8, y), 0.15, color='green')
+            ax.add_patch(circ1)
+            ax.add_patch(circ2)
+            # Plus sign
+            ax.add_line(Line2D([0.5, 0.5], [y-0.1, y+0.1], color='black', linewidth=5))
+            ax.add_line(Line2D([0.4, 0.6], [y, y], color='black', linewidth=5))
+        ax.set_xlim(-0.2, 1.2)
+        ax.set_ylim(-0.2, 1.2)
+        ax.axis('off')
+        plt.tight_layout()
+        plt.show()
+
 def time_line_visualization():
     depot = [0, 10]
     customers = np.array([[0, 20], [10, 20], [10, 10], [10, 0], [0, 0]])
     color_past = list(plt.cm.Paired.colors)[1]
     color_future = list(plt.cm.Paired.colors)[0]
 
-    vehicle_list = [[0, 10], [2, 20], [10, 16], [4, 10]]
-    new_customer = [4, 10]
+    vehicle_list = [[0, 10], [2, 20], [10, 16], [6, 10]]
+    new_customer = [6, 10]
     new_customer_list = [[], new_customer, new_customer, []]
     covered_list = [
         [],
@@ -64,7 +112,22 @@ def time_line_visualization():
         np.array(list(customers[3:]) + [depot]),
         np.array(list(customers[4:]) + [depot]),
     ]
+    
+    # legend
+    fig, ax = plt.subplots(figsize=(7, 1))
+    ax.grid(False)
+    ax.axis('off')
+    ax.legend(handles=[
+        plt.scatter([], [], s=50, c='blue', label='Customer'),
+        plt.scatter([], [], s=50, c='green', label='New Customer'),
+        plt.scatter([], [], s=200, c='red', marker='s', label='Depot'),
+        plt.scatter([], [], s=100, c='green', marker='^', label='Vehicle'),
+    ], loc='center', ncol=4, fontsize=12, frameon=False)
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
 
+    # time line
     for frame in range(4):
         vehicle = vehicle_list[frame]
         new_customer = new_customer_list[frame]
@@ -88,7 +151,7 @@ def time_line_visualization():
 
         ax.grid(False)
         ax.axis('off')
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, 0.92), fontsize=16)
+        #ax.legend(loc='upper center', bbox_to_anchor=(0.5, 0.92), fontsize=16)
 
         plt.tight_layout()
         plt.show()
