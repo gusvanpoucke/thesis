@@ -3,5 +3,6 @@
     "comparison": "hpc_jobs/wait_first_vns/",
     "count_improved": 15,
     "average_relative_deviation": -0.010437287312593604,
-    "average_relative_deviation_best": -0.044935204814892625
+    "average_relative_deviation_best": -0.044935204814892625,
+    "standard_deviation_relative_deviation": 0.015935067651398478
 }

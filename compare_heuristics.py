@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import math
 
 # Your 21 files in order
 list_of_dvrp_files = [
@@ -15,6 +16,7 @@ def compare_heuristics(heuristic_folder, comparison_folder):
     count_improved = 0
     total_relative_deviation = 0.0
     total_relative_deviation_best = 0.0
+    relative_deviations = []
     for dvrp_file in list_of_dvrp_files:
         heuristic_file = heuristic_folder + dvrp_file
         comparison_file = comparison_folder + dvrp_file
@@ -30,6 +32,7 @@ def compare_heuristics(heuristic_folder, comparison_folder):
             count_improved += 1
         relative_deviation = (heuristic_average - comparison_average) / comparison_average
         relative_deviation_best = (heuristic_best - comparison_average) / comparison_average
+        relative_deviations.append(relative_deviation)
         total_relative_deviation += relative_deviation
         total_relative_deviation_best += relative_deviation_best
 
@@ -40,13 +43,20 @@ def compare_heuristics(heuristic_folder, comparison_folder):
     average_relative_deviation = total_relative_deviation / len(list_of_dvrp_files)
     average_relative_deviation_best = total_relative_deviation_best / len(list_of_dvrp_files)
 
+    total_variance = 0.0
+    for relative_deviation in relative_deviations:
+        total_variance += (average_relative_deviation - relative_deviation) ** 2
+    variance = total_variance / len(list_of_dvrp_files)
+    standard_deviation = math.sqrt(variance)
+
     # write to file
     data = {
         "heuristic": heuristic_folder,
         "comparison": comparison_folder,
         "count_improved": count_improved,
         "average_relative_deviation": average_relative_deviation,
-        "average_relative_deviation_best": average_relative_deviation_best
+        "average_relative_deviation_best": average_relative_deviation_best,
+        "standard_deviation_relative_deviation": standard_deviation
     }
     json_filename = f"{heuristic_folder}_compare_heuristics.json"
     with open(json_filename, "w") as json_file:
