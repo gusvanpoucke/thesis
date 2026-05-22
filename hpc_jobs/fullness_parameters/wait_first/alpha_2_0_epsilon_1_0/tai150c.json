@@ -2,9 +2,12 @@
     "graph_name": "tai150c",
     "number_of_tests": 30,
     "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 2.0,
     "epsilon": 1.0,
-    "best_cost": 2429.316157829439,
-    "average_cost": 2477.5208565471357
+    "best_cost": 2432.172217974589,
+    "average_cost": 2474.14577844984,
+    "relative_deviation": 0.0030019844904987016,
+    "relative_deviation_best": -0.014013813373758848
 }

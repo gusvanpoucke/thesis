@@ -6,6 +6,8 @@
     "termination_time": 5,
     "alpha": 0.1,
     "epsilon": 0.1,
-    "best_cost": 1352.6294692114245,
-    "average_cost": 1366.7417440101606
+    "best_cost": 1347.358462806913,
+    "average_cost": 1367.9777164365098,
+    "relative_deviation": -0.0026043288106955935,
+    "relative_deviation_best": -0.017637873631064567
 }

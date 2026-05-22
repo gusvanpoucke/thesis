@@ -1,0 +1,13 @@
+{
+    "graph_name": "c50",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "wait_margin": 0.0,
+    "termination_time": 5,
+    "alpha": 0.15,
+    "epsilon": 1.0,
+    "best_cost": 598.0946245429541,
+    "average_cost": 646.36092994447,
+    "relative_deviation": 0.022839126311024138,
+    "relative_deviation_best": -0.053540282406314185
+}

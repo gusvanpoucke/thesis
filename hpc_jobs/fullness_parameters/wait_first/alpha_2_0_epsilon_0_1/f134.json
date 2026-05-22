@@ -1,0 +1,13 @@
+{
+    "graph_name": "f134",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
+    "termination_time": 5,
+    "alpha": 2.0,
+    "epsilon": 0.1,
+    "best_cost": 11669.877746093629,
+    "average_cost": 11834.525954538547,
+    "relative_deviation": 0.0009954683621419018,
+    "relative_deviation_best": -0.012930912057354561
+}

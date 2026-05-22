@@ -2,9 +2,12 @@
     "graph_name": "c75",
     "number_of_tests": 30,
     "waiting_strategy": "drive_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 0.15,
     "epsilon": 0.2,
-    "best_cost": 973.5387626618871,
-    "average_cost": 1032.9233904431223
+    "best_cost": 970.1465594648214,
+    "average_cost": 1039.1664078506362,
+    "relative_deviation": 0.011068620428147696,
+    "relative_deviation_best": -0.056085015757940455
 }

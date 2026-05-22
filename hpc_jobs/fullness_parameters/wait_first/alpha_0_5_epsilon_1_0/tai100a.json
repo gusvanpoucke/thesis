@@ -2,9 +2,12 @@
     "graph_name": "tai100a",
     "number_of_tests": 30,
     "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 0.5,
     "epsilon": 1.0,
-    "best_cost": 2124.360218557536,
-    "average_cost": 2202.959497610856
+    "best_cost": 2116.3796054748905,
+    "average_cost": 2189.4518605008643,
+    "relative_deviation": 0.002958220642321195,
+    "relative_deviation_best": -0.03051518893627854
 }

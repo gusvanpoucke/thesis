@@ -1,0 +1,13 @@
+{
+    "graph_name": "f71",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "wait_margin": 0.0,
+    "termination_time": 5,
+    "alpha": 1.5,
+    "epsilon": 1.0,
+    "best_cost": 316.8987461937546,
+    "average_cost": 334.1505979046578,
+    "relative_deviation": 0.02812572900418455,
+    "relative_deviation_best": -0.024955345003066738
+}

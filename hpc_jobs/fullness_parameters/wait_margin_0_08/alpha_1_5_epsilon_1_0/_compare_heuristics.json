@@ -1,0 +1,8 @@
+{
+    "heuristic": "hpc_jobs/fullness_parameters/wait_margin_0_08/alpha_1_5_epsilon_1_0/",
+    "comparison": "hpc_jobs/wait_margin_tests/wait_first/wait_margin_0_08/",
+    "count_improved": 12,
+    "average_relative_deviation": -0.0013868349243419463,
+    "average_relative_deviation_best": -0.03523153131480229,
+    "standard_deviation_relative_deviation": 0.008178671048285386
+}

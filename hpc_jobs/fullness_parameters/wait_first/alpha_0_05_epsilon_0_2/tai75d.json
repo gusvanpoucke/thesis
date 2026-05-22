@@ -2,9 +2,12 @@
     "graph_name": "tai75d",
     "number_of_tests": 30,
     "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 0.05,
     "epsilon": 0.2,
-    "best_cost": 1403.1603763596047,
-    "average_cost": 1421.1067101333213
+    "best_cost": 1401.5211797332606,
+    "average_cost": 1424.4211602718872,
+    "relative_deviation": 0.0036762867777532507,
+    "relative_deviation_best": -0.012459507940365367
 }

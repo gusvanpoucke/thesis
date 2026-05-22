@@ -2,9 +2,12 @@
     "graph_name": "c120",
     "number_of_tests": 30,
     "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 2.0,
     "epsilon": 0.0,
-    "best_cost": 1171.265696345918,
-    "average_cost": 1218.7579261564792
+    "best_cost": 1059.6771604981732,
+    "average_cost": 1215.26038256872,
+    "relative_deviation": 0.0019935185008361817,
+    "relative_deviation_best": -0.12628629900843633
 }

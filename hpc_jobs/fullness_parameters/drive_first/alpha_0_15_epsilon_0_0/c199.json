@@ -2,9 +2,12 @@
     "graph_name": "c199",
     "number_of_tests": 30,
     "waiting_strategy": "drive_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 0.15,
     "epsilon": 0.0,
-    "best_cost": 1618.7090679331536,
-    "average_cost": 1704.9545011721234
+    "best_cost": 1654.4681739375,
+    "average_cost": 1711.3033033246754,
+    "relative_deviation": 0.010346493732467151,
+    "relative_deviation_best": -0.023208734955284156
 }

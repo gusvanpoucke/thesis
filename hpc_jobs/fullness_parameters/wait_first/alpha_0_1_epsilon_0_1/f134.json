@@ -2,9 +2,12 @@
     "graph_name": "f134",
     "number_of_tests": 30,
     "waiting_strategy": "wait_first",
+    "wait_margin": 0.0,
     "termination_time": 5,
     "alpha": 0.1,
     "epsilon": 0.1,
-    "best_cost": 11701.609070236687,
-    "average_cost": 11831.461206203328
+    "best_cost": 11699.209617812487,
+    "average_cost": 11815.908807389305,
+    "relative_deviation": -0.0005792191244384342,
+    "relative_deviation_best": -0.010449944861714909
 }
