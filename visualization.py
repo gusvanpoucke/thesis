@@ -38,6 +38,50 @@ def dynamic_route_visualization():
     plt.show()
     plt.close(fig)
 
+def vrp_visualization():
+    # Load coordinates
+    coords = parse_dat('dvrp_data/raw/c50D.dat')
+    if coords is None:
+        return
+    
+    # Load solution
+    with open('experiment_results/c50_solution.json', 'r') as f:
+        solution = json.load(f)
+    
+    solutions = solution['solutions']
+    num_solutions = len(solutions)
+    
+    depot = coords[0]
+
+    sol = solutions[-1]
+    routes = sol['routes']
+
+    fig, ax = plt.subplots(figsize=(6, 6))
+    ax.set_aspect('equal')
+    ax.axis('off')
+
+    customers = []
+    for routedata in routes:
+        for customer in routedata['covered_route'] + routedata['route']:
+            customers.append(customer)
+    customers_coords = np.array([coords[i] for i in customers])
+
+    ax.scatter(customers_coords[:, 0], customers_coords[:, 1], s=50, c='blue', zorder=3, label='Customer')
+    ax.scatter(depot[0], depot[1], s=50, c='red', marker='s', zorder=3, label='Depot')
+
+    for routeidx, routedata in enumerate(routes):
+        #color = plt.cm.Blues(routeidx/len(routes)*0.6 + 0.2)
+        color = list(plt.cm.Paired.colors)[routeidx]
+
+        route = np.array([depot] + [coords[c] for c in routedata['covered_route']] + [coords[c] for c in routedata['route']] + [depot])
+        ax.plot(route[:, 0], route[:, 1], '-', color=color, linewidth=2, zorder=2, alpha=0.7)
+
+    ax.legend(loc='upper right', fontsize=16)
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
 def computer_pictogram():
     for x in range(2):
         fig, ax = plt.subplots(figsize=(4, 4))
@@ -553,4 +597,4 @@ def time_period_visualization(dat_file, solution_file, time_period, important_ro
 if __name__ == "__main__":
     #visualize_dvrp_solution('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', save_images=False)
     #time_period_visualization('dvrp_data/raw/c50D.dat', 'experiment_results/c50_solution.json', 1, [27, 46, 38])
-    time_line_visualization()
+    vrp_visualization()
