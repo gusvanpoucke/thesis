@@ -1,3 +1,5 @@
+# source ssh_key.sh
+
 eval "$(ssh-agent -s)"
 
 ssh-add ~/.ssh/thesis_key
