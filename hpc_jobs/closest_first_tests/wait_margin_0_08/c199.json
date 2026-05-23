@@ -2,5 +2,7 @@
     "graph_name": "c199",
     "tests_ran": 30,
     "best_cost": 1402.6368062257206,
-    "average_cost": 1431.7364855502278
+    "average_cost": 1431.7364855502278,
+    "relative_deviation": -0.002752217655577801,
+    "relative_deviation_best": -0.0230210247762863
 }
