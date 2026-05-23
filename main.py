@@ -14,7 +14,7 @@ from repair import repair, split_route
 from dynamic_route import Route
 
 def check_parameters(file_name, alpha, epsilon, results_folder="experiment_results/fullness_parameters/",
-    number_of_tests=30, waiting_strategy="wait_first", termination_time=5, wait_margin=0.0
+    number_of_tests=30, waiting_strategy="wait_first", termination_time=5, wait_margin=0.0, route_orientation_strategy="random"
 ):
     FILEPATH = "dvrp_data/processed/" + file_name
 
@@ -42,7 +42,8 @@ def check_parameters(file_name, alpha, epsilon, results_folder="experiment_resul
             waiting_strategy=waiting_strategy,
             termination_time=termination_time,
             alpha=alpha, epsilon=epsilon,
-            wait_margin=wait_margin
+            wait_margin=wait_margin,
+            route_orientation_strategy=route_orientation_strategy
         )
         best_cost = min(best_cost, cost)
         total_cost += cost
@@ -361,4 +362,4 @@ def total_costs(files, folder="experiment_results/standard_vns/"):
     return total_best, total_average, len(files)
 
 if __name__ == "__main__":
-    find_improving_solution("c50.json", waiting_strategy="wait_first", margin_strategy="bounded")
+    find_improving_solution("c50.json", waiting_strategy="wait_first", wait_margin=0.08)
