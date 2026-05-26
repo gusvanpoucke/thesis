@@ -102,7 +102,7 @@ def RD_parameters(parameters, prefix, x_range=(0, 16), y_range=(-1.2, 0.2)):
         yerr=standard_deviations,
         fmt='o-',
         color=color,
-        ecolor=color3,
+        ecolor=plt.cm.Reds(0.4),
         capsize=4,
         elinewidth=1.5,
         label='Average RD'
@@ -121,7 +121,7 @@ def RD_parameters(parameters, prefix, x_range=(0, 16), y_range=(-1.2, 0.2)):
     plt.show()
     plt.close(fig)
 
-def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, x_range, y_range):
+def RD_reduce_capacity(parameters_axis, parameters_lines, prefix, infix, x_range, y_range):
     relative_deviations = []
     parameters_axis_percent = [(1-parameter)*100 for parameter in parameters_axis]
     for parameter_line in parameters_lines:
@@ -159,6 +159,48 @@ def RD_double_parameters(parameters_axis, parameters_lines, prefix, infix, x_ran
     plt.show()
     plt.close(fig)
 
+def RD_fullness(parameters_axis, parameters_lines, prefix, infix, x_range, y_range):
+    relative_deviations = []
+    for parameter_line in parameters_lines:
+        line = []
+        for parameter_axis in parameters_axis:
+            if parameter_axis == 0.0:
+                line.append(0.0)
+            else:
+                folder = prefix + str(parameter_axis).replace(".", "_") + infix + str(parameter_line).replace(".", "_")
+                file = folder + "/_compare_heuristics.json"
+                with open(file, 'r') as file:
+                    data = json.load(file)
+                line.append(data['average_relative_deviation'] * 100)
+        relative_deviations.append(line)
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    for i, parameter_line in enumerate(parameters_lines):
+        intensity = i/len(parameters_lines)
+        line_color = plt.cm.Blues(0.8-(intensity*1.2)) if intensity < 0.5 else plt.cm.Reds((intensity-0.5)*1.2+0.1)
+        ax.plot(
+            parameters_axis,
+            relative_deviations[i],
+            marker='o',
+            linestyle='-',
+            color=line_color,
+            label=f'{parameter_line:.2f}'
+        )
+
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
+    ax.set_xlabel('Alpha', fontsize=16)
+    ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
+    ax.set_xticks(parameters_axis)
+    ax.set_xticklabels([f"{p:.2f}" for p in parameters_axis], fontsize=16)
+    ax.tick_params(axis='y', labelsize=16)
+    ax.set_xlim(x_range[0], x_range[1])
+    ax.set_ylim(y_range[0], y_range[1])
+    ax.legend(title='Epsilon', fontsize=16, title_fontsize=16)
+
+    fig.tight_layout()
+    plt.show()
+    plt.close(fig)
+
 def latex_table(folders):
     for dvrp_file in list_of_dvrp_files:
         best_costs = []
@@ -189,13 +231,23 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/split_routes_tests/wait_margin_0_08/", (-4, 30))
-    #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-0.5, 16.5), (-3, 2))
-    RD_double_parameters(
+    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/clockwise_tests/fullness_alpha_0_25_epsilon_0_5/", (-6, 6))
+    #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-0.5, 16.5), (-3, 1.5))
+    """
+    RD_reduce_capacity(
         [1.0, 0.95, 0.9, 0.85, 0.8],
         [0.4, 0.5, 0.6],
         "hpc_jobs/reduce_capacity_parameters/wait_margin_0_08/starting_capacity_",
         "_full_capacity_time_",
         (-0.5, 20.5),
         (-1, 6)
+    )
+    """
+    RD_fullness(
+        [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5],
+        [0.0, 0.05, 0.1, 0.15, 0.2, 0.5, 1.0],
+        "hpc_jobs/fullness_parameters/wait_margin_0_08/alpha_",
+        "_epsilon_",
+        (-0.01, 0.51),
+        (-0.5, 2.0)
     )
