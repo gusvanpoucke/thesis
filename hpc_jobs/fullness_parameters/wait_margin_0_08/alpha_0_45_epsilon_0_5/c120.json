@@ -7,5 +7,7 @@
     "alpha": 0.45,
     "epsilon": 0.5,
     "best_cost": 1163.301472671228,
-    "average_cost": 1206.4182559209517
+    "average_cost": 1206.4182559209517,
+    "relative_deviation": 0.015948181727706304,
+    "relative_deviation_best": -0.02036129662237468
 }
