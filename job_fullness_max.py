@@ -20,7 +20,7 @@ dvrp_file = list_of_dvrp_files[array_id]
 # Run the function
 print(f"Task {array_id}: Processing {dvrp_file}")
 
-alphas = [0.1, 0.5]
+alphas = [0.05, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45]
 for alpha in alphas:
     # Results folder
     FOLDER = f"hpc_jobs/fullness_parameters/max/drive_first/alpha_{str(alpha).replace('.', '_')}/"
