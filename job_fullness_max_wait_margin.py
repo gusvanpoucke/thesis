@@ -1,0 +1,33 @@
+import os
+import sys
+from main import check_parameters_max_fullness
+
+# Your 21 files in order
+list_of_dvrp_files = [
+    "c100.json", "c100b.json", "c120.json", "c150.json", "c199.json",
+    "c50.json", "c75.json", "f134.json", "f71.json", "tai100a.json",
+    "tai100b.json", "tai100c.json", "tai100d.json", "tai150a.json",
+    "tai150b.json", "tai150c.json", "tai150d.json", "tai75a.json",
+    "tai75b.json", "tai75c.json", "tai75d.json"
+]
+
+# Get array ID from command line argument
+array_id = int(sys.argv[1])
+
+# Get the file for this task
+dvrp_file = list_of_dvrp_files[array_id]
+
+# Run the function
+print(f"Task {array_id}: Processing {dvrp_file}")
+
+wait_margin = 0.08
+
+alphas = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5]
+for alpha in alphas:
+    # Results folder
+    FOLDER = f"hpc_jobs/fullness_parameters/max/wait_margin_{str(wait_margin).replace('.', '_')}/alpha_{str(alpha).replace('.', '_')}/"
+    os.makedirs(FOLDER, exist_ok=True)
+
+    check_parameters_max_fullness(dvrp_file, alpha, FOLDER, "wait_first", wait_margin=wait_margin)
+
+print(f"Task {array_id}: Completed {dvrp_file}")
