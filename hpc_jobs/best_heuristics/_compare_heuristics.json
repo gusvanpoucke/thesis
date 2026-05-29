@@ -2,7 +2,7 @@
     "heuristic": "hpc_jobs/best_heuristics/",
     "comparison": "hpc_jobs/standard_vns/",
     "count_improved": 21,
-    "average_relative_deviation": -0.10130803586955346,
-    "average_relative_deviation_best": -0.1330829808013518,
-    "standard_deviation_relative_deviation": 0.04738128334572563
+    "average_relative_deviation": -0.10363929772301003,
+    "average_relative_deviation_best": -0.12975982811216863,
+    "standard_deviation_relative_deviation": 0.047355093697181994
 }
