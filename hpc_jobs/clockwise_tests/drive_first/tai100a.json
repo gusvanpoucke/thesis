@@ -3,5 +3,6 @@
     "tests_ran": 30,
     "best_cost": 2202.3771731118613,
     "average_cost": 2320.282300764988,
-    "relative_deviation": 0.0026952395433511387
+    "relative_deviation": 0.0026952395433511387,
+    "relative_deviation_best": -0.04825671150870995
 }
