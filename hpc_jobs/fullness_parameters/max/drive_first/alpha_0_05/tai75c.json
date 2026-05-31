@@ -1,0 +1,10 @@
+{
+    "graph_name": "tai75c",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "alpha": 0.05,
+    "best_cost": 1536.7684255243153,
+    "average_cost": 1613.2264027742283,
+    "relative_deviation": -0.0009523414429594315,
+    "relative_deviation_best": -0.04830165522692384
+}

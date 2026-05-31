@@ -1,0 +1,10 @@
+{
+    "graph_name": "tai150d",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "alpha": 0.3,
+    "best_cost": 2765.457747005052,
+    "average_cost": 2841.4579408846953,
+    "relative_deviation": 0.0020327974609713946,
+    "relative_deviation_best": -0.024768474444212617
+}

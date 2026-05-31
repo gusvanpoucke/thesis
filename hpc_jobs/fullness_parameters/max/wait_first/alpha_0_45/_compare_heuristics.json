@@ -1,0 +1,8 @@
+{
+    "heuristic": "hpc_jobs/fullness_parameters/max/wait_first/alpha_0_45/",
+    "comparison": "hpc_jobs/wait_first_vns/",
+    "count_improved": 6,
+    "average_relative_deviation": 0.0023037871887201878,
+    "average_relative_deviation_best": -0.02755039307289849,
+    "standard_deviation_relative_deviation": 0.004514330371201285
+}

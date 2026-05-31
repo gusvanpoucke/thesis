@@ -1,0 +1,10 @@
+{
+    "graph_name": "c199",
+    "number_of_tests": 30,
+    "waiting_strategy": "drive_first",
+    "alpha": 0.3,
+    "best_cost": 1618.5834900708774,
+    "average_cost": 1691.3335466166748,
+    "relative_deviation": -0.0014435692162928669,
+    "relative_deviation_best": -0.04439490601736482
+}

@@ -4,5 +4,7 @@
     "waiting_strategy": "wait_first",
     "alpha": 6.0,
     "best_cost": 1432.3963873968344,
-    "average_cost": 1449.6074543952548
+    "average_cost": 1449.6074543952548,
+    "relative_deviation": -7.199820641899645e-05,
+    "relative_deviation_best": -0.01194405900486841
 }

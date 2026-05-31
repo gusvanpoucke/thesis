@@ -1,0 +1,10 @@
+{
+    "graph_name": "c75",
+    "number_of_tests": 30,
+    "waiting_strategy": "wait_first",
+    "alpha": 0.2,
+    "best_cost": 889.7450206613945,
+    "average_cost": 913.2901533088213,
+    "relative_deviation": 0.008595554512965235,
+    "relative_deviation_best": -0.017406604858376168
+}
