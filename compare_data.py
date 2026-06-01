@@ -121,6 +121,47 @@ def RD_parameters(parameters, prefix, x_range=(0, 16), y_range=(-1.2, 0.2)):
     plt.show()
     plt.close(fig)
 
+def RD_fullness_max(parameters, prefix, x_range, y_range):
+    relative_deviations = []
+    standard_deviations = []
+    for parameter in parameters:
+        if parameter == 0.0:
+            relative_deviations.append(0.0)
+            standard_deviations.append(0.0)
+        else:
+            parameter = round(parameter, ndigits=2)
+            file = prefix + str(parameter).replace(".", "_") + "/_compare_heuristics.json"
+            with open(file, 'r') as file:
+                data = json.load(file)
+            relative_deviations.append(data['average_relative_deviation'] * 100)
+            standard_deviations.append(data['standard_deviation_relative_deviation'] * 100)
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.errorbar(
+        parameters,
+        relative_deviations,
+        yerr=standard_deviations,
+        fmt='o-',
+        color=color,
+        ecolor=plt.cm.Reds(0.4),
+        capsize=4,
+        elinewidth=1.5,
+        label='Average RD'
+    )
+
+    ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
+    ax.set_xlabel('Alpha (α)', fontsize=16)
+    ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
+    ax.set_xticks(parameters)
+    ax.set_xticklabels([f"{p:.2f}" for p in parameters], fontsize=16)
+    ax.tick_params(axis='y', labelsize=16)
+    ax.set_xlim(x_range[0], x_range[1])
+    ax.set_ylim(y_range[0], y_range[1])
+
+    fig.tight_layout()
+    plt.show()
+    plt.close(fig)
+
 def RD_reduce_capacity(parameters_axis, parameters_lines, prefix, infix, x_range, y_range):
     relative_deviations = []
     parameters_axis_percent = [(1-parameter)*100 for parameter in parameters_axis]
@@ -146,14 +187,14 @@ def RD_reduce_capacity(parameters_axis, parameters_lines, prefix, infix, x_range
         )
 
     ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
-    ax.set_xlabel('Capacity Reduction at Start (%)', fontsize=16)
+    ax.set_xlabel('$R_{start}$ (%)', fontsize=16)
     ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
     ax.set_xticks(parameters_axis_percent)
     ax.set_xticklabels([f"{p:.0f}" for p in parameters_axis_percent], fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
     ax.set_xlim(x_range[0], x_range[1])
     ax.set_ylim(y_range[0], y_range[1])
-    ax.legend(title='Full Capacity Time', fontsize=16, title_fontsize=16)
+    ax.legend(title='$t_{full}$', fontsize=16, title_fontsize=16)
 
     fig.tight_layout()
     plt.show()
@@ -188,14 +229,14 @@ def RD_fullness(parameters_axis, parameters_lines, prefix, infix, x_range, y_ran
         )
 
     ax.axhline(y=0, color='black', linestyle='-', linewidth=0.8)
-    ax.set_xlabel('Alpha', fontsize=16)
+    ax.set_xlabel('Alpha (α)', fontsize=16)
     ax.set_ylabel('Average Relative Deviation (%)', fontsize=16)
     ax.set_xticks(parameters_axis)
     ax.set_xticklabels([f"{p:.2f}" for p in parameters_axis], fontsize=16)
     ax.tick_params(axis='y', labelsize=16)
     ax.set_xlim(x_range[0], x_range[1])
     ax.set_ylim(y_range[0], y_range[1])
-    ax.legend(title='Epsilon', fontsize=16, title_fontsize=16)
+    ax.legend(title='Epsilon (ϵ)', fontsize=16, title_fontsize=16)
 
     fig.tight_layout()
     plt.show()
@@ -231,23 +272,34 @@ def latex_table(folders):
         print(line)
 
 if __name__ == "__main__":
-    #RD_bar_chart(list_of_dvrp_files, "hpc_jobs/clockwise_tests/fullness_alpha_0_25_epsilon_0_5/", (-6, 6))
+    """
+    latex_table([
+        "hpc_jobs/best_heuristics/",
+        "hpc_jobs/genetic_algorithm/",
+        "hpc_jobs/particle_swarm/",
+        "hpc_jobs/multi_environmental/"
+    ])
+    """
+    RD_bar_chart(dvrp_files_without_f134, "hpc_jobs/wait_first_vns/", (-18, 0))
     #RD_parameters(list(np.arange(0.0, 0.17, 0.01)), "hpc_jobs/wait_margin_tests/wait_first/wait_margin_", (-0.5, 16.5), (-3, 1.5))
+    #RD_fullness_max(list(np.arange(0.0, 0.55, 0.05)), "hpc_jobs/fullness_parameters/max/drive_first/alpha_", (-0.05, 0.55), (-1, 2))
     """
     RD_reduce_capacity(
         [1.0, 0.95, 0.9, 0.85, 0.8],
         [0.4, 0.5, 0.6],
-        "hpc_jobs/reduce_capacity_parameters/wait_margin_0_08/starting_capacity_",
+        "hpc_jobs/reduce_capacity_parameters/drive_first/starting_capacity_",
         "_full_capacity_time_",
         (-0.5, 20.5),
         (-1, 6)
     )
     """
+    """
     RD_fullness(
         [0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5],
         [0.0, 0.05, 0.1, 0.15, 0.2, 0.5, 1.0],
-        "hpc_jobs/fullness_parameters/wait_margin_0_08/alpha_",
+        "hpc_jobs/fullness_parameters/drive_first/alpha_",
         "_epsilon_",
         (-0.01, 0.51),
         (-0.5, 2.0)
     )
+    """
